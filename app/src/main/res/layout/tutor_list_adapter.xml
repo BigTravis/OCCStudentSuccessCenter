@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ListAdapterActivity"
+    tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.TutorListAdapter"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,12 +21,12 @@
             android:text="Tutor Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tutorNameListView"/>
+            android:id="@+id/tutorNameListTextView"/>
 
         <TextView
             android:text="Tutor Hours"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tutorHoursListView"/>
+            android:id="@+id/tutorHoursListTextView"/>
     </LinearLayout>
 </LinearLayout>

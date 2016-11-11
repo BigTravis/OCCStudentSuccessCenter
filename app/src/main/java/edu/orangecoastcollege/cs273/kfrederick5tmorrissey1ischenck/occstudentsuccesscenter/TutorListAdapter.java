@@ -3,11 +3,11 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ListAdapterActivity extends AppCompatActivity {
+public class TutorListAdapter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_adapter);
+        setContentView(R.layout.tutor_list_adapter);
     }
 }

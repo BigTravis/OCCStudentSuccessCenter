@@ -16,19 +16,15 @@
         android:text="Tutor Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tutorNameTextView"/>
-
-    <TextView
-        android:text="Tutor Subjects"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tutorSubjectsTextView"/>
+        android:id="@+id/tutorNameTextView"
+        android:textSize="24sp"
+        android:textAlignment="center" />
 
     <TextView
         android:text="Tutor Classes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tutorClassTextView"/>
+        android:id="@+id/tutorClassTextView" />
 
     <TextView
         android:text="Tutor Hours"

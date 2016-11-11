@@ -12,62 +12,108 @@
     tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.SearchActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
+        android:text="@string/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-
-        <ExpandableListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@string/subject_drop_down_text"
-            android:id="@+id/subjectDropDown"
-            android:layout_marginRight="50dp">
-
-        </ExpandableListView>
-
-        <ExpandableListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@string/class_drop_down_text"
-            android:id="@+id/classDropDown"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ExpandableListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@string/day_drop_down_text"
-            android:id="@+id/dayDropDown"
-            android:layout_marginRight="10dp"
-            />
-
-        <ExpandableListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/hourDropDown"
-            android:entries="@string/hour_drop_down_text"
-            android:layout_marginRight="10dp"
-            />
-
-        <ExpandableListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:entries="@string/default_minutes"
-            android:id="@+id/minuteDropDown"
-            android:layout_marginRight="10dp"
-            />
-    </LinearLayout>
+        android:id="@+id/textView"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/student_success_center_hours"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"/>
+        android:id="@+id/textView2"
+        android:textSize="12sp"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp">
+
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@string/subject_drop_down_text"
+                android:id="@+id/subjectDropDown"
+                android:layout_marginRight="50dp"
+                android:clickable="true">
+
+            </ExpandableListView>
+
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@string/class_drop_down_text"
+                android:id="@+id/classDropDown"
+                android:clickable="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@string/day_drop_down_text"
+                android:id="@+id/dayDropDown"
+                android:layout_marginRight="10dp"
+                android:clickable="true" />
+
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hourDropDown"
+                android:entries="@string/hour_drop_down_text"
+                android:layout_marginRight="10dp"
+                android:clickable="true" />
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@string/default_minutes"
+                android:id="@+id/minuteDropDown"
+                android:layout_marginRight="10dp"
+                android:clickable="true" >
+
+            </ExpandableListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2.5"
+            android:layout_marginTop="25dp">
+
+            <Button
+                android:text="@string/search_button_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                android:layout_weight="1.5" />
+
+            <Button
+                android:text="@string/clear_button_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
