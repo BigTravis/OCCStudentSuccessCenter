@@ -15,14 +15,31 @@ public class Tutor {
     private List<Course> courseList;
     private List<DayTime> dayTimeList;
 
-    public Tutor(String firstName, String lastName) {
+    /**
+     * Constructor.
+     * @param id int The unique id of the Tutor.
+     * @param firstName String The first name of the Tutor.
+     * @param lastName String The last name of the Tutor.
+     */
+    public Tutor(int id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         courseList = new ArrayList();
         dayTimeList = new ArrayList();
     }
 
-    public Tutor(String firstName, String lastName, List<Course> courseList, List<DayTime> dayTimeList) {
+    /**
+     * Constructor.
+     * @param id int The unique id of the Tutor.
+     * @param firstName String The first name of the Tutor
+     * @param lastName String The last name of the Tutor.
+     * @param courseList List<Course> List of Courses that the Tutor tutors.
+     * @param dayTimeList List<DayTime> List of DayTimes that the Tutor is available.
+     */
+    public Tutor(int id, String firstName, String lastName, List<Course> courseList,
+                 List<DayTime> dayTimeList) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.courseList = courseList;
