@@ -7,6 +7,7 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
  */
 
 public class DayTime {
+    private int id;
     private String day;
     private String time;
 
@@ -18,6 +19,22 @@ public class DayTime {
     public DayTime(String day, String time) {
         this.day = day;
         this.time = time;
+    }
+
+    /**
+     * Gets id.
+     * @return int id.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets id
+     * @param id int id
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
