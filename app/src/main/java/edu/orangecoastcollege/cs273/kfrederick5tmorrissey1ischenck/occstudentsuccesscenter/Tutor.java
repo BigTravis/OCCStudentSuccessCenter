@@ -13,6 +13,14 @@ public class Tutor implements Parcelable{
     private String firstName;
     private String lastName;
 
+    /**
+     * Default Constructor
+     */
+    public Tutor() {
+        id = -1;
+        firstName = "";
+        lastName = "";
+    }
 
     /**
      * Constructor.

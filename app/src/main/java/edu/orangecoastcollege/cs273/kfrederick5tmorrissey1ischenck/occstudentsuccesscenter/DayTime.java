@@ -15,6 +15,15 @@ public class DayTime implements Parcelable{
     private String time;
 
     /**
+     * Default Constructor
+     */
+    public DayTime() {
+        id = -1;
+        day = "";
+        time = "";
+    }
+
+    /**
      * Constructor.
      * @param day String the day in written format.
      * @param time String the time in 24 hour format.

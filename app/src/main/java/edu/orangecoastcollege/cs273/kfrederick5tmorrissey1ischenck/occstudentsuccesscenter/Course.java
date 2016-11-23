@@ -13,6 +13,15 @@ public class Course implements Parcelable {
     private String department;
     private String number;
 
+    /**
+     * Default Constructor
+     */
+    public Course() {
+        id = -1;
+        department = "";
+        number = "";
+    }
+
     public Course(int id, String department, String number) {
         this.id = id;
         this.department = department;
