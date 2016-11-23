@@ -2,8 +2,11 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by ischenck on 11/15/2016.
@@ -125,17 +128,77 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addTutorTimeRelation(TutorTimeRelation tutorTimeRelation)
+    public void addTutorTimeRelation(int startTimeId, int endTimeId, int tutorId, int courseId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(FIELD_START_TIME_ID, tutorTimeRelation.getStartTime().getId());
-        values.put(FIELD_END_TIME_ID, tutorTimeRelation.getEndTime().getId());
-        values.put(FIELD_TUTOR_ID, tutorTimeRelation.getTutor().getId());
-        values.put(FIELD_COURSE_ID, tutorTimeRelation.getCourse().getId());
+        values.put(FIELD_START_TIME_ID, startTimeId);
+        values.put(FIELD_END_TIME_ID, endTimeId);
+        values.put(FIELD_TUTOR_ID, tutorId);
+        values.put(FIELD_COURSE_ID, courseId);
 
         db.insert(TUTOR_TIME_TABLE, null, values);
 
         db.close();
+    }
+
+    public ArrayList<Course> getAllCourses() {
+        ArrayList<Course> coursesList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.query(
+                COURSES_TABLE,
+                new String[]{COURSES_KEY_FIELD_ID, FIELD_COURSE_DEPARTMENT, FIELD_COURSE_NUMBER},
+                null, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Course course =
+                        new Course(cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getString(2));
+                coursesList.add(course);
+            }while(cursor.moveToNext());
+        }
+        return coursesList;
+    }
+
+    public ArrayList<Tutor> getAllTutors() {
+        ArrayList<Tutor> tutorsList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.query(
+                TUTORS_TABLE,
+                new String[]{TUTORS_KEY_FIELD_ID, FIELD_FIRST_NAME, FIELD_LAST_NAME},
+                null, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Tutor tutor =
+                        new Tutor(cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getString(2));
+                tutorsList.add(tutor);
+            }while(cursor.moveToNext());
+        }
+        return tutorsList;
+    }
+
+    public ArrayList<DayTime> getAllDayTimes() {
+        ArrayList<DayTime> dayTimesList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.query(
+                TUTORS_TABLE,
+                new String[]{TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_HALF_HOUR},
+                null, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                DayTime dayTime =
+                        new DayTime(cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getString(2));
+                dayTimesList.add(dayTime);
+            }while(cursor.moveToNext());
+        }
+        return dayTimesList;
     }
 }
