@@ -71,6 +71,16 @@ public class Course implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Course) {
+            Course otherCourse = (Course) obj;
+            return this.id == otherCourse.id && this.number.equals(otherCourse.number) &&
+                    this.department.equals(otherCourse.department);
+        }
+        return false;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

@@ -8,35 +8,26 @@ import org.junit.Test;
  * Created by tmorrissey1 on 11/22/2016.
  */
 public class TutorTest {
-    private Tutor mTestTutor;
+    private Tutor mTutor;
 
     @Before
     public void setUp() throws Exception {
-        mTestTutor = new Tutor();
+        mTutor = new Tutor();
     }
 
     @After
     public void tearDown() throws Exception {
-
+        // Do nothing
     }
 
     @Test
     public void getFirstName() throws Exception {
-
+        mTutor.setFirstName("John Doe");
+        assertEquals()
     }
 
     @Test
     public void getLastName() throws Exception {
-
-    }
-
-    @Test
-    public void describeContents() throws Exception {
-
-    }
-
-    @Test
-    public void writeToParcel() throws Exception {
 
     }
 

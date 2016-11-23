@@ -100,6 +100,16 @@ public class DayTime implements Parcelable{
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DayTime) {
+            DayTime otherDayTime = (DayTime) obj;
+            return this.id == otherDayTime.id && this.day.equals(otherDayTime.day) &&
+                    this.time.equals(otherDayTime.time);
+        }
+        return false;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

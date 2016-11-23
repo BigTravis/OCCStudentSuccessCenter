@@ -91,6 +91,16 @@ public class Tutor implements Parcelable{
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Tutor) {
+            Tutor otherTutor = (Tutor) obj;
+            return this.id == otherTutor.id && this.firstName.equals(otherTutor.firstName)
+                    && this.lastName.equals(otherTutor.lastName);
+        }
+        return false;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
