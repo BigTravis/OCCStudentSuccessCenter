@@ -23,7 +23,6 @@ public class TutorTest {
     @Test
     public void getFirstName() throws Exception {
         mTutor.setFirstName("John Doe");
-        assertEquals()
     }
 
     @Test
