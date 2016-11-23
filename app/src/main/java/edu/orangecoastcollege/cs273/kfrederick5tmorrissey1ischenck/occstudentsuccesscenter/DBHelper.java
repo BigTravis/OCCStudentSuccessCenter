@@ -1,5 +1,6 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -17,7 +18,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String COURSES_TABLE = "Courses";
     private static final String COURSES_KEY_FIELD_ID = "id";
-    private static final String FIELD_COURSE_NAME = "course_name";
+    private static final String FIELD_COURSE_DEPARTMENT = "course_department";
+    private static final String FIELD_COURSE_NUMBER = "course_department";
 
     private static final String TUTORS_TABLE = "Tutors";
     private static final String TUTORS_KEY_FIELD_ID = "id";
@@ -44,12 +46,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         String table = "CREATE TABLE " + COURSES_TABLE + "("
                 + COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + FIELD_COURSE_NAME + " TEXT" + ")";
+                + FIELD_COURSE_DEPARTMENT + " TEXT"
+                + FIELD_COURSE_NUMBER + " TEXT" + ")";
         database.execSQL(table);
 
         table = "CREATE TABLE " + TUTORS_TABLE + "("
                 + TUTORS_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + FIELD_LAST_NAME + " TEXT, " + FIELD_FIRST_NAME + " TEXT" + ")";
+                + FIELD_FIRST_NAME + " TEXT" + FIELD_LAST_NAME + " TEXT, " + ")";
         database.execSQL(table);
 
 
@@ -84,5 +87,55 @@ public class DBHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + TUTOR_TIME_TABLE);
 
         onCreate(database);
+    }
+
+    public void addCourse(Course course)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_COURSE_DEPARTMENT, course.getDepartment());
+        values.put(FIELD_COURSE_NUMBER, course.getNumber());
+
+        db.insert(COURSES_TABLE, null, values);
+
+        db.close();
+    }
+
+    public void addTutor(Tutor tutor)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_FIRST_NAME, tutor.getFirstName());
+        values.put(FIELD_LAST_NAME, tutor.getLastName());
+
+        db.insert(TUTORS_TABLE, null, values);
+
+        db.close();
+    }
+
+    public void addDayTime(DayTime dayTime)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_DAY, dayTime.getDay());
+        values.put(FIELD_HALF_HOUR, dayTime.getTime());
+
+        db.insert(TIMES_TABLE, null, values);
+
+        db.close();
+    }
+
+    public void addTutorTimeRelation(TutorTimeRelation tutorTimeRelation)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_START_TIME_ID, tutorTimeRelation.getStartTime().getId());
+        values.put(FIELD_END_TIME_ID, tutorTimeRelation.getEndTime().getId());
+        values.put(FIELD_TUTOR_ID, tutorTimeRelation.getTutor().getId());
+        values.put(FIELD_COURSE_ID, tutorTimeRelation.getCourse().getId());
+
+        db.insert(TUTOR_TIME_TABLE, null, values);
+
+        db.close();
     }
 }

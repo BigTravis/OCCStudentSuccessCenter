@@ -90,6 +90,14 @@ public class Tutor implements Parcelable{
         this.lastName = lastName;
     }
 
+    /**
+     * gets the id of this tutor
+     * @return id - int of id
+     */
+    public int getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Tutor) {
