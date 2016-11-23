@@ -13,6 +13,14 @@ public class TutorTimeRelation implements Parcelable{
     private DayTime mStartTime;
     private DayTime mEndTime;
 
+    public TutorTimeRelation()
+    {
+        mTutor = new Tutor();
+        mCourse = new Course();
+        mStartTime = new DayTime();
+        mEndTime = new DayTime();
+    }
+
     public TutorTimeRelation(Tutor newTutor, Course newCourse,
                              DayTime newStartTime, DayTime newEndTime)
     {
@@ -41,41 +49,54 @@ public class TutorTimeRelation implements Parcelable{
         }
     };
 
-    public Tutor getmTutor() {
+    public Tutor getTutor() {
         return mTutor;
     }
 
-    public void setmTutor(Tutor mTutor) {
+    public void setTutor(Tutor mTutor) {
         this.mTutor = mTutor;
     }
 
-    public Course getmCourse() {
+    public Course getCourse() {
         return mCourse;
     }
 
-    public void setmCourse(Course mCourse) {
+    public void setCourse(Course mCourse) {
         this.mCourse = mCourse;
     }
 
-    public DayTime getmStartTime() {
+    public DayTime getStartTime() {
         return mStartTime;
     }
 
-    public void setmStartTime(DayTime mStartTime) {
+    public void setStartTime(DayTime mStartTime) {
         this.mStartTime = mStartTime;
     }
 
-    public DayTime getmEndTime() {
+    public DayTime getEndTime() {
         return mEndTime;
     }
 
-    public void setmEndTime(DayTime mEndTime) {
+    public void setEndTime(DayTime mEndTime) {
         this.mEndTime = mEndTime;
     }
 
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TutorTimeRelation)
+        {
+            TutorTimeRelation otherRelation = (TutorTimeRelation) obj;
+            return otherRelation.getCourse().equals(this.getCourse()) &&
+                    otherRelation.getTutor().equals(this.getTutor()) &&
+                    otherRelation.getStartTime().equals(this.getStartTime()) &&
+                    otherRelation.getEndTime().equals(this.getEndTime());
+        }
+        return false;
     }
 
     @Override
