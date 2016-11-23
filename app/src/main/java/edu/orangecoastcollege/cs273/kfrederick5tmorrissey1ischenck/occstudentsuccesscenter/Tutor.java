@@ -1,5 +1,8 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +11,7 @@ import java.util.List;
  * Created by tmorrissey1 on 11/15/2016.
  */
 
-public class Tutor {
+public class Tutor implements Parcelable{
     private int id;
     private String firstName;
     private String lastName;
@@ -45,6 +48,26 @@ public class Tutor {
         this.courseList = courseList;
         this.dayTimeList = dayTimeList;
     }
+
+    protected Tutor(Parcel in) {
+        id = in.readInt();
+        firstName = in.readString();
+        lastName = in.readString();
+        courseList = in.createTypedArrayList(Course.CREATOR);
+        dayTimeList = in.createTypedArrayList(DayTime.CREATOR);
+    }
+
+    public static final Creator<Tutor> CREATOR = new Creator<Tutor>() {
+        @Override
+        public Tutor createFromParcel(Parcel in) {
+            return new Tutor(in);
+        }
+
+        @Override
+        public Tutor[] newArray(int size) {
+            return new Tutor[size];
+        }
+    };
 
     /**
      * Gets first name of this Tutor.
@@ -108,5 +131,19 @@ public class Tutor {
      */
     public void setDayTimeList(List<DayTime> dayTimeList) {
         this.dayTimeList = dayTimeList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(firstName);
+        parcel.writeString(lastName);
+        parcel.writeTypedList(courseList);
+        parcel.writeTypedList(dayTimeList);
     }
 }
