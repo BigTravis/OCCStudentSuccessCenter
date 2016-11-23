@@ -33,6 +33,12 @@ public class DayTime implements Parcelable{
         this.time = time;
     }
 
+    public DayTime(int id, String day, String time){
+        this.id = id;
+        this.day = day;
+        this.time = time;
+    }
+
     protected DayTime(Parcel in) {
         id = in.readInt();
         day = in.readString();

@@ -42,4 +42,9 @@ public class DayTimeTest {
         assertEquals("3:00 PM", dayTime.getTime());
     }
 
+    @Test
+    public void equals() throws Exception {
+        assertEquals(new DayTime(2, "Test Day", "3:00 PM"), dayTime);
+    }
+
 }
