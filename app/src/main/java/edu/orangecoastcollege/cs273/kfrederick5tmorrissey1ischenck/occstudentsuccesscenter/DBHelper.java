@@ -48,19 +48,19 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         String table = "CREATE TABLE " + COURSES_TABLE + "("
-                + COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_COURSE_DEPARTMENT + " TEXT"
                 + FIELD_COURSE_NUMBER + " TEXT" + ")";
         database.execSQL(table);
 
         table = "CREATE TABLE " + TUTORS_TABLE + "("
-                + TUTORS_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TUTORS_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_FIRST_NAME + " TEXT" + FIELD_LAST_NAME + " TEXT, " + ")";
         database.execSQL(table);
 
 
         table = "CREATE TABLE " + TIMES_TABLE + "("
-                + TIMES_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TIMES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_DAY + " TEXT" + FIELD_HALF_HOUR + " REAL" + ")";
         database.execSQL(table);
 
@@ -98,6 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COURSES_KEY_FIELD_ID, course.getId());
         values.put(FIELD_COURSE_DEPARTMENT, course.getDepartment());
         values.put(FIELD_COURSE_NUMBER, course.getNumber());
 
@@ -157,6 +158,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(TUTORS_KEY_FIELD_ID, tutor.getId());
         values.put(FIELD_FIRST_NAME, tutor.getFirstName());
         values.put(FIELD_LAST_NAME, tutor.getLastName());
 
@@ -219,6 +221,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(TIMES_KEY_FIELD_ID, dayTime.getId());
         values.put(FIELD_DAY, dayTime.getDay());
         values.put(FIELD_HALF_HOUR, dayTime.getTime());
 
