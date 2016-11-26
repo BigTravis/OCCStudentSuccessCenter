@@ -93,7 +93,7 @@ public class DayTime implements Parcelable{
      * Gets the time.
      * @return String the time in 24 hour format.
      */
-    public Float getTime() {
+    public float getTime() {
         return time;
     }
 
@@ -101,7 +101,7 @@ public class DayTime implements Parcelable{
      * Sets the new time.
      * @param time String the new time.
      */
-    public void setTime(Float time) {
+    public void setTime(float time) {
         this.time = time;
     }
 
