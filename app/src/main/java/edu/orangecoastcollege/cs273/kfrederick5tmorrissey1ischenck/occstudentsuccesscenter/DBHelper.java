@@ -61,14 +61,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
         table = "CREATE TABLE " + TIMES_TABLE + "("
                 + TIMES_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + FIELD_DAY + " TEXT" + FIELD_HALF_HOUR + " INTEGER" + ")";
+                + FIELD_DAY + " TEXT" + FIELD_HALF_HOUR + " REAL" + ")";
         database.execSQL(table);
 
         table = "CREATE TABLE " + TUTOR_TIME_TABLE + "("
-                + FIELD_START_TIME_ID + " INTEGER, "
-                + FIELD_END_TIME_ID + " INTEGER, "
                 + FIELD_TUTOR_ID + " INTEGER, "
                 + FIELD_COURSE_ID + " TEXT, "
+                + FIELD_START_TIME_ID + " INTEGER, "
+                + FIELD_END_TIME_ID + " INTEGER, "
                 + "FOREIGN KEY(" + FIELD_START_TIME_ID + ") REFERENCES "
                 + TIMES_TABLE + "(" + TIMES_KEY_FIELD_ID + "), "
                 + "FOREIGN KEY(" + FIELD_END_TIME_ID + ") REFERENCES "
@@ -92,6 +92,8 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    // COURSE TABLE OPERATIONS: add, get, getAll, delete
+
     public void addCourse(Course course)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -104,42 +106,24 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addTutor(Tutor tutor)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FIELD_FIRST_NAME, tutor.getFirstName());
-        values.put(FIELD_LAST_NAME, tutor.getLastName());
+    public Course getCourse(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                COURSES_TABLE, new String[]
+                        {COURSES_KEY_FIELD_ID, FIELD_COURSE_DEPARTMENT, FIELD_COURSE_NUMBER},
+                COURSES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
 
-        db.insert(TUTORS_TABLE, null, values);
+        if (cursor != null)
+            cursor.moveToFirst();
 
-        db.close();
-    }
-
-    public void addDayTime(DayTime dayTime)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FIELD_DAY, dayTime.getDay());
-        values.put(FIELD_HALF_HOUR, dayTime.getTime());
-
-        db.insert(TIMES_TABLE, null, values);
+        Course course = new Course(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2));
 
         db.close();
-    }
-
-    public void addTutorTimeRelation(int startTimeId, int endTimeId, int tutorId, int courseId)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FIELD_START_TIME_ID, startTimeId);
-        values.put(FIELD_END_TIME_ID, endTimeId);
-        values.put(FIELD_TUTOR_ID, tutorId);
-        values.put(FIELD_COURSE_ID, courseId);
-
-        db.insert(TUTOR_TIME_TABLE, null, values);
-
-        db.close();
+        return course;
     }
 
     public ArrayList<Course> getAllCourses() {
@@ -162,6 +146,45 @@ public class DBHelper extends SQLiteOpenHelper {
         return coursesList;
     }
 
+    public void deleteAllCourses() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(COURSES_TABLE, null, null);
+        db.close();
+    }
+    // TUTOR TABLE OPERATIONS: add, get, getAll, delete
+
+    public void addTutor(Tutor tutor)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_FIRST_NAME, tutor.getFirstName());
+        values.put(FIELD_LAST_NAME, tutor.getLastName());
+
+        db.insert(TUTORS_TABLE, null, values);
+
+        db.close();
+    }
+
+    public Tutor getTutor(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TUTORS_TABLE, new String[]
+                        {TUTORS_KEY_FIELD_ID, FIELD_FIRST_NAME, FIELD_LAST_NAME},
+                TUTORS_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Tutor tutor = new Tutor(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2));
+
+        db.close();
+        return tutor;
+    }
+
     public ArrayList<Tutor> getAllTutors() {
         ArrayList<Tutor> tutorsList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -179,9 +202,49 @@ public class DBHelper extends SQLiteOpenHelper {
                 tutorsList.add(tutor);
             }while(cursor.moveToNext());
         }
+
+        database.close();
         return tutorsList;
     }
 
+    public void deleteAllTutors() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TUTORS_TABLE, null, null);
+        db.close();
+    }
+
+    // DAY TIME TABLE OPERATIONS: add, get, getAll, delete
+
+    public void addDayTime(DayTime dayTime)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_DAY, dayTime.getDay());
+        values.put(FIELD_HALF_HOUR, dayTime.getTime());
+
+        db.insert(TIMES_TABLE, null, values);
+
+        db.close();
+    }
+    public DayTime getDayTime(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TIMES_TABLE, new String[]
+                        {TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_HALF_HOUR},
+                TIMES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        DayTime dayTime = new DayTime(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getFloat(2));
+
+        db.close();
+        return dayTime;
+    }
     public ArrayList<DayTime> getAllDayTimes() {
         ArrayList<DayTime> dayTimesList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -195,10 +258,64 @@ public class DBHelper extends SQLiteOpenHelper {
                 DayTime dayTime =
                         new DayTime(cursor.getInt(0),
                                 cursor.getString(1),
-                                cursor.getString(2));
+                                cursor.getFloat(2));
                 dayTimesList.add(dayTime);
             }while(cursor.moveToNext());
         }
+
+        database.close();
         return dayTimesList;
+    }
+
+    public void deleteAllDayTimes() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TIMES_TABLE, null, null);
+        db.close();
+    }
+
+    // RELATION TABLE OPERATIONS: add, getAll, delete
+
+    public void addTutorTimeRelation(int startTimeId, int endTimeId, int tutorId, int courseId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FIELD_TUTOR_ID, tutorId);
+        values.put(FIELD_COURSE_ID, courseId);
+        values.put(FIELD_START_TIME_ID, startTimeId);
+        values.put(FIELD_END_TIME_ID, endTimeId);
+
+        db.insert(TUTOR_TIME_TABLE, null, values);
+
+        db.close();
+    }
+
+    public ArrayList<TutorTimeRelation> getAllRelations() {
+        ArrayList<TutorTimeRelation> relationsList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.query(
+                TUTOR_TIME_TABLE, new String[]
+                        {FIELD_TUTOR_ID, FIELD_COURSE_ID, FIELD_START_TIME_ID, FIELD_END_TIME_ID},
+                null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Tutor tutor = getTutor(cursor.getInt(0));
+                Course course = getCourse(cursor.getInt(1));
+                DayTime startTime = getDayTime(cursor.getInt(2));
+                DayTime endTime = getDayTime(cursor.getInt(3));
+
+                TutorTimeRelation newRelation =
+                        new TutorTimeRelation(tutor, course, startTime, endTime);
+                relationsList.add(newRelation);
+
+            }while (cursor.moveToNext());
+        }
+
+        return relationsList;
+    }
+
+    public void deleteAllRelations() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TUTOR_TIME_TABLE, null, null);
+        db.close();
     }
 }

@@ -12,7 +12,7 @@ import android.os.Parcelable;
 public class DayTime implements Parcelable{
     private int id;
     private String day;
-    private String time;
+    private float time;
 
     /**
      * Default Constructor
@@ -20,7 +20,7 @@ public class DayTime implements Parcelable{
     public DayTime() {
         id = -1;
         day = "";
-        time = "";
+        time = 0.0f;
     }
 
     /**
@@ -28,12 +28,12 @@ public class DayTime implements Parcelable{
      * @param day String the day in written format.
      * @param time String the time in 24 hour format.
      */
-    public DayTime(String day, String time) {
+    public DayTime(String day, float time) {
         this.day = day;
         this.time = time;
     }
 
-    public DayTime(int id, String day, String time){
+    public DayTime(int id, String day, float time){
         this.id = id;
         this.day = day;
         this.time = time;
@@ -42,7 +42,7 @@ public class DayTime implements Parcelable{
     protected DayTime(Parcel in) {
         id = in.readInt();
         day = in.readString();
-        time = in.readString();
+        time = in.readFloat();
     }
 
     public static final Creator<DayTime> CREATOR = new Creator<DayTime>() {
@@ -93,7 +93,7 @@ public class DayTime implements Parcelable{
      * Gets the time.
      * @return String the time in 24 hour format.
      */
-    public String getTime() {
+    public Float getTime() {
         return time;
     }
 
@@ -101,7 +101,7 @@ public class DayTime implements Parcelable{
      * Sets the new time.
      * @param time String the new time.
      */
-    public void setTime(String time) {
+    public void setTime(Float time) {
         this.time = time;
     }
 
@@ -110,7 +110,7 @@ public class DayTime implements Parcelable{
         if (obj instanceof DayTime) {
             DayTime otherDayTime = (DayTime) obj;
             return this.id == otherDayTime.id && this.day.equals(otherDayTime.day) &&
-                    this.time.equals(otherDayTime.time);
+                    this.time == otherDayTime.time;
         }
         return false;
     }
@@ -124,6 +124,6 @@ public class DayTime implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(day);
-        parcel.writeString(time);
+        parcel.writeFloat(time);
     }
 }

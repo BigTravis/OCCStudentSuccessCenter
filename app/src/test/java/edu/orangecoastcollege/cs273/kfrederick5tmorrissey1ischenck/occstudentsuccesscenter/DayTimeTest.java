@@ -17,7 +17,7 @@ public class DayTimeTest {
         dayTime = new DayTime();
         dayTime.setDay("Test Day");
         dayTime.setId(2);
-        dayTime.setTime("3:00 PM");
+        dayTime.setTime(3.5f);
 
     }
 
@@ -39,12 +39,12 @@ public class DayTimeTest {
 
     @Test
     public void getTime() throws Exception {
-        assertEquals("3:00 PM", dayTime.getTime());
+        assertEquals(3.5f, dayTime.getTime());
     }
 
     @Test
     public void equals() throws Exception {
-        assertEquals(new DayTime(2, "Test Day", "3:00 PM"), dayTime);
+        assertEquals(new DayTime(2, "Test Day", 3.5f), dayTime);
     }
 
 }
