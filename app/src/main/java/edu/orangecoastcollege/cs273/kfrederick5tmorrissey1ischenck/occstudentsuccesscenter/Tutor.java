@@ -46,6 +46,9 @@ public class Tutor implements Parcelable{
         lastName = in.readString();
     }
 
+    /**
+     * Generates instances of Tutor from a Parcel.
+     */
     public static final Creator<Tutor> CREATOR = new Creator<Tutor>() {
         @Override
         public Tutor createFromParcel(Parcel in) {
@@ -122,6 +125,12 @@ public class Tutor implements Parcelable{
         return 0;
     }
 
+    /**
+     * Flatten this object in to a Parcel.
+     * @param parcel The Parcel in which the object should be written.
+     * @param i Additional flags about how the object should be written. May be 0 or
+     *          PARCELABLE_WRITE_RETURN_VALUE.
+     */
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);

@@ -39,57 +39,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:weightSum="2">
 
-            <ExpandableListView
-                android:layout_width="wrap_content"
+            <Spinner
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:entries="@string/subject_drop_down_text"
                 android:id="@+id/subjectDropDown"
                 android:layout_marginRight="50dp"
-                android:clickable="true">
+                android:clickable="true"
+                android:layout_weight="1"/>
 
-            </ExpandableListView>
 
-            <ExpandableListView
-                android:layout_width="wrap_content"
+
+            <Spinner
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:entries="@string/class_drop_down_text"
                 android:id="@+id/classDropDown"
-                android:clickable="true" />
+                android:clickable="true"
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="3">
 
-            <ExpandableListView
-                android:layout_width="wrap_content"
+            <Spinner
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:entries="@string/day_drop_down_text"
                 android:id="@+id/dayDropDown"
                 android:layout_marginRight="10dp"
-                android:clickable="true" />
+                android:clickable="true"
+                android:layout_weight="1"/>
 
-            <ExpandableListView
-                android:layout_width="wrap_content"
+            <Spinner
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/hourDropDown"
                 android:entries="@string/hour_drop_down_text"
                 android:layout_marginRight="10dp"
-                android:clickable="true" />
+                android:clickable="true"
+                android:layout_weight="1"/>
 
-            <ExpandableListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:entries="@string/default_minutes"
                 android:id="@+id/minuteDropDown"
                 android:layout_marginRight="10dp"
-                android:clickable="true" >
+                android:clickable="true"
+                android:layout_weight="1"/>
 
-            </ExpandableListView>
+
         </LinearLayout>
 
         <LinearLayout

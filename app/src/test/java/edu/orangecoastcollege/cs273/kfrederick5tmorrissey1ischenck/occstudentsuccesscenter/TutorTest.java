@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.*;
+
 /**
  * Created by tmorrissey1 on 11/22/2016.
  */
@@ -22,12 +24,14 @@ public class TutorTest {
 
     @Test
     public void getFirstName() throws Exception {
-        mTutor.setFirstName("John Doe");
+        mTutor.setFirstName("John");
+        assertEquals("John", mTutor.getFirstName());
     }
 
     @Test
     public void getLastName() throws Exception {
-
+        mTutor.setLastName("Doe");
+        assertEquals("Doe", mTutor.getLastName());
     }
 
 }

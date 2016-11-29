@@ -45,6 +45,9 @@ public class DayTime implements Parcelable{
         time = in.readFloat();
     }
 
+    /**
+     * Generates instances of DayTime from a Parcel.
+     */
     public static final Creator<DayTime> CREATOR = new Creator<DayTime>() {
         @Override
         public DayTime createFromParcel(Parcel in) {
@@ -91,7 +94,7 @@ public class DayTime implements Parcelable{
 
     /**
      * Gets the time.
-     * @return String the time in 24 hour format.
+     * @return float The time in 24 hour format.
      */
     public float getTime() {
         return time;
@@ -99,7 +102,7 @@ public class DayTime implements Parcelable{
 
     /**
      * Sets the new time.
-     * @param time String the new time.
+     * @param time float The new time.
      */
     public void setTime(float time) {
         this.time = time;
@@ -129,6 +132,12 @@ public class DayTime implements Parcelable{
         return 0;
     }
 
+    /**
+     * Flatten this object in to a Parcel.
+     * @param parcel The Parcel in which the object should be written.
+     * @param i Additional flags about how the object should be written. May be 0 or
+     *          PARCELABLE_WRITE_RETURN_VALUE.
+     */
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);

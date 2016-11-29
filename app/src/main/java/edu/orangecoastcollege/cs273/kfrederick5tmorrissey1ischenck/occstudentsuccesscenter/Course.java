@@ -34,10 +34,6 @@ public class Course implements Parcelable {
         this.number = number;
     }
 
-    /**
-     *
-     * @param in
-     */
     protected Course(Parcel in) {
         id = in.readInt();
         department = in.readString();
@@ -45,7 +41,7 @@ public class Course implements Parcelable {
     }
 
     /**
-     *
+     * Generates instances of Courses from a Parcel.
      */
     public static final Creator<Course> CREATOR = new Creator<Course>() {
         @Override
