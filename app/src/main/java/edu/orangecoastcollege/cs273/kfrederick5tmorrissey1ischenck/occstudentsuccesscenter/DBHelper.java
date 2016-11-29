@@ -2,11 +2,18 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by ischenck on 11/15/2016.
@@ -278,7 +285,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // RELATION TABLE OPERATIONS: add, getAll, delete
 
-    public void addTutorTimeRelation(int startTimeId, int endTimeId, int tutorId, int courseId)
+    public void addTutorTimeRelation(int tutorId, int courseId, int startTimeId, int endTimeId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -320,5 +327,136 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TUTOR_TIME_TABLE, null, null);
         db.close();
+    }
+
+    // CSV import functions
+
+    public boolean importCoursesFromCSV(String csvFileName) {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+        try {
+            inStream = manager.open(csvFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        try {
+            while ((line = buffer.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length != 3) {
+                    Log.d("OCC SSC", "Skipping Bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+                int id = Integer.parseInt(fields[0].trim());
+                String department = fields[1].trim();
+                String number = fields[2].trim();
+                addCourse(new Course(id, department, number));
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean importTutorsFromCSV(String csvFileName) {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+        try {
+            inStream = manager.open(csvFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        try {
+            while ((line = buffer.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length != 3) {
+                    Log.d("OCC SSC", "Skipping Bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+                int id = Integer.parseInt(fields[0].trim());
+                String firstName = fields[1].trim();
+                String lastName = fields[2].trim();
+                addTutor(new Tutor(id, firstName, lastName));
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean importDayTimesFromCSV(String csvFileName) {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+        try {
+            inStream = manager.open(csvFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        try {
+            while ((line = buffer.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length != 3) {
+                    Log.d("OCC SSC", "Skipping Bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+                int id = Integer.parseInt(fields[0].trim());
+                String day = fields[1].trim();
+                float time = Float.parseFloat(fields[2].trim());
+                addDayTime(new DayTime(id, day, time));
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean importRelationsFromCSV(String csvFileName) {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+        try {
+            inStream = manager.open(csvFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        try {
+            while ((line = buffer.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length != 4) {
+                    Log.d("OCC SSC", "Skipping Bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+                int  tutorId = Integer.parseInt(fields[0].trim());
+                int courseId = Integer.parseInt(fields[1].trim());
+                int startTimeId = Integer.parseInt(fields[2].trim());
+                int endTimeId = Integer.parseInt(fields[3].trim());
+                addTutorTimeRelation(tutorId, courseId, startTimeId, endTimeId);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }
