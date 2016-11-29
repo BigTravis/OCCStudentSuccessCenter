@@ -116,6 +116,15 @@ public class DayTime implements Parcelable{
     }
 
     @Override
+    public String toString() {
+        return "DayTime{" +
+                "id=" + id +
+                ", day='" + day + '\'' +
+                ", time=" + time +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

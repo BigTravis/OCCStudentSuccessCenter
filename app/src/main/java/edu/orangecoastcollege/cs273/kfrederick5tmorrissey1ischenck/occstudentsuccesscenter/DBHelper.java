@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TIMES_TABLE = "Times";
     private static final String TIMES_KEY_FIELD_ID = "id";
     private static final String FIELD_DAY = "day";
-    private static final String FIELD_HALF_HOUR = "half_hour";
+    private static final String FIELD_TIME = "time";
 
     private static final String TUTOR_TIME_TABLE = "TutorAvailability";
     private static final String FIELD_TUTOR_ID = "tutor_id";
@@ -62,13 +62,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
         table = "CREATE TABLE " + TUTORS_TABLE + "("
                 + TUTORS_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
-                + FIELD_FIRST_NAME + " TEXT" + FIELD_LAST_NAME + " TEXT, " + ")";
+                + FIELD_FIRST_NAME + " TEXT, " + FIELD_LAST_NAME + " TEXT" + ")";
         database.execSQL(table);
 
 
         table = "CREATE TABLE " + TIMES_TABLE + "("
                 + TIMES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
-                + FIELD_DAY + " TEXT" + FIELD_HALF_HOUR + " REAL" + ")";
+                + FIELD_DAY + " TEXT, " + FIELD_TIME + " REAL" + ")";
         database.execSQL(table);
 
         table = "CREATE TABLE " + TUTOR_TIME_TABLE + "("
@@ -230,7 +230,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(TIMES_KEY_FIELD_ID, dayTime.getId());
         values.put(FIELD_DAY, dayTime.getDay());
-        values.put(FIELD_HALF_HOUR, dayTime.getTime());
+        values.put(FIELD_TIME, dayTime.getTime());
 
         db.insert(TIMES_TABLE, null, values);
 
@@ -240,7 +240,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 TIMES_TABLE, new String[]
-                        {TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_HALF_HOUR},
+                        {TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_TIME},
                 TIMES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
@@ -259,8 +259,8 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<DayTime> dayTimesList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.query(
-                TUTORS_TABLE,
-                new String[]{TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_HALF_HOUR},
+                TIMES_TABLE,
+                new String[]{TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_TIME},
                 null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {

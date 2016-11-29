@@ -109,6 +109,15 @@ public class Tutor implements Parcelable{
     }
 
     @Override
+    public String toString() {
+        return "Tutor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

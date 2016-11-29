@@ -100,6 +100,16 @@ public class TutorTimeRelation implements Parcelable{
     }
 
     @Override
+    public String toString() {
+        return "TutorTimeRelation{" +
+                "mTutor=" + mTutor +
+                ", mCourse=" + mCourse +
+                ", mStartTime=" + mStartTime +
+                ", mEndTime=" + mEndTime +
+                '}';
+    }
+
+    @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(mTutor, i);
         parcel.writeParcelable(mCourse, i);

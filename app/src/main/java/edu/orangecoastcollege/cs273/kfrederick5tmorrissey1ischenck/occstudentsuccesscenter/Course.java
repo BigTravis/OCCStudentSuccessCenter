@@ -118,6 +118,15 @@ public class Course implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", department='" + department + '\'' +
+                ", number='" + number + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -134,4 +143,6 @@ public class Course implements Parcelable {
         parcel.writeString(department);
         parcel.writeString(number);
     }
+
 }
+
