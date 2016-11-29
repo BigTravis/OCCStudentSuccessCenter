@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COURSES_TABLE = "Courses";
     private static final String COURSES_KEY_FIELD_ID = "id";
     private static final String FIELD_COURSE_DEPARTMENT = "course_department";
-    private static final String FIELD_COURSE_NUMBER = "course_department";
+    private static final String FIELD_COURSE_NUMBER = "course_number";
 
     private static final String TUTORS_TABLE = "Tutors";
     private static final String TUTORS_KEY_FIELD_ID = "id";
@@ -56,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         String table = "CREATE TABLE " + COURSES_TABLE + "("
                 + COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
-                + FIELD_COURSE_DEPARTMENT + " TEXT"
+                + FIELD_COURSE_DEPARTMENT + " TEXT, "
                 + FIELD_COURSE_NUMBER + " TEXT" + ")";
         database.execSQL(table);
 
