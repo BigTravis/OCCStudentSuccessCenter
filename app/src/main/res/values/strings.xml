@@ -20,4 +20,56 @@
     <string name="hour_drop_down_text">What time?</string>
     <string name="default_minutes">00</string>
     <string name="faq_title">Frequently Asked Questions</string>
+
+    <!--FAQuestions-->
+    <string-array name="faq_list">
+    <string name="hours_q">When is the Student Success Center open?</string>
+
+    <string name="contact_q">How can I get in contact with the Success Center?</string>
+
+    <string name="where_q">Where is the Student Success Center located on campus?</string>
+
+    <string name="private_q">Can I make an appointment for private one on one tutoring?</string>
+
+    <string name="num_appointment_q">How many appointments can I make a week?</string>
+
+    <string name="need_q">What do I need to do to receive tutoring at the Success Center?</string>
+
+    <string name="bring_q">Is there anything I need to bring with me for tutoring?</string>
+
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    </string-array>
+    <!--FAQ Answers-->
+    <string name="hours_a">The Success Center is open Monday through Thursday from
+    9 a.m. to 7 p.m., Friday 9 a.m. to 3 p.m. and Saturday from 11 a.m. to 3 p.m. We are
+    closed Sundays</string>
+    <string name="contact_a">The best way for you to contact us is by phone at
+    (714)432-5559.</string>
+    <string name="where_a">We are located in the Classrooms and Labs building (C&amp;L) 103
+    under the blue clock tower.</string>
+    <string name="private_a">One on one tutoring is available for a variety of subjects and can
+    be arranged by coming into the Success Center and setting up an appointment with the front
+    desk.</string>
+    <string name="num_appointment_a">Generally you can make one appointment a week unless you
+    qualify for special assistance and get approval for additional help from your counselor.
+    </string>
+    <string name="need_a">In order to be tutored at the Success Center you must come into the
+    center and sign up for Tutoring 050. The front desk staff will be able to guide you through
+    the registration process.</string>
+    <string name="bring_a">You MUST have your Student ID in order to sign in for tutoring. We
+    also request that you bring your book, syllabus, notes, and study materials as well as
+    questions for the tutors and a ready to work attitude.</string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
 </resources>
