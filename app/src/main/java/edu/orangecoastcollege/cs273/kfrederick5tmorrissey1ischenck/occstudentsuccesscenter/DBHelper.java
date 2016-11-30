@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by ischenck on 11/15/2016.
+ * This is the database that holds all information about
+ * tutors, courses, times and tutor time relations
  */
-
 public class DBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
@@ -52,6 +52,10 @@ public class DBHelper extends SQLiteOpenHelper {
         mContext = context;
     }
 
+    /**
+     * creates tables for courses, tutors, times, and tutor-time relationships
+     * @param database the database that the tables are being created in
+     */
     @Override
     public void onCreate(SQLiteDatabase database) {
         String table = "CREATE TABLE " + COURSES_TABLE + "("
@@ -89,6 +93,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * drops table then creates all new tables
+     * @param database
+     * @param oldVersion
+     * @param newVersion
+     */
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion)
     {
         database.execSQL("DROP TABLE IF EXISTS " + COURSES_TABLE);
@@ -101,6 +111,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // COURSE TABLE OPERATIONS: add, get, getAll, delete
 
+    /**
+     * adds a new course to the course table
+     * @param course course object containing id, department and number
+     */
     public void addCourse(Course course)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -114,6 +128,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * gets a specific course from the course table
+     * @param id the id of the course you want
+     * @return course that matches the id
+     */
     public Course getCourse(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -134,6 +153,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return course;
     }
 
+    /**
+     * makes an ArrayList of all courses
+     * @return arrayList of courses
+     */
     public ArrayList<Course> getAllCourses() {
         ArrayList<Course> coursesList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -154,13 +177,21 @@ public class DBHelper extends SQLiteOpenHelper {
         return coursesList;
     }
 
+    /**
+     * deletes the courses table
+     */
     public void deleteAllCourses() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(COURSES_TABLE, null, null);
         db.close();
     }
+
     // TUTOR TABLE OPERATIONS: add, get, getAll, delete
 
+    /**
+     * adds a new tutor to the tutor table
+     * @param tutor tutor object that contains id, first name and last name
+     */
     public void addTutor(Tutor tutor)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -174,6 +205,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * gets a specific tutor from the tutor table
+     * @param id the id of the tutor you want
+     * @return tutor that matches the id
+     */
     public Tutor getTutor(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -194,6 +230,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return tutor;
     }
 
+    /**
+     * makes an ArrayList of all tutors
+     * @return arrayList of tutors
+     */
     public ArrayList<Tutor> getAllTutors() {
         ArrayList<Tutor> tutorsList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -216,6 +256,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return tutorsList;
     }
 
+    /**
+     * deletes the tutors table
+     */
     public void deleteAllTutors() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TUTORS_TABLE, null, null);
@@ -224,6 +267,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // DAY TIME TABLE OPERATIONS: add, get, getAll, delete
 
+    /**
+     * adds a new DayTime to the times table
+     * @param dayTime DayTime object that contains id, day and time
+     */
     public void addDayTime(DayTime dayTime)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -236,6 +283,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+
+    /**
+     * gets a specific DayTime from the times table
+     * @param id the id of the DayTime you want
+     * @return DayTime that matches the id
+     */
     public DayTime getDayTime(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -255,6 +308,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return dayTime;
     }
+
+    /**
+     * makes an ArrayList of all DayTimes
+     * @return arrayList of DayTimes
+     */
     public ArrayList<DayTime> getAllDayTimes() {
         ArrayList<DayTime> dayTimesList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -277,6 +335,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return dayTimesList;
     }
 
+    /**
+     * deletes the times table
+     */
     public void deleteAllDayTimes() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TIMES_TABLE, null, null);
@@ -285,6 +346,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // RELATION TABLE OPERATIONS: add, getAll, delete
 
+
+    /**
+     * adds a new TutorTimeRelation to the tutor_time table
+     * @param tutorId id of a tutor object
+     * @param courseId id of a course object
+     * @param startTimeId id of a DayTime object
+     * @param endTimeId id of a EndTime object
+     */
     public void addTutorTimeRelation(int tutorId, int courseId, int startTimeId, int endTimeId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -299,6 +368,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * creates an ArrayList of all tutor time relations
+     * @return ArrayList of tutor time relations
+     */
     public ArrayList<TutorTimeRelation> getAllRelations() {
         ArrayList<TutorTimeRelation> relationsList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -323,6 +396,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return relationsList;
     }
 
+    /**
+     * deletes the tutor_time table
+     */
     public void deleteAllRelations() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TUTOR_TIME_TABLE, null, null);
@@ -331,6 +407,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // CSV import functions
 
+    /**
+     * imports courses information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importCoursesFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
@@ -363,6 +444,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * imports tutor information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importTutorsFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
@@ -395,6 +481,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * imports DayTime information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importDayTimesFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
@@ -427,6 +518,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * imports relation information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importRelationsFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
