@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by ischenck on 11/15/2016.
+ * This is the database that holds all information about
+ * tutors, courses, times, tutor time relations, and study groups
  */
-
 public class DBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
@@ -47,11 +47,23 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_START_TIME_ID = "start_time_id";
     private static final String FIELD_END_TIME_ID = "end_time_id";
 
+
+    private static final String STUDY_GROUPS_TABLE = "StudyGroups";
+    private static final String STUDY_GROUPS_KEY_FIELD_ID = "id";
+    private static final String FIELD_INSTRUCTOR = "instructor";
+    private static final String FIELD_STUDY_COURSE_ID = "course_id";
+    private static final String FIELD_TIME_ID = "time_id";
+    private static final String FIELD_ROOM = "room";
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
 
+    /**
+     * creates tables for courses, tutors, times, tutor-time relationships, and study groups
+     * @param database the database that the tables are being created in
+     */
     @Override
     public void onCreate(SQLiteDatabase database) {
         String table = "CREATE TABLE " + COURSES_TABLE + "("
@@ -81,26 +93,49 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY(" + FIELD_END_TIME_ID + ") REFERENCES "
                 + TIMES_TABLE + "(" + TIMES_KEY_FIELD_ID + "), "
                 + "FOREIGN KEY(" + FIELD_COURSE_ID + ") REFERENCES "
-                + COURSES_TABLE + "(" + FIELD_COURSE_ID + "), "
+                + COURSES_TABLE + "(" + COURSES_KEY_FIELD_ID + "), "
                 + "FOREIGN KEY(" + FIELD_TUTOR_ID + ") REFERENCES "
                 + TUTORS_TABLE + "(" + TUTORS_KEY_FIELD_ID + ")"
                 + ")";
         database.execSQL(table);
 
+        table = "CREATE TABLE " + STUDY_GROUPS_TABLE + "("
+                + STUDY_GROUPS_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
+                + FIELD_INSTRUCTOR + " TEXT, "
+                + FIELD_STUDY_COURSE_ID + " INTEGER, "
+                + FIELD_TIME_ID + " INTEGER, "
+                + FIELD_ROOM + " TEXT, "
+                + "FOREIGN KEY(" + FIELD_STUDY_COURSE_ID + ") REFERENCES "
+                + COURSES_TABLE + "(" + COURSES_KEY_FIELD_ID + "), "
+                + "FOREIGN KEY(" + FIELD_TIME_ID + ") REFERENCES "
+                + TIMES_TABLE + "(" + TIMES_KEY_FIELD_ID + ")"
+                + ")";
+        database.execSQL(table);
     }
 
+    /**
+     * drops table then creates all new tables
+     * @param database
+     * @param oldVersion
+     * @param newVersion
+     */
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion)
     {
         database.execSQL("DROP TABLE IF EXISTS " + COURSES_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TUTORS_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TIMES_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TUTOR_TIME_TABLE);
+        database.execSQL("DROP TABLE IF EXISTS " + STUDY_GROUPS_TABLE);
 
         onCreate(database);
     }
 
     // COURSE TABLE OPERATIONS: add, get, getAll, delete
 
+    /**
+     * adds a new course to the course table
+     * @param course course object containing id, department and number
+     */
     public void addCourse(Course course)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -114,6 +149,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * gets a specific course from the course table
+     * @param id the id of the course you want
+     * @return course that matches the id
+     */
     public Course getCourse(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -134,6 +174,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return course;
     }
 
+    /**
+     * makes an ArrayList of all courses
+     * @return arrayList of courses
+     */
     public ArrayList<Course> getAllCourses() {
         ArrayList<Course> coursesList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -154,13 +198,21 @@ public class DBHelper extends SQLiteOpenHelper {
         return coursesList;
     }
 
+    /**
+     * deletes the courses table
+     */
     public void deleteAllCourses() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(COURSES_TABLE, null, null);
         db.close();
     }
+
     // TUTOR TABLE OPERATIONS: add, get, getAll, delete
 
+    /**
+     * adds a new tutor to the tutor table
+     * @param tutor tutor object that contains id, first name and last name
+     */
     public void addTutor(Tutor tutor)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -174,6 +226,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * gets a specific tutor from the tutor table
+     * @param id the id of the tutor you want
+     * @return tutor that matches the id
+     */
     public Tutor getTutor(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -194,6 +251,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return tutor;
     }
 
+    /**
+     * makes an ArrayList of all tutors
+     * @return arrayList of tutors
+     */
     public ArrayList<Tutor> getAllTutors() {
         ArrayList<Tutor> tutorsList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -216,6 +277,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return tutorsList;
     }
 
+    /**
+     * deletes the tutors table
+     */
     public void deleteAllTutors() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TUTORS_TABLE, null, null);
@@ -224,6 +288,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // DAY TIME TABLE OPERATIONS: add, get, getAll, delete
 
+    /**
+     * adds a new DayTime to the times table
+     * @param dayTime DayTime object that contains id, day and time
+     */
     public void addDayTime(DayTime dayTime)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -236,6 +304,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+
+    /**
+     * gets a specific DayTime from the times table
+     * @param id the id of the DayTime you want
+     * @return DayTime that matches the id
+     */
     public DayTime getDayTime(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -255,6 +329,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return dayTime;
     }
+
+    /**
+     * makes an ArrayList of all DayTimes
+     * @return arrayList of DayTimes
+     */
     public ArrayList<DayTime> getAllDayTimes() {
         ArrayList<DayTime> dayTimesList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -277,6 +356,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return dayTimesList;
     }
 
+    /**
+     * deletes the times table
+     */
     public void deleteAllDayTimes() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TIMES_TABLE, null, null);
@@ -285,6 +367,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // RELATION TABLE OPERATIONS: add, getAll, delete
 
+
+    /**
+     * adds a new TutorTimeRelation to the tutor_time table
+     * @param tutorId id of a tutor object
+     * @param courseId id of a course object
+     * @param startTimeId id of a DayTime object
+     * @param endTimeId id of a EndTime object
+     */
     public void addTutorTimeRelation(int tutorId, int courseId, int startTimeId, int endTimeId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -299,10 +389,14 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * creates an ArrayList of all tutor time relations
+     * @return ArrayList of tutor time relations
+     */
     public ArrayList<TutorTimeRelation> getAllRelations() {
         ArrayList<TutorTimeRelation> relationsList = new ArrayList<>();
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
                 TUTOR_TIME_TABLE, new String[]
                         {FIELD_TUTOR_ID, FIELD_COURSE_ID, FIELD_START_TIME_ID, FIELD_END_TIME_ID},
                 null, null, null, null, null, null);
@@ -320,17 +414,91 @@ public class DBHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        db.close();
         return relationsList;
     }
 
+    /**
+     * deletes the tutor_time table
+     */
     public void deleteAllRelations() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TUTOR_TIME_TABLE, null, null);
         db.close();
     }
 
+    // STUDY GROUP TABLE OPERATIONS: add, getAll, delete
+
+    /**
+     * adds a new study group to the study group table
+     * @param id id of study group
+     * @param instructor instructor for study group's class
+     * @param courseId id of the course
+     * @param dayTimeId id of the time
+     * @param room room study group is held in
+     */
+    public void addStudyGroup(int id, String instructor, int courseId, int dayTimeId, String room)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(STUDY_GROUPS_KEY_FIELD_ID, id);
+        values.put(FIELD_INSTRUCTOR, instructor);
+        values.put(FIELD_STUDY_COURSE_ID, courseId);
+        values.put(FIELD_TIME_ID, dayTimeId);
+        values.put(FIELD_ROOM, room);
+
+        db.insert(STUDY_GROUPS_TABLE, null, values);
+
+        db.close();
+    }
+
+    /**
+     * creates an ArrayList of Study Groups
+     * @return an ArrayList of study groups
+     */
+    public ArrayList<StudyGroup> getAllStudyGroups() {
+        ArrayList<StudyGroup> studyGroupsList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                STUDY_GROUPS_TABLE, new String[]
+                        {STUDY_GROUPS_KEY_FIELD_ID, FIELD_INSTRUCTOR,
+                                FIELD_STUDY_COURSE_ID, FIELD_TIME_ID, FIELD_ROOM},
+                null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String instructor = cursor.getString(1);
+                Course course = getCourse(cursor.getInt(2));
+                DayTime dayTime = getDayTime(cursor.getInt(3));
+                String room = cursor.getString(4);
+
+                StudyGroup newGroup =
+                        new StudyGroup(id, instructor, course, dayTime, room);
+                studyGroupsList.add(newGroup);
+
+            }while (cursor.moveToNext());
+        }
+
+        db.close();
+        return studyGroupsList;
+    }
+
+    /**
+     * deletes the study group table
+     */
+    public void deleteAllStudyGroups() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(STUDY_GROUPS_TABLE, null, null);
+        db.close();
+    }
+
     // CSV import functions
 
+    /**
+     * imports courses information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importCoursesFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
@@ -363,6 +531,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * imports tutor information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importTutorsFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
@@ -395,6 +568,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * imports DayTime information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importDayTimesFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
@@ -427,6 +605,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * imports relation information from a csv file
+     * @param csvFileName name of csv file
+     * @return true if import works, false if it doesnt
+     */
     public boolean importRelationsFromCSV(String csvFileName) {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
@@ -451,6 +634,40 @@ public class DBHelper extends SQLiteOpenHelper {
                 int startTimeId = Integer.parseInt(fields[2].trim());
                 int endTimeId = Integer.parseInt(fields[3].trim());
                 addTutorTimeRelation(tutorId, courseId, startTimeId, endTimeId);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean importStudyGroupsFromCSV(String csvFileName) {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+        try {
+            inStream = manager.open(csvFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        try {
+            while ((line = buffer.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length != 5) {
+                    Log.d("OCC SSC", "Skipping Bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+                int  id = Integer.parseInt(fields[0].trim());
+                String instructor = fields[1].trim();
+                int courseId = Integer.parseInt(fields[2].trim());
+                int dayTimeId = Integer.parseInt(fields[3].trim());
+                String room = fields[4].trim();
+                addStudyGroup(id, instructor, courseId, dayTimeId, room);
             }
         }catch (IOException e) {
             e.printStackTrace();

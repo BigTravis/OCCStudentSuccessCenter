@@ -108,6 +108,27 @@ public class DayTime implements Parcelable{
         this.time = time;
     }
 
+    /**
+     * converts the float time to a string
+     * @return time string
+     */
+    public String convertFloatTimeToString(){
+        String stringTime = "";
+
+        int hourTime = (int) this.time;
+        if (hourTime > 12)
+            stringTime += Integer.toString(hourTime - 12);
+        else
+            stringTime += Integer.toString(hourTime);
+        int halfHour = ((int) (this.time) * 10)%10;
+        if (halfHour == 0)
+            stringTime += ":00";
+        else
+            stringTime += ":30";
+
+        return stringTime;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof DayTime) {
