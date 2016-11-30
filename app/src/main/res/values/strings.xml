@@ -33,6 +33,7 @@
         <item name="bring_q">Is there anything I need to bring with me for tutoring?</item>
         <item name="study_group_q">How can I set up a study group?</item>
     </string-array>
+
     <!--FAQ Answers-->
     <string-array name="faq_details">
         <item name="hours_a">The Success Center is open Monday through Thursday from

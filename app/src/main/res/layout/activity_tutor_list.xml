@@ -12,6 +12,22 @@
     tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.TutorListActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:text="Tutors Available \n for"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tutorAvailableTextView"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="%s ?at %s"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tutorNameTextView"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
