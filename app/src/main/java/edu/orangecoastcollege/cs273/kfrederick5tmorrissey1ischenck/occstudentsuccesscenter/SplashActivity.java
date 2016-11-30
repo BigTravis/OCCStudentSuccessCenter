@@ -20,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         db.importTutorsFromCSV("Tutors.csv");
         db.importDayTimesFromCSV("DayTime.csv");
         db.importRelationsFromCSV("TutorHelpRelationship.csv");
+        db.importStudyGroupsFromCSV("Studygroups.csv");
 
         ArrayList<Course> allCourses = db.getAllCourses();
         Log.i("OCC SSC", allCourses.toString());
@@ -32,6 +33,9 @@ public class SplashActivity extends AppCompatActivity {
 
         ArrayList<TutorTimeRelation> allRelations = db.getAllRelations();
         Log.i("OCC SSC", allRelations.toString());
+
+        ArrayList<StudyGroup> allStudyGroups = db.getAllStudyGroups();
+        Log.i("OCC SSC", allStudyGroups.toString());
 
     }
 }
