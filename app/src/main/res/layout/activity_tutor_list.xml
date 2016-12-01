@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="Tutors Available \n for"
+        android:text="@string/tutors_available"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tutorAvailableTextView"
@@ -21,7 +21,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:text="%s ?at %s"
+        android:text="@string/subject_time_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tutorNameTextView"

@@ -76,7 +76,7 @@ public class SearchActivity extends AppCompatActivity {
             String selectedSubject = parent.getItemAtPosition(position).toString();
             if (!selectedSubject.equals("[Select subject]")) {
                 classSpinner.setEnabled(true);
-                updateSpinner(selectedSubject);
+                updateClassSpinner(selectedSubject);
             }
             else {
                 classSpinner.setEnabled(false);
@@ -103,7 +103,7 @@ public class SearchActivity extends AppCompatActivity {
         }
     };
 
-    private void updateSpinner(String input) {
+    private void updateClassSpinner(String input) {
         ArrayList<String> modifiedCourseList = new ArrayList<>();
         modifiedCourseList.add("[Select class]");
         for (Course course : mCourses)
@@ -196,10 +196,16 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent listIntent = new Intent(this, TutorListActivity.class);
         listIntent.putExtra("Tutor Results", tutorResults);
+        listIntent.putExtra("Subject", subject);
+        listIntent.putExtra("Class Number", classNumber);
+        listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
         startActivity(listIntent);
     }
 
     public void clearSearch(View v) {
-
+        subjectSpinner.setSelection(0);
+        daySpinner.setSelection(0);
+        hourSpinner.setSelection(0);
+        minuteSpinner.setSelection(0);
     }
 }

@@ -3,17 +3,22 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/tutorListLinearLayout">
+              android:id="@+id/tutorListLinearLayout"
+              android:onClick="viewTutorDetails">
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tutorListNameTextView"/>
+        android:id="@+id/tutorListNameTextView"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tutorListHoursTextView"/>
+        android:id="@+id/tutorListHoursTextView"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
 </LinearLayout>
