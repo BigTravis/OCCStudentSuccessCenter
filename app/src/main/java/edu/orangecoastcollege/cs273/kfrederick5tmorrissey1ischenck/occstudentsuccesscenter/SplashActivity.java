@@ -1,10 +1,11 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
     private DBHelper db;
@@ -13,8 +14,19 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                finish();
+                startActivity(new Intent(SplashActivity.this, SearchActivity.class));
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(timerTask, 3000);
+        /*
         deleteDatabase(DBHelper.DATABASE_NAME);
         db = new DBHelper(this);
+
 
         db.importCoursesFromCSV("Courses.csv");
         db.importTutorsFromCSV("Tutors.csv");
@@ -35,7 +47,8 @@ public class SplashActivity extends AppCompatActivity {
         Log.i("OCC SSC", allRelations.toString());
 
         ArrayList<StudyGroup> allStudyGroups = db.getAllStudyGroups();
-        Log.i("OCC SSC", allStudyGroups.toString());
+        Log.i("OCC SSC", allStudyGroups.toString());*/
+
 
     }
 }

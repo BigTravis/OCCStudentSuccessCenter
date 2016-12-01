@@ -46,7 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:entries="@string/subject_drop_down_text"
-                android:id="@+id/subjectDropDown"
+                android:id="@+id/subjectSpinner"
                 android:layout_marginRight="50dp"
                 android:clickable="true"
                 android:layout_weight="1"/>
@@ -57,7 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:entries="@string/class_drop_down_text"
-                android:id="@+id/classDropDown"
+                android:id="@+id/classSpinner"
                 android:clickable="true"
                 android:layout_weight="1"/>
 
@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:entries="@string/day_drop_down_text"
-                android:id="@+id/dayDropDown"
+                android:id="@+id/daySpinner"
                 android:layout_marginRight="10dp"
                 android:clickable="true"
                 android:layout_weight="1"/>
@@ -81,7 +81,7 @@
             <Spinner
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/hourDropDown"
+                android:id="@+id/hourSpinner"
                 android:entries="@string/hour_drop_down_text"
                 android:layout_marginRight="10dp"
                 android:clickable="true"
@@ -91,7 +91,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:entries="@string/default_minutes"
-                android:id="@+id/minuteDropDown"
+                android:id="@+id/minuteSpinner"
                 android:layout_marginRight="10dp"
                 android:clickable="true"
                 android:layout_weight="1"/>
@@ -110,15 +110,17 @@
                 android:text="@string/search_button_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button"
-                android:layout_weight="1.5" />
+                android:id="@+id/searchButton"
+                android:layout_weight="1.5"
+                android:onClick="search"/>
 
             <Button
                 android:text="@string/clear_button_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button2"
-                android:layout_weight="1" />
+                android:id="@+id/clearButton"
+                android:layout_weight="1"
+                android:onClick="clearSearch"/>
 
         </LinearLayout>
     </LinearLayout>
