@@ -125,7 +125,10 @@ public class DayTime implements Parcelable{
             stringTime += ":00";
         else
             stringTime += ":30";
-
+        if (hourTime >= 12)
+            stringTime += " PM";
+        else
+            stringTime += " AM";
         return stringTime;
     }
 

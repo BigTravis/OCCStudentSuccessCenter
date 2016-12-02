@@ -26,6 +26,9 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "OCCSSC";
     private static final int DATABASE_VERSION = 1;
 
+//    private static final String CURRENT_DATABASE_TABLE = "current_database";
+//    private static final String CURRENT_DATABASE_VERSION = "current_database_version";
+
     private static final String COURSES_TABLE = "Courses";
     private static final String COURSES_KEY_FIELD_ID = "id";
     private static final String FIELD_COURSE_DEPARTMENT = "course_department";
@@ -66,6 +69,10 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase database) {
+//        String table = "CREATE TABLE " + CURRENT_DATABASE_TABLE + "("
+//                + CURRENT_DATABASE_VERSION + " INTEGER" + ")";
+//        database.execSQL(table);
+
         String table = "CREATE TABLE " + COURSES_TABLE + "("
                 + COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_COURSE_DEPARTMENT + " TEXT, "
@@ -121,6 +128,7 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion)
     {
+        // database.execSQL("DROP TABLE IF EXISTS " + CURRENT_DATABASE_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + COURSES_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TUTORS_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TIMES_TABLE);
@@ -129,6 +137,33 @@ public class DBHelper extends SQLiteOpenHelper {
 
         onCreate(database);
     }
+
+//    // CURRENT DATABASE TABLE OPERATIONS: add, get
+//    public void addDatabaseVersion()
+//    {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(CURRENT_DATABASE_VERSION, DATABASE_VERSION);
+//        db.insert(CURRENT_DATABASE_TABLE, null, values);
+//
+//        db.close();
+//    }
+//
+//    public int getDatabaseVersion()
+//    {
+//        SQLiteDatabase database = this.getReadableDatabase();
+//        Cursor cursor = database.query(
+//                CURRENT_DATABASE_TABLE,
+//                new String[]{CURRENT_DATABASE_VERSION},
+//                null, null, null, null, null, null);
+//        int currentVersion = 0;
+//        if (cursor.moveToFirst()) {
+//            do {
+//                currentVersion = cursor.getInt(0);
+//            }while(cursor.moveToNext());
+//        }
+//        return currentVersion;
+//    }
 
     // COURSE TABLE OPERATIONS: add, get, getAll, delete
 

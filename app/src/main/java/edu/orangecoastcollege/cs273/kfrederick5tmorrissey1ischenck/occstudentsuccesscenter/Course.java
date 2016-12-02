@@ -115,11 +115,7 @@ public class Course implements Parcelable {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", department='" + department + '\'' +
-                ", number='" + number + '\'' +
-                '}';
+        return department + " " + number;
     }
 
     @Override

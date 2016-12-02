@@ -19,12 +19,12 @@ public class TutorListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_list);
-        ArrayList<Tutor> tutors = getIntent().getParcelableArrayListExtra("Tutor Results");
+        ArrayList<TutorTimeRelation> tutorTimeRelations = getIntent().getParcelableArrayListExtra("Tutor Results");
         String subject = getIntent().getStringExtra("Subject");
         String className = getIntent().getStringExtra("Class Number");
         String time = getIntent().getStringExtra("Time");
 
-        mTutorListAdapter = new TutorListAdapter(this, R.layout.tutor_list_item, tutors);
+        mTutorListAdapter = new TutorListAdapter(this, R.layout.tutor_list_item, tutorTimeRelations);
         mTutorListView = (ListView) findViewById(R.id.tutorListView);
         mTutorListView.setAdapter(mTutorListAdapter);
 
@@ -38,9 +38,9 @@ public class TutorListActivity extends AppCompatActivity {
     public void viewTutorDetails(View view) {
         if (view instanceof LinearLayout) {
             LinearLayout selectedLayout = (LinearLayout) view;
-            Tutor tutorSelected  = (Tutor) selectedLayout.getTag();
+            TutorTimeRelation tutorTimeSelected  = (TutorTimeRelation) selectedLayout.getTag();
             Intent detailsIntent = new Intent(this, TutorDetailsActivity.class);
-            detailsIntent.putExtra("Selected tutor", tutorSelected);
+            detailsIntent.putExtra("SelectedRelation", tutorTimeSelected);
             startActivity(detailsIntent);
         }
     }

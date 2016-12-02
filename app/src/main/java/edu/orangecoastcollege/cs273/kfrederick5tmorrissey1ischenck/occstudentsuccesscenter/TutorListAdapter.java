@@ -13,22 +13,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TutorListAdapter extends ArrayAdapter<Tutor> {
+public class TutorListAdapter extends ArrayAdapter<TutorTimeRelation> {
     private Context mContext;
-    private List<Tutor> mTutorList = new ArrayList<>();
+    private List<TutorTimeRelation> mTutorTimeList = new ArrayList<>();
     private int mResourceId;
 
-    public TutorListAdapter(Context context, int resourceId, List<Tutor> tutors) {
-        super(context, resourceId, tutors);
+    public TutorListAdapter(Context context, int resourceId, List<TutorTimeRelation> tutorTimes) {
+        super(context, resourceId, tutorTimes);
         mContext = context;
-        mTutorList = tutors;
+        mTutorTimeList = tutorTimes;
         mResourceId = resourceId;
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Tutor tutorSelected = mTutorList.get(position);
+        final TutorTimeRelation selectedTutorTimeRelation = mTutorTimeList.get(position);
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
@@ -37,9 +37,15 @@ public class TutorListAdapter extends ArrayAdapter<Tutor> {
         TextView tutorListNameTextView = (TextView) view.findViewById(R.id.tutorListNameTextView);
         TextView tutorListHoursTextView = (TextView) view.findViewById(R.id.tutorListHoursTextView);
 
-        tutorListLinearLayout.setTag(tutorSelected);
-        tutorListNameTextView.setText(tutorSelected.getFirstName() + " " + tutorSelected.getLastName());
+        tutorListLinearLayout.setTag(selectedTutorTimeRelation);
+        tutorListNameTextView.setText(selectedTutorTimeRelation.getTutor().getFirstName() + " "
+                + selectedTutorTimeRelation.getTutor().getLastName());
         // TODO add hours text to tutorListHoursTextView
+        tutorListHoursTextView.setText
+                (selectedTutorTimeRelation.getStartTime().convertFloatTimeToString() + " - "
+                        + selectedTutorTimeRelation.getEndTime().convertFloatTimeToString());
+
+
         return view;
     }
 }

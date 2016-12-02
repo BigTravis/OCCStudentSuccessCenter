@@ -181,7 +181,7 @@ public class SearchActivity extends AppCompatActivity {
             else
                 time = 25.0f;
 
-            ArrayList<Tutor> tutorResults = new ArrayList<>();
+            ArrayList<TutorTimeRelation> tutorTimeResults = new ArrayList<>();
             for (TutorTimeRelation relation : mRelations) {
                 Course course = relation.getCourse();
                 DayTime startTime = relation.getStartTime();
@@ -193,16 +193,16 @@ public class SearchActivity extends AppCompatActivity {
                         if (startTime.getDay().equals(day))
                             if (time < 25.0f) {
                                 if (startTime.getTime() <= time && endTime.getTime() >= time)
-                                    tutorResults.add(relation.getTutor());
+                                    tutorTimeResults.add(relation);
                             }
                     } else // No time was selected and all qualified tutors available at the specified
                         // day will be selected
-                        tutorResults.add(relation.getTutor());
+                        tutorTimeResults.add(relation);
                 }
             }
 
             Intent listIntent = new Intent(this, TutorListActivity.class);
-            listIntent.putExtra("Tutor Results", tutorResults);
+            listIntent.putExtra("Tutor Results", tutorTimeResults);
             listIntent.putExtra("Subject", subject);
             listIntent.putExtra("Class Number", classNumber);
             listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
