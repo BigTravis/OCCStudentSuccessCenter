@@ -46,8 +46,9 @@
             android:label="@string/title_activity_directions" />
         <activity android:name=".TutorListAdapter" />
         <activity android:name=".FAQActivity" />
-        <activity android:name=".FAQDetailActivity"></activity>
-        <activity android:name=".StudyGroupActivity"></activity>
+        <activity android:name=".FAQDetailActivity" />
+        <activity android:name=".StudyGroupActivity" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

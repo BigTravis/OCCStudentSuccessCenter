@@ -1,6 +1,7 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,7 +25,14 @@ public class FAQActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int pos, long id)
     {
-        //Update
+        String[] temp = getResources().getStringArray(R.array.faq_details);
 
+        Intent faqDetails = new Intent(this, FAQDetailActivity.class);
+        faqDetails.putExtra("Answer", temp[pos]);
+
+
+
+
+        startActivity(faqDetails);
     }
 }
