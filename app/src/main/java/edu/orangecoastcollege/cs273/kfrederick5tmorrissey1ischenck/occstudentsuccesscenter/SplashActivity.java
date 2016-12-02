@@ -23,31 +23,31 @@ public class SplashActivity extends AppCompatActivity {
         };
         Timer timer = new Timer();
         timer.schedule(timerTask, 3000);
-        /*
+
         deleteDatabase(DBHelper.DATABASE_NAME);
         db = new DBHelper(this);
 
 
-        db.importCoursesFromCSV("Courses.csv");
-        db.importTutorsFromCSV("Tutors.csv");
-        db.importDayTimesFromCSV("DayTime.csv");
-        db.importRelationsFromCSV("TutorHelpRelationship.csv");
-        db.importStudyGroupsFromCSV("Studygroups.csv");
-
-        ArrayList<Course> allCourses = db.getAllCourses();
-        Log.i("OCC SSC", allCourses.toString());
-
-        ArrayList<Tutor> allTutors = db.getAllTutors();
-        Log.i("OCC SSC", allTutors.toString());
-
-        ArrayList<DayTime> allDayTimes = db.getAllDayTimes();
-        Log.i("OCC SSC", allDayTimes.toString());
-
-        ArrayList<TutorTimeRelation> allRelations = db.getAllRelations();
-        Log.i("OCC SSC", allRelations.toString());
-
-        ArrayList<StudyGroup> allStudyGroups = db.getAllStudyGroups();
-        Log.i("OCC SSC", allStudyGroups.toString());*/
+//        db.importCoursesFromCSV("Courses.csv");
+//        db.importTutorsFromCSV("Tutors.csv");
+//        db.importDayTimesFromCSV("DayTime.csv");
+//        db.importRelationsFromCSV("TutorHelpRelationship.csv");
+//        db.importStudyGroupsFromCSV("Studygroups.csv");
+//
+//        ArrayList<Course> allCourses = db.getAllCourses();
+//        Log.i("OCC SSC", allCourses.toString());
+//
+//        ArrayList<Tutor> allTutors = db.getAllTutors();
+//        Log.i("OCC SSC", allTutors.toString());
+//
+//        ArrayList<DayTime> allDayTimes = db.getAllDayTimes();
+//        Log.i("OCC SSC", allDayTimes.toString());
+//
+//        ArrayList<TutorTimeRelation> allRelations = db.getAllRelations();
+//        Log.i("OCC SSC", allRelations.toString());
+//
+//        ArrayList<StudyGroup> allStudyGroups = db.getAllStudyGroups();
+//        Log.i("OCC SSC", allStudyGroups.toString());
 
 
     }
