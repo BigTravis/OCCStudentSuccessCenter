@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,48 +159,55 @@ public class SearchActivity extends AppCompatActivity {
     public void search(View v) {
         String subject = subjectSpinner.getSelectedItem().toString();
         String classNumber = classSpinner.getSelectedItem().toString();
-        String day = daySpinner.getSelectedItem().toString();
-        float time;
-
-        // Format time from 12 hour to 24 hour format
-        String hourString = hourSpinner.getSelectedItem().toString();
-        if (!hourString.equals("[Select hours]")) {
-            time = Float.parseFloat(hourSpinner.getSelectedItem().toString());
-            time += (minuteSpinner.getSelectedItem().toString().equals(":30")) ? .50f : 0.0;
-
-            if (!(hourString.equals("9") || hourString.equals("10")
-                    || hourString.equals("11") || hourString.equals("12")))
-                time += 12.0f;
+        if (subject.equals("[Select subject]") || classNumber.equals("[Select class]"))
+        {
+            Toast.makeText(this, "You must select a subject and class.", Toast.LENGTH_SHORT).show();
         }
-        // User did not select a time and search will not filter by time
-        else
-            time = 25.0f;
+        else {
+            String day = daySpinner.getSelectedItem().toString();
+            float time;
 
-        ArrayList<Tutor> tutorResults = new ArrayList<>();
-        for (TutorTimeRelation relation : mRelations) {
-            Course course = relation.getCourse();
-            DayTime startTime = relation.getStartTime();
-            DayTime endTime = relation.getEndTime();
+            // Format time from 12 hour to 24 hour format
+            String hourString = hourSpinner.getSelectedItem().toString();
+            if (!hourString.equals("[Select hours]")) {
+                time = Float.parseFloat(hourSpinner.getSelectedItem().toString());
+                time += (minuteSpinner.getSelectedItem().toString().equals(":30")) ? .50f : 0.0;
 
-            if (course.getDepartment().equals(subject) && course.getNumber().equals(classNumber)
-                    && startTime.getDay().equals(day)) {
-                // Check to see if a time was selected and search for tutors available at that time
-                if (time < 25.0f) {
-                    if (startTime.getTime() <= time && endTime.getTime() >= time)
+                if (!(hourString.equals("9") || hourString.equals("10")
+                        || hourString.equals("11") || hourString.equals("12")))
+                    time += 12.0f;
+            }
+            // User did not select a time and search will not filter by time
+            else
+                time = 25.0f;
+
+            ArrayList<Tutor> tutorResults = new ArrayList<>();
+            for (TutorTimeRelation relation : mRelations) {
+                Course course = relation.getCourse();
+                DayTime startTime = relation.getStartTime();
+                DayTime endTime = relation.getEndTime();
+
+                if (course.getDepartment().equals(subject) && course.getNumber().equals(classNumber)) {
+                    // Check to see if a time was selected and search for tutors available at that time
+                    if (!day.equals("[Select day]")) {
+                        if (startTime.getDay().equals(day))
+                            if (time < 25.0f) {
+                                if (startTime.getTime() <= time && endTime.getTime() >= time)
+                                    tutorResults.add(relation.getTutor());
+                            }
+                    } else // No time was selected and all qualified tutors available at the specified
+                        // day will be selected
                         tutorResults.add(relation.getTutor());
                 }
-                else // No time was selected and all qualified tutors available at the specified
-                     // day will be selected
-                    tutorResults.add(relation.getTutor());
             }
-        }
 
-        Intent listIntent = new Intent(this, TutorListActivity.class);
-        listIntent.putExtra("Tutor Results", tutorResults);
-        listIntent.putExtra("Subject", subject);
-        listIntent.putExtra("Class Number", classNumber);
-        listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
-        startActivity(listIntent);
+            Intent listIntent = new Intent(this, TutorListActivity.class);
+            listIntent.putExtra("Tutor Results", tutorResults);
+            listIntent.putExtra("Subject", subject);
+            listIntent.putExtra("Class Number", classNumber);
+            listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
+            startActivity(listIntent);
+        }
     }
 
     public void clearSearch(View v) {

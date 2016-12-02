@@ -19,40 +19,40 @@ public class StudyGroup {
         this.mRoom = room;
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public String getmInstructor() {
+    public String getInstructor() {
         return mInstructor;
     }
 
-    public void setmInstructor(String mInstructor) {
+    public void setInstructor(String mInstructor) {
         this.mInstructor = mInstructor;
     }
 
-    public Course getmCourse() {
+    public Course getCourse() {
         return mCourse;
     }
 
-    public void setmCourse(Course mCourse) {
-        this.mCourse = mCourse;
+    public void setCourse(Course course) {
+        this.mCourse = course;
     }
 
-    public DayTime getmDayTime() {
+    public DayTime getDayTime() {
         return mDayTime;
     }
 
-    public void setmDayTime(DayTime mDayTime) {
-        this.mDayTime = mDayTime;
+    public void setDayTime(DayTime dayTime) {
+        this.mDayTime = dayTime;
     }
 
-    public String getmRoom() {
+    public String getRoom() {
         return mRoom;
     }
 
-    public void setmRoom(String mRoom) {
-        this.mRoom = mRoom;
+    public void setRoom(String room) {
+        this.mRoom = room;
     }
 
     @Override
