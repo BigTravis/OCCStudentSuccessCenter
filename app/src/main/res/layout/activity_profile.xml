@@ -11,4 +11,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ProfileActivity">
 
+    <TextView
+        android:text="@string/edit_profile_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/textView6"
+        android:clickable="true"
+        android:textIsSelectable="false"
+        android:textAllCaps="false"
+        android:textColorHighlight="@color/occDarkOrange"
+        android:textColor="@color/occDarkBlue"/>
 </RelativeLayout>
