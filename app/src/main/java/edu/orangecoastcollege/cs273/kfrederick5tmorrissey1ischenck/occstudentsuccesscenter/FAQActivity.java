@@ -7,19 +7,26 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.List;
 
 public class FAQActivity extends ListActivity {
 
-    private List<String> faq;
+    private ArrayAdapter faqListAdapter;
+    private ListView mFAQListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
 
-        setListAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.faq_list)));
+        String[] questions = getResources().getStringArray(R.array.faq_list);
+
+
+        //faqListAdapter = new ListAdapter (this, R.layout.activity_faq_item, )
+        mFAQListView = (ListView) findViewById(R.id.faqListView);
+        faqListAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, questions);
+
+        mFAQListView.setAdapter(faqListAdapter);
     }
 
     @Override

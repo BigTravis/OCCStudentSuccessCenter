@@ -17,4 +17,32 @@ public class MainActivity extends AppCompatActivity {
     {
         startActivity(new Intent(MainActivity.this, SearchActivity.class));
     }
+
+    public void onClickStudy (View v)
+    {
+        startActivity(new Intent(MainActivity.this, StudyGroupActivity.class));
+    }
+
+    public void onClickLocation(View v)
+    {
+        startActivity(new Intent(MainActivity.this, LocationsListActivity.class));
+    }
+
+
+    public void onClickFAQ (View v)
+    {
+        startActivity(new Intent(MainActivity.this, FAQActivity.class));
+    }
+
+
+    public void onClickContact (View v)
+    {
+        startActivity(new Intent(MainActivity.this, ContactActivity.class));
+    }
+
+    public void onClickProfile (View v)
+    {
+
+    }
+
 }
