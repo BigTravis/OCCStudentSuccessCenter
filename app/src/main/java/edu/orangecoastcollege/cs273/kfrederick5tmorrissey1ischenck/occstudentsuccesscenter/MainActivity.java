@@ -1,13 +1,11 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import java.io.File;
-import java.io.FileInputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,19 +46,19 @@ public class MainActivity extends AppCompatActivity {
      * If it does exist move to Profile Activity, if not move directly to Edit Profile Activity.
      * @param v
      */
-    public void onClickProfile (View v)
-    {
-        this.getFilesDir();
-        File userInfo = new File(userInfo);
-
-        if(fileExists(userInfo))
-
-        Profile user = new Profile();
-        if(user.getFirstName() == "")
-        startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
-        else
-        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-    }
+//    public void onClickProfile (View v)
+//    {
+//        this.getFilesDir();
+//        File userInfo = new File(userInfo);
+//
+//        if(fileExists(userInfo))
+//
+//        Profile user = new Profile();
+//        if(user.getFirstName() == "")
+//        startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
+//        else
+//        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+//    }
 
     public void toAskOnClick (View v)
     {
