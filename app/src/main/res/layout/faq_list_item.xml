@@ -12,5 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/faqTextView"
-        android:onClick="viewAnswer"/>
+        android:onClick="viewAnswer"
+        android:textColor="?android:attr/colorButtonNormal"/>
 </LinearLayout>
