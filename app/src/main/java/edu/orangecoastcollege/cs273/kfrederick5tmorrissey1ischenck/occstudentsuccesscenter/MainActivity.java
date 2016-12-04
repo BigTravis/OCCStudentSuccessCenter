@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, ContactActivity.class));
     }
 
+
+    /**
+     * Attempting to check if a userInfo file exists before moving to the next activity.
+     * If it does exist move to Profile Activity, if not move directly to Edit Profile Activity.
+     * @param v
+     */
     public void onClickProfile (View v)
     {
         this.getFilesDir();
