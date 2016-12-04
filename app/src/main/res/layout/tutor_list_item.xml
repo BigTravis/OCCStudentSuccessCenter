@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tutorListNameTextView"
         android:textSize="18sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/occPaleBlue"/>
 
     <TextView
         android:text="TextView"
@@ -20,5 +20,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/tutorListHoursTextView"
         android:textSize="18sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/occPaleBlue"/>
 </LinearLayout>

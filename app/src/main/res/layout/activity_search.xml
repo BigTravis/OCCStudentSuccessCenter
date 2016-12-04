@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:text="@string/student_success_center_hours"
@@ -26,7 +27,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
         android:textSize="12sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/white"/>
 
     <LinearLayout
         android:orientation="vertical"
