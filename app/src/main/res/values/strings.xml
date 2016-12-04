@@ -43,6 +43,7 @@
     <string name="resources_button">Resources</string>
     <string name="profile_button">Profile</string>
     <string name="to_ask_button">To Ask List</string>
+    <string name="study_groups">Study Groups</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">
