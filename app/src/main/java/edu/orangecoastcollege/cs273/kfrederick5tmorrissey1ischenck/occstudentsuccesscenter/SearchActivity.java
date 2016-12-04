@@ -58,10 +58,12 @@ public class SearchActivity extends AppCompatActivity {
         ArrayAdapter<String> daySpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllDays());
         daySpinner.setAdapter(daySpinnerAdapter);
+        daySpinner.setOnItemSelectedListener(daySpinnerListener);
 
         ArrayAdapter<String> hourSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllHours());
         hourSpinner.setAdapter(hourSpinnerAdapter);
+        hourSpinner.setOnItemSelectedListener(hourSpinnerListener);
 
         ArrayAdapter<String> minuteSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllMinutes());
@@ -95,7 +97,52 @@ public class SearchActivity extends AppCompatActivity {
     public AdapterView.OnItemSelectedListener classSpinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            //TODO
+            String selectedClass = parent.getItemAtPosition(position).toString();
+            if (!selectedClass.equals("[Select class]"))
+                daySpinner.setEnabled(true);
+
+            else {
+                daySpinner.setEnabled(false);
+                daySpinner.setSelection(0);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    public AdapterView.OnItemSelectedListener daySpinnerListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            String selectedDay = parent.getItemAtPosition(position).toString();
+            if (!selectedDay.equals("[Select day]"))
+                hourSpinner.setEnabled(true);
+
+            else {
+                hourSpinner.setEnabled(false);
+                hourSpinner.setSelection(0);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    public AdapterView.OnItemSelectedListener hourSpinnerListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            String selectedHour = parent.getItemAtPosition(position).toString();
+            if (!selectedHour.equals("[Select hour]"))
+                minuteSpinner.setEnabled(true);
+
+            else {
+                minuteSpinner.setEnabled(false);
+                minuteSpinner.setSelection(0);
+            }
         }
 
         @Override
@@ -160,9 +207,8 @@ public class SearchActivity extends AppCompatActivity {
         String subject = subjectSpinner.getSelectedItem().toString();
         String classNumber = classSpinner.getSelectedItem().toString();
         if (subject.equals("[Select subject]") || classNumber.equals("[Select class]"))
-        {
             Toast.makeText(this, "You must select a subject and class.", Toast.LENGTH_SHORT).show();
-        }
+
         else {
             String day = daySpinner.getSelectedItem().toString();
             float time;
@@ -177,8 +223,8 @@ public class SearchActivity extends AppCompatActivity {
                         || hourString.equals("11") || hourString.equals("12")))
                     time += 12.0f;
             }
-            // User did not select a time and search will not filter by time
-            else
+
+            else // User did not select a time and search will not filter by time
                 time = 25.0f;
 
             ArrayList<TutorTimeRelation> tutorTimeResults = new ArrayList<>();
@@ -188,14 +234,14 @@ public class SearchActivity extends AppCompatActivity {
                 DayTime endTime = relation.getEndTime();
 
                 if (course.getDepartment().equals(subject) && course.getNumber().equals(classNumber)) {
-                    // Check to see if a time was selected and search for tutors available at that time
                     if (!day.equals("[Select day]")) {
                         if (startTime.getDay().equals(day))
                             if (time < 25.0f) {
                                 if (startTime.getTime() <= time && endTime.getTime() >= time)
                                     tutorTimeResults.add(relation);
                             }
-                    } else // No time was selected and all qualified tutors available at the specified
+                    }
+                    else // No time was selected and all qualified tutors available at the specified
                         // day will be selected
                         tutorTimeResults.add(relation);
                 }
