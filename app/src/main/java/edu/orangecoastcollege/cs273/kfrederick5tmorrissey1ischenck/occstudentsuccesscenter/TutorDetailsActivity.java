@@ -28,18 +28,42 @@ public class TutorDetailsActivity extends AppCompatActivity {
 
         DBHelper db = new DBHelper(this);
         ArrayList<TutorTimeRelation> allRelations = db.getAllRelations();
-        String allCourses = "";
+        ArrayList<Course> allTutorCourses = new ArrayList<>();
+        ArrayList<DayTime> allTutorStartTimes = new ArrayList<>();
+        ArrayList<DayTime> allTutorEndTimes = new ArrayList<>();
+
         for (TutorTimeRelation singleRelation : allRelations)
         {
             if (tutorTimeRelation.getTutor().equals(singleRelation.getTutor()))
             {
-                allCourses += singleRelation.getCourse().toString() + "\n";
+                if (!allTutorCourses.contains(singleRelation.getCourse()))
+                    allTutorCourses.add(singleRelation.getCourse());
+                if (!allTutorStartTimes.contains(singleRelation.getStartTime())
+                && !allTutorEndTimes.contains(singleRelation.getEndTime())) {
+                    allTutorStartTimes.add(singleRelation.getStartTime());
+                    allTutorEndTimes.add(singleRelation.getEndTime());
+                }
             }
         }
 
+        String allCourses = "";
+        for (Course singleCourse : allTutorCourses)
+        {
+            allCourses += singleCourse.toString() + "\n";
+        }
+
         tutorClassTextView.setText(allCourses);
-        tutorHoursTextView.setText(tutorTimeRelation.getStartTime().convertFloatTimeToString() + " - "
-                + tutorTimeRelation.getEndTime().convertFloatTimeToString());
+
+        String allTimes = "";
+        for (int i = 0; i < allTutorStartTimes.size(); ++i)
+        {
+            DayTime startTime = allTutorStartTimes.get(i);
+            DayTime endTime = allTutorEndTimes.get(i);
+            allTimes += startTime.getDay() + ": "
+                    + startTime.convertFloatTimeToString() + " - "
+                    + endTime.convertFloatTimeToString() + "\n";
+        }
+        tutorHoursTextView.setText(allTimes);
 
     }
 

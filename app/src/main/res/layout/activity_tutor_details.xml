@@ -18,43 +18,61 @@
         android:layout_height="wrap_content"
         android:id="@+id/tutorNameTextView"
         android:textSize="24sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/occDarkBlue"/>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="@string/tutor_hours_text"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:layout_weight="1"
-            android:layout_margin="5dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TextView
-            android:text="Tutor Hours"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tutorHoursTextView"
-            android:layout_weight="1"
-            android:layout_margin="5dp" />
+            <TextView
+                android:text="@string/tutor_hours_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/occDarkBlue"/>
+
+            <TextView
+                android:text="Tutor Hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tutorHoursTextView"
+                android:layout_margin="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="@string/tutor_courses_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/occDarkBlue"/>
+
+            <TextView
+                android:text="Tutor Classes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tutorClassTextView"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+
     </LinearLayout>
-
-    <TextView
-        android:text="@string/tutor_courses_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:layout_marginTop="10dp" />
-
-    <TextView
-        android:text="Tutor Classes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tutorClassTextView"
-        android:padding="5dp" />
 
     <Button
         android:text="@string/return_to_search_text"
