@@ -2,7 +2,6 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ian on 12/3/2016.
+ * Created by Link on 12/3/2016.
  */
 
 public class FaqListAdapter extends ArrayAdapter<String> {
@@ -29,7 +28,6 @@ public class FaqListAdapter extends ArrayAdapter<String> {
         mResourceId = resourceId;
     }
 
-    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final String question = mFaqList.get(position);
