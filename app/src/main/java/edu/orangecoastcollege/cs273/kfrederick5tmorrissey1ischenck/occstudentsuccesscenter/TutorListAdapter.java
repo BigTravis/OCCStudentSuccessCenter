@@ -40,7 +40,7 @@ public class TutorListAdapter extends ArrayAdapter<TutorTimeRelation> {
         tutorListLinearLayout.setTag(selectedTutorTimeRelation);
         tutorListNameTextView.setText(selectedTutorTimeRelation.getTutor().getFirstName() + " "
                 + selectedTutorTimeRelation.getTutor().getLastName());
-        // TODO add hours text to tutorListHoursTextView
+
         tutorListHoursTextView.setText
                 (selectedTutorTimeRelation.getStartTime().convertFloatTimeToString() + " - "
                         + selectedTutorTimeRelation.getEndTime().convertFloatTimeToString());
