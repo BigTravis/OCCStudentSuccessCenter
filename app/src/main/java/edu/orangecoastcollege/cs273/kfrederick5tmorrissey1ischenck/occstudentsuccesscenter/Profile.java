@@ -1,5 +1,8 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
+import android.content.Context;
+
+import java.io.File;
 import java.lang.reflect.Array;
 
 /**
@@ -98,6 +101,12 @@ public class Profile {
     }
 
     public void addClass() {
-
+        mNumClasses++;
     }
+
+    public void removeClass()
+    {
+        mNumClasses--;
+    }
+
 }
