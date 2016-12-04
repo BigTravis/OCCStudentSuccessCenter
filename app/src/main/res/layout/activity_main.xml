@@ -146,7 +146,7 @@
                     android:id="@+id/temp"
                     android:layout_weight="1"
                     android:elegantTextHeight="false"
-                    />
+                    android:onClick="toAskOnClick"/>
                 <Button
                     android:text="@string/profile_button"
                     android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                     android:id="@+id/hold"
                     android:layout_weight="1"
                     android:elegantTextHeight="false"
-                    />
+                    android:onClick="onClickProfile"/>
             </LinearLayout>
         </LinearLayout>
 

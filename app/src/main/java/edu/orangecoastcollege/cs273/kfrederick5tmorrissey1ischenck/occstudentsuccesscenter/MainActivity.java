@@ -28,12 +28,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, LocationsListActivity.class));
     }
 
-
     public void onClickFAQ (View v)
     {
         startActivity(new Intent(MainActivity.this, FAQActivity.class));
     }
-
 
     public void onClickContact (View v)
     {
@@ -42,7 +40,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickProfile (View v)
     {
-
+        Profile user = new Profile();
+        if(user.getFirstName() == "")
+        startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
+        else
+        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
     }
 
+    public void toAskOnClick (View v)
+    {
+        startActivity(new Intent(MainActivity.this, ToAskActivity.class));
+    }
+
+    public void onClickResources(View v)
+    {
+        startActivity(new Intent(MainActivity.this, ResourcesActivity.class));
+    }
 }
