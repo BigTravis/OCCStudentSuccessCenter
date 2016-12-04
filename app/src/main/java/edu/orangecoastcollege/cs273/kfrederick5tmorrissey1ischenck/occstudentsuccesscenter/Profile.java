@@ -14,10 +14,8 @@ public class Profile {
     private String mFirstName;
     private String mLastName;
     private String mStudentNum;
-    private String[] mSubjects;
-    private String[] mClasses;
-    private int mNumSubjects;
-    private int mNumClasses;
+    private String[] mSubClasses;
+    private int mNumSubClasses;
 
 
 
@@ -26,22 +24,18 @@ public class Profile {
         mFirstName = "";
         mLastName = "";
         mStudentNum = "";
-        mSubjects[0] = "";
-        mClasses[0] = "";
-        mNumSubjects = 0;
-        mNumClasses = 0;
+        mSubClasses[0] = "";
+        mNumSubClasses = 0;
     }
 
-    public Profile(String fName, String lName, String studentNum, String[] subjects,
-                   int numSubjects, String[] classes, int numClasses)
+    public Profile(String fName, String lName, String studentNum, String[] subClasses,
+                   int numSubClasses)
     {
         mFirstName = fName;
         mLastName = lName;
         mStudentNum = studentNum;
-        mSubjects = subjects;
-        mNumSubjects = numSubjects;
-        mClasses = classes;
-        mNumClasses = numClasses;
+        mSubClasses = subClasses;
+        mNumSubClasses = numSubClasses;
     }
 
     public String getFirstName() {
@@ -68,45 +62,29 @@ public class Profile {
         mStudentNum = studentNum;
     }
 
-    public String[] getSubjects() {
-        return mSubjects;
+    public String[] getSubClasses() {
+        return mSubClasses;
     }
 
-    public void setSubjects(String[] subjects) {
-        mSubjects = subjects;
+    public void setSubClasses(String[] subClasses) {
+        mSubClasses = subClasses;
     }
 
-    public String[] getClasses() {
-        return mClasses;
+    public int getNumSubClasses() {
+        return mNumSubClasses;
     }
 
-    public void setClasses(String[] classes) {
-        mClasses = classes;
+    public void setNumSubClasses(int numSubClasses) {
+        mNumSubClasses = numSubClasses;
     }
 
-    public int getNumClasses() {
-        return mNumClasses;
-    }
-
-    public void setNumClasses(int numClasses) {
-        mNumClasses = numClasses;
-    }
-
-    public int getNumSubjects() {
-        return mNumSubjects;
-    }
-
-    public void setNumSubjects(int numSubjects) {
-        mNumSubjects = numSubjects;
-    }
-
-    public void addClass() {
-        mNumClasses++;
-    }
-
-    public void removeClass()
+    public void addSubClass()
     {
-        mNumClasses--;
+        mNumSubClasses++;
     }
 
+    public void removeSubClass()
+    {
+        mNumSubClasses--;
+    }
 }

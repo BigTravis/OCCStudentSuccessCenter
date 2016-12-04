@@ -15,13 +15,15 @@
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/courseTextView"/>
+            android:id="@+id/courseTextView"
+            android:textColor="@color/occPaleBlue"/>
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/timeTextView"/>
+            android:id="@+id/timeTextView"
+            android:textColor="@color/occPaleBlue"/>
 
     </LinearLayout>
 
@@ -36,13 +38,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/instructorTextView"
-            android:clickable="false"/>
+            android:clickable="false"
+            android:textColor="@color/occPaleBlue"/>
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/roomTextView"/>
+            android:id="@+id/roomTextView"
+            android:textColor="@color/occPaleBlue"/>
     </LinearLayout>
 
 </LinearLayout>
