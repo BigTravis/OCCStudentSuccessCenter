@@ -235,11 +235,15 @@ public class SearchActivity extends AppCompatActivity {
 
                 if (course.getDepartment().equals(subject) && course.getNumber().equals(classNumber)) {
                     if (!day.equals("[Select day]")) {
-                        if (startTime.getDay().equals(day))
+                        if (startTime.getDay().equals(day)) {
                             if (time < 25.0f) {
                                 if (startTime.getTime() <= time && endTime.getTime() >= time)
                                     tutorTimeResults.add(relation);
                             }
+                            else
+                                tutorTimeResults.add(relation);
+                        }
+
                     }
                     else // No time was selected and all qualified tutors available at the specified
                         // day will be selected

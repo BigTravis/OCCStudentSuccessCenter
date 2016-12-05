@@ -1,6 +1,5 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -137,7 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + USER_INFO_KEY_FIELD_ID + " INTEGER, "
                 + FIELD_USER_FNAME + " TEXT, "
                 + FIELD_USER_LNAME + " TEXT, "
-                + FIELD_USER_NUMBER + " TEXT, "
+                + FIELD_USER_NUMBER + " TEXT"
                 + ")";
         database.execSQL(table);
 
