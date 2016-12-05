@@ -35,7 +35,7 @@
     <string name="default_minutes">00</string>
 
     <!--Variable Text-->
-    <string name="subject_time_header" formatted="false">%s %s at %s</string>
+    <string name="subject_time_header" formatted="false">%s %s %s</string>
 
     <!--Buttons-->
     <string name="search_button_text">Search</string>
