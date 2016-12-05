@@ -94,4 +94,5 @@
         the front desk of the Student Success center. Most study sessions are once a week for 50
         minutes and new students are welcome to join an existing study group at any time.</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

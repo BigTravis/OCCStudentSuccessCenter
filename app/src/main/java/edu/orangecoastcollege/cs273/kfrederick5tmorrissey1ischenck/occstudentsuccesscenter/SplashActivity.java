@@ -26,9 +26,9 @@ public class SplashActivity extends AppCompatActivity {
         Timer timer = new Timer();
         timer.schedule(timerTask, 3000);
 
-        deleteDatabase(DBHelper.DATABASE_NAME);
-        db = new DBHelper(this);
-        populateDatabase();
+//        deleteDatabase(DBHelper.DATABASE_NAME);
+//        db = new DBHelper(this);
+//        populateDatabase();
 
 //        try{
 //            db.getReadableDatabase();
