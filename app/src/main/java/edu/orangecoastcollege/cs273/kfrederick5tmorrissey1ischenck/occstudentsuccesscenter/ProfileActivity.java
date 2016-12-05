@@ -36,10 +36,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         coursesListView = (ListView) findViewById(R.id.coursesListView);
 
-
-
-
-
         //User user = userDB.getUser(0);
         //fName.setText(user.getfName());
         //lName.setText(user.getlName());
