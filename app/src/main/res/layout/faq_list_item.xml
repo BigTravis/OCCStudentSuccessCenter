@@ -13,5 +13,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/faqTextView"
         android:onClick="viewAnswer"
-        android:textColor="@color/occPaleBlue"/>
+        android:textColor="@color/occPaleBlue"
+        android:textSize="20sp"/>
 </LinearLayout>

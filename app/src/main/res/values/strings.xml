@@ -22,8 +22,8 @@
     <string name="english">English</string>
     <string name="chemistry">Chemistry</string>
     <string name="biology">Biology</string>
-    <string name="subject_drop_down_text">Subject</string>
-    <string name="class_drop_down_text">Class</string>
+    <string name="subject_drop_down_text">[Select Subject]</string>
+    <string name="class_drop_down_text">[Select Class]</string>
     <string name="day_drop_down_text">Pick a day.</string>
     <string name="hour_drop_down_text">What time?</string>
     <string name="default_minutes">00</string>
@@ -44,6 +44,8 @@
     <string name="profile_button">Profile</string>
     <string name="to_ask_button">To Ask List</string>
     <string name="study_groups">Study Groups</string>
+    <string name="remove_selected_button">Remove Selected</string>
+    <string name="add_class_button">Add Class</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">
@@ -61,7 +63,7 @@
     <string-array name="faq_details">
         <item name="hours_a">The Success Center is open Monday through Thursday from
         9 a.m. to 7 p.m., Friday 9 a.m. to 3 p.m. and Saturday from 11 a.m. to 3 p.m. We are
-        closed Sundays</item>
+        closed Sundays.</item>
     <item name="contact_a">The best way for you to contact us is by phone at
         (714)432-5559.</item>
     <item name="where_a">We are located in the Classrooms and Labs building (C&amp;L) 103
