@@ -95,4 +95,7 @@
         minutes and new students are welcome to join an existing study group at any time.</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="contact_us_text">Contact Us</string>
+    <string name="address_text">2701 Fairview Rd\nCosta Mesa\nCA 92626\nClassrooms and Labs Building\nRoom 103 </string>
+    <string name="phone_text">(714) 432-5559</string>
 </resources>
