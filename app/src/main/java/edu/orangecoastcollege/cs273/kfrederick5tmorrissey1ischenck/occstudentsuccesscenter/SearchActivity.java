@@ -251,6 +251,7 @@ public class SearchActivity extends AppCompatActivity {
             listIntent.putExtra("Tutor Results", tutorTimeResults);
             listIntent.putExtra("Subject", subject);
             listIntent.putExtra("Class Number", classNumber);
+            listIntent.putExtra("Day", daySpinner.getSelectedItem().toString());
             listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
             startActivity(listIntent);
         }

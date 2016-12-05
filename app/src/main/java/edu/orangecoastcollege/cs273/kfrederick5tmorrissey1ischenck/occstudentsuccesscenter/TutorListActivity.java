@@ -22,6 +22,7 @@ public class TutorListActivity extends AppCompatActivity {
         ArrayList<TutorTimeRelation> tutorTimeRelations = getIntent().getParcelableArrayListExtra("Tutor Results");
         String subject = getIntent().getStringExtra("Subject");
         String className = getIntent().getStringExtra("Class Number");
+        String day = getIntent().getStringExtra("Day");
         String time = getIntent().getStringExtra("Time");
 
         mTutorListAdapter = new TutorListAdapter(this, R.layout.tutor_list_item, tutorTimeRelations);
@@ -29,8 +30,16 @@ public class TutorListActivity extends AppCompatActivity {
         mTutorListView.setAdapter(mTutorListAdapter);
 
         mTutorNameTextView = (TextView) findViewById(R.id.tutorNameTextView);
+
+        String timeString = "";
+        if (!day.equals("[Select day]"))
+        {
+            timeString += ("at " + day);
+            if (!time.equals("[Select hours][Select minutes]"))
+                timeString += ": " + time;
+        }
         mTutorNameTextView.setText(String.format(mTutorNameTextView.getText().toString(),
-                subject, className, time));
+                subject, className, timeString));
 
 
     }

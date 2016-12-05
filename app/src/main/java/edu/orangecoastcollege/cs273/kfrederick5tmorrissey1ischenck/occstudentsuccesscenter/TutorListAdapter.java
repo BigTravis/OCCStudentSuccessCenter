@@ -35,14 +35,15 @@ public class TutorListAdapter extends ArrayAdapter<TutorTimeRelation> {
 
         LinearLayout tutorListLinearLayout = (LinearLayout) view.findViewById(R.id.tutorListLinearLayout);
         TextView tutorListNameTextView = (TextView) view.findViewById(R.id.tutorListNameTextView);
-        TextView tutorListHoursTextView = (TextView) view.findViewById(R.id.tutorListHoursTextView);
+        TextView tutorListTimesTextView = (TextView) view.findViewById(R.id.tutorListHoursTextView);
 
         tutorListLinearLayout.setTag(selectedTutorTimeRelation);
         tutorListNameTextView.setText(selectedTutorTimeRelation.getTutor().getFirstName() + " "
                 + selectedTutorTimeRelation.getTutor().getLastName());
 
-        tutorListHoursTextView.setText
-                (selectedTutorTimeRelation.getStartTime().convertFloatTimeToString() + " - "
+        tutorListTimesTextView.setText
+                (selectedTutorTimeRelation.getStartTime().getDay() + ": " +
+                        selectedTutorTimeRelation.getStartTime().convertFloatTimeToString() + " - "
                         + selectedTutorTimeRelation.getEndTime().convertFloatTimeToString());
 
 

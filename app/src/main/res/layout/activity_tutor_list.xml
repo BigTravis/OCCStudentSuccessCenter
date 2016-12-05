@@ -28,7 +28,8 @@
         android:id="@+id/tutorNameTextView"
         android:textSize="24sp"
         android:textAlignment="center"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_marginBottom="15dp"/>
 
     <ListView
         android:layout_width="match_parent"
