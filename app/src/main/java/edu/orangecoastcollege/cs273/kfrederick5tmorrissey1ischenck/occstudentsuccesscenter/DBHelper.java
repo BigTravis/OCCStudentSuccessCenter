@@ -1,5 +1,6 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -57,6 +58,19 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_STUDY_COURSE_ID = "course_id";
     private static final String FIELD_TIME_ID = "time_id";
     private static final String FIELD_ROOM = "room";
+
+
+    private static final String USER_INFO_TABLE = "UserInfo";
+    private static final String USER_INFO_KEY_FIELD_ID = "id";
+    private static final String FIELD_USER_FNAME = "first_name";
+    private static final String FIELD_USER_LNAME = "last_name";
+    private static final String FIELD_USER_NUMBER = "student_num";
+
+    private static final String USER_COURSES_TABLE = "UserCourses";
+    private static final String USER_COURSES_KEY_FIELD_ID = "id";
+    private static final String FIELD_SUBJECT = "course_subject";
+    private static final String FIELD_CLASS = "course_class";
+    private static final String FIELD_IS_SELECTED = "selected";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -118,6 +132,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 + TIMES_TABLE + "(" + TIMES_KEY_FIELD_ID + ")"
                 + ")";
         database.execSQL(table);
+
+        table ="CREATE TABLE " + USER_INFO_TABLE + "("
+                + USER_INFO_KEY_FIELD_ID + " INTEGER, "
+                + FIELD_USER_FNAME + " TEXT, "
+                + FIELD_USER_LNAME + " TEXT, "
+                + FIELD_USER_NUMBER + " TEXT, "
+                + ")";
+        database.execSQL(table);
+
+        table = "CREATE TABLE " + USER_COURSES_TABLE + "("
+                + USER_COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + FIELD_SUBJECT + " TEXT, "
+                + FIELD_CLASS + " TEXT, "
+                + FIELD_IS_SELECTED + " INTEGER" + ")";
+        database.execSQL(table);
     }
 
     /**
@@ -134,6 +163,8 @@ public class DBHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + TIMES_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TUTOR_TIME_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + STUDY_GROUPS_TABLE);
+        database.execSQL("DROP TABLE IF EXISTS " + USER_INFO_TABLE);
+        database.execSQL("DROP TABLE IF EXISTS " + USER_COURSES_TABLE);
 
         onCreate(database);
     }
@@ -284,6 +315,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.close();
         return tutor;
+    }
+
+    public User getUser(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                USER_INFO_TABLE, new String[]{
+                        USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
+                        FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", new String[]
+                        {String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        User user = new User(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3));
+        db.close();
+        return user;
     }
 
     /**
@@ -710,5 +760,82 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return true;
+    }
+
+    public void addUser(User newUser)
+    {
+        SQLiteDatabase userDB = this.getWritableDatabase();
+
+        ContentValues val = new ContentValues();
+
+        val.put(FIELD_USER_FNAME, newUser.getfName());
+        val.put(FIELD_USER_LNAME, newUser.getlName());
+        val.put(FIELD_USER_NUMBER, newUser.getUserNum());
+
+        userDB.insert(USER_INFO_TABLE, null, val);
+
+        userDB.close();
+    }
+
+    public void addUserCourse(User newCourse)
+    {
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_SUBJECT, newCourse.getSubject());
+        values.put(FIELD_CLASS, newCourse.getuClass());
+        values.put(FIELD_IS_SELECTED, newCourse.getIsSelected());
+
+        courseDB.insert(USER_COURSES_TABLE, null, values);
+
+        courseDB.close();
+    }
+
+    public ArrayList<User> getAllUserCourses()
+    {
+        SQLiteDatabase courseDB = this.getReadableDatabase();
+
+        ArrayList<User> allUserCourses = new ArrayList<>();
+
+        Cursor results = courseDB.query(USER_COURSES_TABLE, null, null, null, null, null, null);
+
+        if(results.moveToFirst())
+        {
+            do {
+                int id = results.getInt(0);
+                String uSubject = results.getString(1);
+                String uClass = results.getString(2);
+                int isSelected = results.getInt(3);
+                allUserCourses.add(new User(id, uSubject, uClass, isSelected));
+            }while (results.moveToNext());
+        }
+
+        courseDB.close();
+        results.close();
+        return allUserCourses;
+    }
+
+    public void updateCourse(User existingCourse)
+    {
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_SUBJECT, existingCourse.getSubject());
+        values.put(FIELD_CLASS, existingCourse.getuClass());
+        values.put(FIELD_IS_SELECTED, existingCourse.getIsSelected());
+
+        courseDB.update(USER_INFO_TABLE, values, USER_COURSES_KEY_FIELD_ID + "=?",
+                new String[] {String.valueOf(existingCourse.getId())});
+
+        courseDB.close();
+    }
+
+    public void deleteSelectedCourses()
+    {
+        SQLiteDatabase courseDB = this.getReadableDatabase();
+        courseDB.delete(USER_INFO_TABLE, FIELD_IS_SELECTED + "=1", null);
+        courseDB.close();
     }
 }

@@ -46,19 +46,14 @@ public class MainActivity extends AppCompatActivity {
      * If it does exist move to Profile Activity, if not move directly to Edit Profile Activity.
      * @param v
      */
-//    public void onClickProfile (View v)
-//    {
-//        this.getFilesDir();
-//        File userInfo = new File(userInfo);
-//
-//        if(fileExists(userInfo))
-//
-//        Profile user = new Profile();
-//        if(user.getFirstName() == "")
+    public void onClickProfile (View v)
+    {
+//        User user;
+//        if(user.getfName() == "" && user.getlName() == "")
 //        startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
 //        else
-//        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-//    }
+        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+    }
 
     public void toAskOnClick (View v)
     {

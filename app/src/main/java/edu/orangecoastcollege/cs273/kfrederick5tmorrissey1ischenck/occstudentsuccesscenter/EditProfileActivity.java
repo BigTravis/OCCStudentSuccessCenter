@@ -1,27 +1,27 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.id;
-
 public class EditProfileActivity extends AppCompatActivity {
 
     private DBHelper db;
-    private List<Course> mCourses;
+    private List<User> userCourseList;
     private EditProfileAdapter mProfileAdapter;
 
     private EditText fName;
     private EditText lName;
+    private EditText studentNum;
     private Spinner subjectSpinner;
     private Spinner classSpinner;
 
@@ -31,10 +31,13 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         db = new DBHelper(this);
-        mCourses = db.getAllCourses();
+        userCourseList = db.getAllUserCourses();
+
+        mProfileAdapter = new EditProfileAdapter(this, R.layout.edit_course_item, userCourseList);
 
         fName = (EditText) findViewById(R.id.firstNameEditText);
         lName = (EditText) findViewById(R.id.lastNameEditText);
+        studentNum = (EditText) findViewById(R.id.studentNumEditText);
         subjectSpinner = (Spinner) findViewById(R.id.editSubjectSpinner);
         classSpinner = (Spinner) findViewById(R.id.editClassSpinner);
 
@@ -49,10 +52,65 @@ public class EditProfileActivity extends AppCompatActivity {
         classSpinner.setOnItemSelectedListener(classSpinnerListener);
     }
 
-    public void addClass(View v)
+    public void saveInfoOnClick(View v)
     {
-        String course = mCourses.toString();
-        if(!subjectSpinner.equals(R.string.subject_drop_down_text));
+        User userInfo;
+        if(fName.equals("") && lName.equals(""))
+            Toast.makeText(this, R.string.first_or_last_error, Toast.LENGTH_SHORT);
+        else
+        {
+            userInfo = new User();
+            userInfo.setfName(fName.toString());
+            userInfo.setlName(lName.toString());
+            userInfo.setUserNum(studentNum.toString());
+            db.addUser(userInfo);
+            Toast.makeText(this, R.string.save_successful, Toast.LENGTH_SHORT);
+        }
+    }
+
+    public void addClassOnClick(View v)
+    {
+        User newCourse;
+        if(!subjectSpinner.equals(R.string.subject_drop_down_text))
+            Toast.makeText(this, R.string.add_class_error, Toast.LENGTH_SHORT);
+        else
+        {
+            newCourse = new User();
+            newCourse.setIsSelected(0);
+            newCourse.setSubject(subjectSpinner.toString());
+            newCourse.setuClass(classSpinner.toString());
+            db.addUserCourse(newCourse);
+            subjectSpinner.setSelection(0);
+            classSpinner.setSelection(0);
+        }
+    }
+
+    public void changeCourseStatus(View v)
+    {
+        if(v instanceof CheckBox)
+        {
+            CheckBox selectedCheck = (CheckBox) v;
+            User selectedCourse = (User) selectedCheck.getTag();
+
+            selectedCourse.setIsSelected(selectedCheck.isChecked()? 1 : 0);
+
+            db.updateCourse(selectedCourse);
+        }
+    }
+
+    public void removeSelectedOnClick(View v)
+    {
+        int listSize = userCourseList.size();
+        for(int i = 0; i < listSize; i++){
+            if(userCourseList.get(i).getIsSelected() == 1)
+            {
+                userCourseList.remove(i);
+                i--;
+            }
+        }
+        db.deleteSelectedCourses();
+
+        mProfileAdapter.notifyDataSetChanged();
 
 
     }
@@ -92,24 +150,24 @@ public class EditProfileActivity extends AppCompatActivity {
     };
 
     private void updateClassSpinner(String input) {
-        ArrayList<String> modifiedCourseList = new ArrayList<>();
-        modifiedCourseList.add("[Select class]");
-        for (Course course : mCourses)
-            if (course.getDepartment().equals(input))
-                modifiedCourseList.add(course.getNumber());
+        ArrayList<String> modifiedUserList = new ArrayList<>();
+        modifiedUserList.add("[Select class]");
+        for (User user : userCourseList)
+            if (user.getSubject().equals(input))
+                modifiedUserList.add(user.getuClass());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                modifiedCourseList);
+                modifiedUserList);
         classSpinner.setAdapter(adapter);
     }
 
     private String[] getAllSubjectsNames() {
         ArrayList<String> subjectNames = new ArrayList<>();
         subjectNames.add("[Select subject]");
-        int size = mCourses.size();
+        int size = userCourseList.size();
 
         for (int i = 0; i < size; ++i) {
-            String subject = mCourses.get(i).getDepartment();
+            String subject = userCourseList.get(i).getSubject();
             if (!subjectNames.contains(subject))
                 subjectNames.add(subject);
         }
@@ -117,12 +175,12 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private String[] getAllClassNumbers() {
-        String[] classNumbers = new String[mCourses.size() + 1];
+        String[] classNumbers = new String[userCourseList.size() + 1];
         classNumbers[0] = "[Select class]";
         int size = classNumbers.length;
 
         for (int i = 1; i < size; ++i)
-            classNumbers[i] = mCourses.get(i - 1).getNumber();
+            classNumbers[i] = userCourseList.get(i - 1).getuClass();
 
         return classNumbers;
     }

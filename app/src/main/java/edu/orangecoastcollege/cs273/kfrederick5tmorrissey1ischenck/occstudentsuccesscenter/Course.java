@@ -12,7 +12,6 @@ public class Course implements Parcelable {
     private int id;
     private String department;
     private String number;
-    private int isSelected;
 
     /**
      * Default Constructor
@@ -122,14 +121,6 @@ public class Course implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    public int getIsSelected() {
-        return isSelected;
-    }
-
-    public void setIsSelected(int isSelected) {
-        this.isSelected = isSelected;
     }
 
     /**

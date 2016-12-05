@@ -30,7 +30,8 @@ public class TutorListAdapter extends ArrayAdapter<TutorTimeRelation> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final TutorTimeRelation selectedTutorTimeRelation = mTutorTimeList.get(position);
 
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater)
+                mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
 
         LinearLayout tutorListLinearLayout = (LinearLayout) view.findViewById(R.id.tutorListLinearLayout);

@@ -9,6 +9,12 @@
     <string name="tutor_courses_text">Courses available:</string>
     <string name="edit_profile_text">Edit Profile</string>
 
+    <!--Toasts-->
+    <string name="save_successful">Your information has been saved.</string>
+
+    <!--Error Messages-->
+    <string name="add_class_error">You must select a subject and class before adding.</string>
+    <string name="first_or_last_error">First Name or Last Name field must have an entry.</string>
 
     <!--Unused-->
     <string name="title_activity_menu">MenuActivity</string>
@@ -46,6 +52,8 @@
     <string name="study_groups">Study Groups</string>
     <string name="remove_selected_button">Remove Selected</string>
     <string name="add_class_button">Add Class</string>
+    <string name="save_name_button">Save Name</string>
+    <string name="student_info_button">Save User Info</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">
