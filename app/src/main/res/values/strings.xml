@@ -54,7 +54,7 @@
     <string name="location_button">Location</string>
     <string name="resources_button">Resources</string>
     <string name="profile_button">Profile</string>
-    <string name="to_ask_button">To Ask List</string>
+    <string name="to_ask_button">Questions for Tutor</string>
     <string name="study_groups">Study Groups</string>
     <string name="remove_selected_button">Remove Selected</string>
     <string name="add_class_button">Add Class</string>
