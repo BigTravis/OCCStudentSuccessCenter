@@ -1,15 +1,15 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends NavDrawerActivity {
 
     private DBHelper userDB;
     private UserListAdapter mUserListAdapter;
@@ -22,7 +22,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
+        getLayoutInflater().inflate(R.layout.activity_profile, contentFrameLayout);
 
         //userDB = new DBHelper(this);
 

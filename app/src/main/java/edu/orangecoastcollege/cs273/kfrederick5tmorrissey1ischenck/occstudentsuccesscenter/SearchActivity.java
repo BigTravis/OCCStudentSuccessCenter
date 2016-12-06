@@ -2,18 +2,17 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends NavDrawerActivity {
 
     private DBHelper db;
     private List<Course> mCourses;
@@ -25,13 +24,12 @@ public class SearchActivity extends AppCompatActivity {
     private Spinner daySpinner;
     private Spinner hourSpinner;
     private Spinner minuteSpinner;
-    private Button searchButton;
-    private Button clearButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
+        getLayoutInflater().inflate(R.layout.activity_search, contentFrameLayout);
 
         db = new DBHelper(this);
         mCourses = db.getAllCourses();
@@ -68,10 +66,13 @@ public class SearchActivity extends AppCompatActivity {
         ArrayAdapter<String> minuteSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllMinutes());
         minuteSpinner.setAdapter(minuteSpinnerAdapter);
-
-        searchButton = (Button) findViewById(R.id.searchButton);
-        clearButton = (Button) findViewById(R.id.clearButton);
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        navigationView.getMenu().getItem(1).setChecked(true);
+//    }
 
     public AdapterView.OnItemSelectedListener subjectSpinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override

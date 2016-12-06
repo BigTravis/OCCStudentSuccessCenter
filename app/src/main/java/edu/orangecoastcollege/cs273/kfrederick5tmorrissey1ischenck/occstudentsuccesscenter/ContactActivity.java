@@ -6,10 +6,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.FrameLayout;
 
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends NavDrawerActivity {
 
     private static final int CALL_PHONE_REQUEST_CODE = 111;
     private Context mContext;
@@ -17,7 +17,9 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
+        getLayoutInflater().inflate(R.layout.activity_contact, contentFrameLayout);
+
         if (ActivityCompat.checkSelfPermission(getBaseContext(),
                 android.Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {

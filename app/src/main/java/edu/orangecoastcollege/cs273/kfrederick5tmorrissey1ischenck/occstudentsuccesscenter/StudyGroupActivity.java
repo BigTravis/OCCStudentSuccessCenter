@@ -1,12 +1,12 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class StudyGroupActivity extends AppCompatActivity {
+public class StudyGroupActivity extends NavDrawerActivity {
 
     private StudyGroupAdapter mStudyGroupAdapter;
     private ListView mStudyGroupListView;
@@ -15,7 +15,8 @@ public class StudyGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_study_group);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
+        getLayoutInflater().inflate(R.layout.activity_study_group, contentFrameLayout);
         db = new DBHelper(this);
         ArrayList<StudyGroup> studyGroups = db.getAllStudyGroups();
 

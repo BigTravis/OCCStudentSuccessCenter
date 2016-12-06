@@ -2,15 +2,16 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-public class FAQDetailActivity extends AppCompatActivity {
+public class FAQDetailActivity extends NavDrawerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faqdetail);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
+        getLayoutInflater().inflate(R.layout.activity_faqdetail, contentFrameLayout);
 
         Intent intent = getIntent();
 

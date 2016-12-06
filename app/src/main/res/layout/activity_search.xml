@@ -12,29 +12,21 @@
     tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.SearchActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:text="@string/app_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:text="@string/student_success_center_hours"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textSize="12sp"
-        android:textAlignment="center"
-        android:textColor="@color/white"/>
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp">
+
+        <TextView
+            android:text="@string/student_success_center_hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_marginBottom="26dp"/>
 
         <LinearLayout
             android:orientation="horizontal"

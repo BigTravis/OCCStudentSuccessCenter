@@ -16,6 +16,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+//        deleteDatabase(DBHelper.DATABASE_NAME);
+//        db = new DBHelper(this);
+//        populateDatabase();
+
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -25,10 +29,8 @@ public class SplashActivity extends AppCompatActivity {
         };
         Timer timer = new Timer();
         timer.schedule(timerTask, 3000);
-//
-//        deleteDatabase(DBHelper.DATABASE_NAME);
-//        db = new DBHelper(this);
-//        populateDatabase();
+
+
 
 //        try{
 //            db.getReadableDatabase();

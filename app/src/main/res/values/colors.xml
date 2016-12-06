@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="occDarkBlue">#0c1e45</color>
-    <color name="occPaleBlue">#394C85</color>
+    <color name="occPaleBlue">#394c85</color>
     <color name="occDarkOrange">#f85704</color>
     <color name="occLightOrange">#f59146</color>
     <color name="occGradientLightOrange">#f57e25</color>
