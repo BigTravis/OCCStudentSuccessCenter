@@ -54,6 +54,9 @@
     <string name="add_class_button">Add Class</string>
     <string name="save_name_button">Save Name</string>
     <string name="student_info_button">Save User Info</string>
+    <string name="to_ask_title">Questions for the Tutor</string>
+    <string name="add_question_button">Add Question</string>
+    <string name="clear_questions_button">Clear Selected</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">

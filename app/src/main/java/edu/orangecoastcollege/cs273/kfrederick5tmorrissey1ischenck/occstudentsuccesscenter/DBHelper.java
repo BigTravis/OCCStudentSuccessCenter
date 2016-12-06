@@ -71,6 +71,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_CLASS = "course_class";
     private static final String FIELD_IS_SELECTED = "selected";
 
+    private static final String QUESTIONS_TABLE = "Questions";
+    private static final String QUESTIONS_KEY_FIELD_ID = "id";
+    private static final String FIELD_QUESTION = "question";
+    private static final String FIELD_IS_ANSWERED = "is_answered";
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
@@ -146,6 +151,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 + FIELD_CLASS + " TEXT, "
                 + FIELD_IS_SELECTED + " INTEGER" + ")";
         database.execSQL(table);
+
+        table = "CREATE TABLE " + QUESTIONS_TABLE + "("
+                + QUESTIONS_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + FIELD_QUESTION + " TEXT, "
+                + FIELD_IS_ANSWERED + " INTEGER" + ")";
+        database.execSQL(table);
     }
 
     /**
@@ -164,6 +175,7 @@ public class DBHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + STUDY_GROUPS_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + USER_INFO_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + USER_COURSES_TABLE);
+        database.execSQL("DROP TABLE IF EXISTS " + QUESTIONS_TABLE);
 
         onCreate(database);
     }
@@ -836,5 +848,66 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase courseDB = this.getReadableDatabase();
         courseDB.delete(USER_INFO_TABLE, FIELD_IS_SELECTED + "=1", null);
         courseDB.close();
+    }
+
+    public void addQuestion(Questions newQuestion)
+    {
+        SQLiteDatabase quesitonDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_QUESTION, newQuestion.getQuestion());
+        values.put(FIELD_IS_ANSWERED, newQuestion.getIsAnswered());
+
+        quesitonDB.insert(QUESTIONS_TABLE, null, values);
+
+        quesitonDB.close();
+    }
+
+    public ArrayList<Questions> getAllQuestions()
+    {
+        SQLiteDatabase questionDB = this.getReadableDatabase();
+
+        ArrayList<Questions> allQuestions = new ArrayList<>();
+
+        Cursor results = questionDB.query(QUESTIONS_TABLE,
+                null, null, null, null, null, null);
+
+        if(results.moveToFirst())
+        {
+            do {
+                int id = results.getInt(0);
+                String question = results.getString(1);
+                int isAnswered = results.getInt(2);
+                allQuestions.add(new Questions(id, question, isAnswered));
+            }while(results.moveToNext());
+        }
+
+        questionDB.close();
+        results.close();
+        return allQuestions;
+    }
+
+    public void updateQuestion(Questions existingQuestion)
+    {
+        SQLiteDatabase questionDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_QUESTION, existingQuestion.getQuestion());
+        values.put(FIELD_IS_ANSWERED, existingQuestion.getIsAnswered());
+
+        questionDB.update(QUESTIONS_TABLE, values,
+                QUESTIONS_KEY_FIELD_ID + "=?",
+                new String[] {String.valueOf(existingQuestion.getId())});
+
+        questionDB.close();
+    }
+
+    public void deleteSelectedQuestions()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(QUESTIONS_TABLE, FIELD_IS_ANSWERED + "=1", null);
+        db.close();
     }
 }
