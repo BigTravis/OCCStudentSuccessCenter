@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_resources"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ResourcesActivity">
+    android:orientation="vertical"
+    tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ResourcesActivity"
+    android:gravity="center_horizontal">
 
-</RelativeLayout>
+    <TextView
+        android:text="@string/additional_resources_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/resourcesTitle"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:text="BlackBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/blcakboardTextView"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/occPaleBlue"
+        android:onClick="blackboardOnClick"/>
+
+    <TextView
+        android:text="Khan Academy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/khanAcademyTextView"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:textColor="@color/occPaleBlue"
+        android:onClick="khanAcademyOnClick"/>
+
+    <TextView
+        android:text="Codecademy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/codecademyTextView"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:textColor="@color/occPaleBlue"
+        android:onClick="codecademyOnClick"/>
+</LinearLayout>

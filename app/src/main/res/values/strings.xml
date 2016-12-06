@@ -63,6 +63,7 @@
     <string name="add_question_button">Add Question</string>
     <string name="clear_questions_button">Clear Selected</string>
     <string name="return_to_profile_button">Return to Profile</string>
+    <string name="additional_resources_text">Additional Resources</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">
