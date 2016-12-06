@@ -852,16 +852,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void addQuestion(Questions newQuestion)
     {
-        SQLiteDatabase quesitonDB = this.getWritableDatabase();
+        SQLiteDatabase questionDB = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         values.put(FIELD_QUESTION, newQuestion.getQuestion());
         values.put(FIELD_IS_ANSWERED, newQuestion.getIsAnswered());
 
-        quesitonDB.insert(QUESTIONS_TABLE, null, values);
+        questionDB.insert(QUESTIONS_TABLE, null, values);
 
-        quesitonDB.close();
+        questionDB.close();
     }
 
     public ArrayList<Questions> getAllQuestions()
