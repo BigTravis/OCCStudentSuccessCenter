@@ -64,7 +64,7 @@
                 android:text="@string/student_info_button"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:id="@+id/studentNumberButton"
+                android:id="@+id/studentIntfoButton"
                 android:layout_weight="1"
                 android:onClick="saveInfoOnClick"
                 android:textColor="@color/white"
@@ -113,15 +113,37 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:id="@+id/editCourseListView"
+        android:elevation="1dp"/>
 
-    <Button
-        android:text="@string/remove_selected_button"
-        android:layout_height="40dp"
-        android:id="@+id/removeSelectedButton"
-        android:onClick="removeSelectedOnClick"
-        android:background="@drawable/occ_button_style"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="175dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/remove_selected_button"
+            android:layout_height="40dp"
+            android:id="@+id/removeSelectedButton"
+            android:background="@drawable/occ_button_style"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:onClick="removeSelectedOnClick"
+            android:layout_marginRight="10dp"/>
+
+        <Button
+            android:text="@string/return_to_profile_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:id="@+id/returnToProfileButton"
+            android:layout_weight="1"
+            android:background="@drawable/occ_button_style"
+            android:textColor="@color/white"
+            android:onClick="returnToProfileOnClick"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
 </LinearLayout>
