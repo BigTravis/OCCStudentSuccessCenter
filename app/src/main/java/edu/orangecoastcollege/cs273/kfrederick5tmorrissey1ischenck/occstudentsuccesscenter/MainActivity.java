@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickLocation(View v)
     {
-        startActivity(new Intent(MainActivity.this, LocationsListActivity.class));
+        startActivity(new Intent(MainActivity.this, LocationActivity.class));
     }
 
     public void onClickFAQ (View v)

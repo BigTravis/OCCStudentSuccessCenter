@@ -44,7 +44,7 @@ public class ContactActivity extends AppCompatActivity {
         findViewById(R.id.addressTextView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ContactActivity.this, LocationsListActivity.class));
+                startActivity(new Intent(ContactActivity.this, LocationActivity.class));
             }
         });
     }
