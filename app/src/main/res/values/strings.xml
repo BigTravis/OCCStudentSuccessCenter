@@ -8,13 +8,18 @@
     <string name="tutor_hours_text">Hours available:</string>
     <string name="tutor_courses_text">Courses available:</string>
     <string name="edit_profile_text">Edit Profile</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="contact_us_text">Contact Us</string>
+    <string name="address_text">2701 Fairview Rd\nCosta Mesa\nCA 92626\nClassrooms and Labs Building\nRoom 103 </string>
+    <string name="phone_text">(714) 432-5559</string>
 
     <!--Toasts-->
     <string name="save_successful">Your information has been saved.</string>
 
     <!--Error Messages-->
     <string name="add_class_error">You must select a subject and class before adding.</string>
-    <string name="first_or_last_error">First Name or Last Name field must have an entry.</string>
+    <string name="first_or_last_error">First Name, Last Name, and Student Number
+        field must have values.</string>
 
     <!--Unused-->
     <string name="title_activity_menu">MenuActivity</string>
@@ -57,6 +62,7 @@
     <string name="to_ask_title">Questions for the Tutor</string>
     <string name="add_question_button">Add Question</string>
     <string name="clear_questions_button">Clear Selected</string>
+    <string name="return_to_profile_button">Return to Profile</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">
@@ -97,8 +103,6 @@
         the front desk of the Student Success center. Most study sessions are once a week for 50
         minutes and new students are welcome to join an existing study group at any time.</item>
     </string-array>
-    <string name="title_activity_maps">Map</string>
-    <string name="contact_us_text">Contact Us</string>
-    <string name="address_text">2701 Fairview Rd\nCosta Mesa\nCA 92626\nClassrooms and Labs Building\nRoom 103 </string>
-    <string name="phone_text">(714) 432-5559</string>
+
+
 </resources>

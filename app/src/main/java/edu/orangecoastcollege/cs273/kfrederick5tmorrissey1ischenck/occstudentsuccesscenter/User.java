@@ -2,6 +2,7 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Spinner;
 
 /**
  * Created by Link on 12/4/2016.
@@ -66,6 +67,18 @@ public class User implements Parcelable {
         this.subject = subject;
         this.uClass = uClass;
         this.isSelected = isSelected;
+    }
+
+    public User(String first, String last, String num) {
+        this.fName = first;
+        this.lName = last;
+        this.userNum = num;
+    }
+
+    public User(String sub, String course, int selected) {
+        subject = sub.toString();
+        uClass = course.toString();
+        isSelected = selected;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,9 @@ import android.view.View;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +52,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickProfile (View v)
     {
-//        User user;
-//        if(user.getfName() == "" && user.getlName() == "")
-//        startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
-//        else
-        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+        if(!dbExists(this, "USER_INFO_DATABASE"))
+            startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
+        else
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
     }
 
     public void toAskOnClick (View v)
@@ -69,5 +72,11 @@ public class MainActivity extends AppCompatActivity {
     {
         File file = getBaseContext().getFileStreamPath(userInfo);
         return file.exists();
+    }
+
+    private static boolean dbExists(Context context, String dbName)
+    {
+        File dbFile = context.getDatabasePath(dbName);
+        return dbFile.exists();
     }
 }

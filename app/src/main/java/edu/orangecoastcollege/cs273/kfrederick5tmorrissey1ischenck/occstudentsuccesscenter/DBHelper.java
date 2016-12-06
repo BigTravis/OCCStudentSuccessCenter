@@ -837,7 +837,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(FIELD_CLASS, existingCourse.getuClass());
         values.put(FIELD_IS_SELECTED, existingCourse.getIsSelected());
 
-        courseDB.update(USER_INFO_TABLE, values, USER_COURSES_KEY_FIELD_ID + "=?",
+        courseDB.update(USER_COURSES_TABLE, values, USER_COURSES_KEY_FIELD_ID + "=?",
                 new String[] {String.valueOf(existingCourse.getId())});
 
         courseDB.close();
@@ -845,8 +845,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void deleteSelectedCourses()
     {
-        SQLiteDatabase courseDB = this.getReadableDatabase();
-        courseDB.delete(USER_INFO_TABLE, FIELD_IS_SELECTED + "=1", null);
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+        courseDB.delete(USER_COURSES_TABLE, FIELD_IS_SELECTED + "=1", null);
         courseDB.close();
     }
 

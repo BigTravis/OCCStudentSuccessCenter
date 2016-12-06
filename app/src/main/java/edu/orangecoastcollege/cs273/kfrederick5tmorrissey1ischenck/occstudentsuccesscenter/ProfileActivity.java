@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView fName;
     private TextView lName;
     private TextView studentNum;
+
     private List<User> courses;
     private ListView coursesListView;
 
@@ -24,24 +26,26 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        //userDB = new DBHelper(this);
-
-        //courses = userDB.getAllUserCourses();
+        ArrayList<User> userCourses = getIntent().getParcelableArrayListExtra("Courses");
+        String first = getIntent().getStringExtra("First");
+        String last = getIntent().getStringExtra("Last");
+        String num = getIntent().getStringExtra("StudentNum");
 
         fName = (TextView) findViewById(R.id.firstNameTextView);
         lName = (TextView) findViewById(R.id.lastNameTextView);
         studentNum = (TextView) findViewById(R.id.studentNumTextView);
 
-       // mUserListAdapter = new UserListAdapter(this, R.layout.course_item, courses);
+
+        mUserListAdapter = new UserListAdapter(this, R.layout.course_item, userCourses);
 
         coursesListView = (ListView) findViewById(R.id.coursesListView);
+        coursesListView.setAdapter(mUserListAdapter);
 
-        //User user = userDB.getUser(0);
-        //fName.setText(user.getfName());
-        //lName.setText(user.getlName());
-        //studentNum.setText(user.getUserNum());
+        fName.setText(first);
+        lName.setText(last);
+        studentNum.setText(num);
 
-       // coursesListView.setAdapter(mUserListAdapter);
+
 
 
     }
