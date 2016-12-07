@@ -34,8 +34,8 @@
     <string name="english">English</string>
     <string name="chemistry">Chemistry</string>
     <string name="biology">Biology</string>
-    <string name="subject_drop_down_text">[Select Subject]</string>
-    <string name="class_drop_down_text">[Select Class]</string>
+    <string name="subject_drop_down_text">[Select subject]</string>
+    <string name="class_drop_down_text">[Select class]</string>
     <string name="day_drop_down_text">Pick a day.</string>
     <string name="hour_drop_down_text">What time?</string>
     <string name="default_minutes">00</string>

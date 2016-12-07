@@ -55,10 +55,10 @@ public class MainActivity extends NavDrawerActivity {
      */
     public void onClickProfile (View v)
     {
-        if(!dbExists(this, "USER_INFO_DATABASE"))
+        //if(!db.userExists())
             startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
-        else
-            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+       // else
+            //startActivity(new Intent(MainActivity.this, ProfileActivity.class));
     }
 
     public void toAskOnClick (View v)
@@ -69,17 +69,5 @@ public class MainActivity extends NavDrawerActivity {
     public void onClickResources(View v)
     {
         startActivity(new Intent(MainActivity.this, ResourcesActivity.class));
-    }
-
-    public boolean fileExists(String userInfo)
-    {
-        File file = getBaseContext().getFileStreamPath(userInfo);
-        return file.exists();
-    }
-
-    private static boolean dbExists(Context context, String dbName)
-    {
-        File dbFile = context.getDatabasePath(dbName);
-        return dbFile.exists();
     }
 }

@@ -15,17 +15,16 @@ import java.util.List;
  * Created by Link on 12/5/2016.
  */
 
-public class ProfileListAdapter extends ArrayAdapter<User> {
+public class ProfileListAdapter extends ArrayAdapter<UserCourse> {
 
     private Context mContext;
-    private List<User> mCoursesList = new ArrayList<>();
+    private List<UserCourse> mCoursesList = new ArrayList<>();
     private int mResourceId;
     private CheckBox selectedCheckBox;
 
-
-    public ProfileListAdapter(Context context, int resource, List<User> coursesList) {
+    public ProfileListAdapter(Context context, int resource, List<UserCourse> coursesList) {
         super(context, resource, coursesList);
-        mContext =context;
+        mContext = context;
         mResourceId = resource;
         mCoursesList = coursesList;
     }
@@ -33,13 +32,13 @@ public class ProfileListAdapter extends ArrayAdapter<User> {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent)
     {
-        final User selectedCourse = mCoursesList.get(pos);
+        final UserCourse selectedCourse = mCoursesList.get(pos);
         LayoutInflater inflater =
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
 
         selectedCheckBox = (CheckBox) view.findViewById(R.id.selectedCheckBox);
-        selectedCheckBox.setText(selectedCourse.getSubject() + " " + selectedCourse.getuClass());
+        selectedCheckBox.setText(selectedCourse.getDepartment() + " " + selectedCourse.getNumber());
         selectedCheckBox.setChecked(selectedCourse.getIsSelected() == 1);
 
         selectedCheckBox.setTag(selectedCourse);

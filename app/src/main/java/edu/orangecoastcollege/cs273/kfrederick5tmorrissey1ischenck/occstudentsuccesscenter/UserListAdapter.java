@@ -18,12 +18,12 @@ import java.util.List;
 
 public class UserListAdapter extends ArrayAdapter<User> {
     private Context mContext;
-    private List<User> coursesList = new ArrayList<>();
+    private List<UserCourse> coursesList = new ArrayList<>();
     private int mResourceId;
 
-    public UserListAdapter(Context c, int rId, List<User> courses)
+    public UserListAdapter(Context c, int rId, List<UserCourse> courses)
     {
-        super (c, rId, courses);
+        super (c, rId);
         mContext = c;
         mResourceId = rId;
         coursesList = courses;
@@ -32,19 +32,19 @@ public class UserListAdapter extends ArrayAdapter<User> {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent)
     {
-        final User selectedCourse = coursesList.get(pos);
+        final UserCourse selectedCourse = coursesList.get(pos);
 
         LayoutInflater inflater = (LayoutInflater)
                 mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(mResourceId, null);
 
-        LinearLayout coursesListLineatLayout = (LinearLayout) v.findViewById(R.id.courseListLinearLayout);
+        LinearLayout coursesListLinearLayout = (LinearLayout) v.findViewById(R.id.courseListLinearLayout);
         TextView userSubjectTextView = (TextView) v.findViewById(R.id.userSubjectTextView);
         TextView userClassTextView = (TextView) v.findViewById(R.id.userClassTextView);
 
-        coursesListLineatLayout.setTag(selectedCourse);
-        userSubjectTextView.setText(selectedCourse.getSubject());
-        userClassTextView.setText(selectedCourse.getuClass());
+        coursesListLinearLayout.setTag(selectedCourse);
+        userSubjectTextView.setText(selectedCourse.getDepartment());
+        userClassTextView.setText(selectedCourse.getNumber());
 
         return v;
     }

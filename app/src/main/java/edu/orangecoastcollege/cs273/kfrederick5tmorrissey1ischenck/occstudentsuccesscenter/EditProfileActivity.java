@@ -19,7 +19,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private DBHelper db;
     private List<Course> mCourses;
-    private List<User> userCourseList;
+    private List<UserCourse> userCourseList;
     private ListView editCourseListView;
     private ProfileListAdapter mProfileAdapter;
 
@@ -62,37 +62,40 @@ public class EditProfileActivity extends AppCompatActivity {
         classSpinner.setOnItemSelectedListener(classSpinnerListener);
     }
 
-    public void saveInfoOnClick(View v)
-    {
+    public void saveInfoOnClick(View v) {
         String first, last, num;
         first = fName.getText().toString();
         last = lName.getText().toString();
         num = studentNum.getText().toString();
 
-        if(first.isEmpty() || last.isEmpty() || num.isEmpty())
+        if (first.isEmpty() || last.isEmpty() || num.isEmpty())
             Toast.makeText(this, R.string.first_or_last_error, Toast.LENGTH_SHORT).show();
-        else
-        {
-            User newUser = new User(first, last, num);
+        else if(db.userExists()) {
+            User user = db.getUser(1);
+            user.setfName(first);
+            user.setlName(last);
+            user.setUserNum(num);
+        }
+        else{
+            User newUser = new User(1, first, last, num);
 
-            db.addUser(newUser);
+            db.updateUser(newUser);
 
             Toast.makeText(this, R.string.save_successful, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void addClassOnClick(View v)
-    {
-        Spinner subject = subjectSpinner;
-        Spinner course = classSpinner;
+    public void addClassOnClick(View v) {
+        String subject = subjectSpinner.getSelectedItem().toString();
+        String course = classSpinner.getSelectedItem().toString();
 
-        if(subject.equals(R.string.subject_drop_down_text)
-                || course.equals(R.string.class_drop_down_text))
+        if (subject.equals("[Select subject]") ||
+                course.equals("[Select class]"))
             Toast.makeText(this, R.string.add_class_error,
                     Toast.LENGTH_SHORT).show();
-        else
-        {
-            User newCourse = new User(subject.getSelectedItem().toString(), course.getSelectedItem().toString(), 0);
+        else {
+            UserCourse newCourse = new UserCourse(0, subjectSpinner.getSelectedItem().toString(),
+                    classSpinner.getSelectedItem().toString(), 0);
 
             mProfileAdapter.add(newCourse);
 
@@ -103,24 +106,20 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void changeCourseStatus(View v)
-    {
-        if(v instanceof CheckBox)
-        {
+    public void changeCourseStatus(View v) {
+        if (v instanceof CheckBox) {
             CheckBox selectedCheck = (CheckBox) v;
-            User selectedCourse = (User) selectedCheck.getTag();
+            UserCourse selectedCourse = (UserCourse) selectedCheck.getTag();
 
-            selectedCourse.setIsSelected(selectedCheck.isChecked()? 1 : 0);
+            selectedCourse.setIsSelected(selectedCheck.isChecked() ? 1 : 0);
 
             db.updateCourse(selectedCourse);
         }
     }
 
-    public void removeSelectedOnClick(View v)
-    {
-        for(int i = 0; i < userCourseList.size(); i++){
-            if(userCourseList.get(i).getIsSelected() == 1)
-            {
+    public void removeSelectedOnClick(View v) {
+        for (int i = 0; i < userCourseList.size(); i++) {
+            if (userCourseList.get(i).getIsSelected() == 1) {
                 userCourseList.remove(i);
                 i--;
             }
@@ -139,8 +138,7 @@ public class EditProfileActivity extends AppCompatActivity {
             if (!selectedSubject.equals("[Select subject]")) {
                 classSpinner.setEnabled(true);
                 updateClassSpinner(selectedSubject);
-            }
-            else {
+            } else {
                 classSpinner.setEnabled(false);
                 classSpinner.setSelection(0);
             }
@@ -156,7 +154,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public AdapterView.OnItemSelectedListener classSpinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-           // String selectedClass = parent.getItemAtPosition(position).toString();
+            // String selectedClass = parent.getItemAtPosition(position).toString();
 
         }
 
@@ -202,19 +200,26 @@ public class EditProfileActivity extends AppCompatActivity {
         return classNumbers;
     }
 
-    public void returnToProfileOnClick(View v)
-    {
-        String first = db.getUser(1).getfName();
-        String last = db.getUser(1).getlName();
-        String num = db.getUser(1).getUserNum();
-        ArrayList<User> userCourse = db.getAllUserCourses();
+    public void returnToProfileOnClick(View v) {
+        String first, last, num;
+        first = fName.getText().toString();
+        last = lName.getText().toString();
+        num = studentNum.getText().toString();
+        if (first.isEmpty() || last.isEmpty() || num.isEmpty())
+            Toast.makeText(this, "No name or student number given.", Toast.LENGTH_LONG).show();
+        else {
+            first = db.getUser(1).getfName();
+            last = db.getUser(1).getlName();
+            num = db.getUser(1).getUserNum();
+            ArrayList<UserCourse> userCourse = db.getAllUserCourses();
 
-        Intent profileIntent = new Intent(this, ProfileActivity.class);
-        profileIntent.putExtra("First", first);
-        profileIntent.putExtra("Last", last);
-        profileIntent.putExtra("StudentNum", num);
-        profileIntent.putExtra("Course", userCourse);
+            Intent profileIntent = new Intent(this, ProfileActivity.class);
+            profileIntent.putExtra("First", first);
+            profileIntent.putExtra("Last", last);
+            profileIntent.putExtra("StudentNum", num);
+            profileIntent.putExtra("Course", userCourse);
 
-        startActivity(profileIntent);
+            startActivity(profileIntent);
+        }
     }
 }

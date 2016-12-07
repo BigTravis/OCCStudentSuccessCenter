@@ -137,7 +137,7 @@ public class DBHelper extends SQLiteOpenHelper {
         database.execSQL(table);
 
         table ="CREATE TABLE " + USER_INFO_TABLE + "("
-                + USER_INFO_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + USER_INFO_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_USER_FNAME + " TEXT, "
                 + FIELD_USER_LNAME + " TEXT, "
                 + FIELD_USER_NUMBER + " TEXT"
@@ -790,14 +790,14 @@ public class DBHelper extends SQLiteOpenHelper {
         userDB.close();
     }
 
-    public void addUserCourse(User newCourse)
+    public void addUserCourse(UserCourse newCourse)
     {
         SQLiteDatabase courseDB = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(FIELD_SUBJECT, newCourse.getSubject());
-        values.put(FIELD_CLASS, newCourse.getuClass());
+        values.put(FIELD_SUBJECT, newCourse.getDepartment());
+        values.put(FIELD_CLASS, newCourse.getNumber());
         values.put(FIELD_IS_SELECTED, newCourse.getIsSelected());
 
         courseDB.insert(USER_COURSES_TABLE, null, values);
@@ -805,11 +805,11 @@ public class DBHelper extends SQLiteOpenHelper {
         courseDB.close();
     }
 
-    public ArrayList<User> getAllUserCourses()
+    public ArrayList<UserCourse> getAllUserCourses()
     {
         SQLiteDatabase courseDB = this.getReadableDatabase();
 
-        ArrayList<User> allUserCourses = new ArrayList<>();
+        ArrayList<UserCourse> allUserCourses = new ArrayList<>();
 
         Cursor results = courseDB.query(USER_COURSES_TABLE, null, null, null, null, null, null);
 
@@ -820,7 +820,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String uSubject = results.getString(1);
                 String uClass = results.getString(2);
                 int isSelected = results.getInt(3);
-                allUserCourses.add(new User(id, uSubject, uClass, isSelected));
+                allUserCourses.add(new UserCourse(id, uSubject, uClass, isSelected));
             }while (results.moveToNext());
         }
 
@@ -829,18 +829,34 @@ public class DBHelper extends SQLiteOpenHelper {
         return allUserCourses;
     }
 
-    public void updateCourse(User existingCourse)
+    public void updateCourse(UserCourse existingCourse)
     {
         SQLiteDatabase courseDB = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(FIELD_SUBJECT, existingCourse.getSubject());
-        values.put(FIELD_CLASS, existingCourse.getuClass());
+        values.put(FIELD_SUBJECT, existingCourse.getDepartment());
+        values.put(FIELD_CLASS, existingCourse.getNumber());
         values.put(FIELD_IS_SELECTED, existingCourse.getIsSelected());
 
         courseDB.update(USER_COURSES_TABLE, values, USER_COURSES_KEY_FIELD_ID + "=?",
                 new String[] {String.valueOf(existingCourse.getId())});
+
+        courseDB.close();
+    }
+
+    public void updateUser(User existingUser)
+    {
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_USER_FNAME, existingUser.getfName());
+        values.put(FIELD_USER_LNAME, existingUser.getlName());
+        values.put(FIELD_USER_NUMBER, existingUser.getUserNum());
+
+        courseDB.update(USER_INFO_TABLE, values, USER_INFO_KEY_FIELD_ID + "=?",
+                new String[] {String.valueOf(existingUser.getId())});
 
         courseDB.close();
     }
@@ -911,5 +927,21 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(QUESTIONS_TABLE, FIELD_IS_ANSWERED + "=1", null);
         db.close();
+    }
+
+    public boolean userExists()
+    {
+        User user = new User();
+        addUser(user);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        Cursor cursor = db.query(
+                USER_INFO_TABLE, new String[]{
+                        USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
+                        FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", null, null, null, null, null);
+
+        return cursor.moveToFirst();
     }
 }

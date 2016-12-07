@@ -18,7 +18,7 @@ public class ProfileActivity extends NavDrawerActivity {
     private TextView lName;
     private TextView studentNum;
 
-    private List<User> courses;
+    private List<UserCourse> courses;
     private ListView coursesListView;
 
     @Override
@@ -26,18 +26,19 @@ public class ProfileActivity extends NavDrawerActivity {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_profile, contentFrameLayout);
+        User user = userDB.getUser(1);
 
-        ArrayList<User> userCourses = userDB.getAllUserCourses();
-        String first = userDB.getUser(1).getfName();
-        String last = userDB.getUser(1).getlName();
-        String num = userDB.getUser(1).getUserNum();
+//        ArrayList<UserCourse> userCourses = userDB.getAllUserCourses();
+        String first = user.getfName();
+        String last = user.getlName();
+        String num = user.getUserNum();
 
         fName = (TextView) findViewById(R.id.firstNameTextView);
         lName = (TextView) findViewById(R.id.lastNameTextView);
         studentNum = (TextView) findViewById(R.id.studentNumTextView);
 
 
-        mUserListAdapter = new UserListAdapter(this, R.layout.course_item, userCourses);
+       // mUserListAdapter = new UserListAdapter(this, R.layout.course_item, userCourses);
 
         coursesListView = (ListView) findViewById(R.id.coursesListView);
         coursesListView.setAdapter(mUserListAdapter);
@@ -49,10 +50,6 @@ public class ProfileActivity extends NavDrawerActivity {
 
     public void editProfileOnClick (View v)
     {
-        startActivityForResult(new Intent(ProfileActivity.this, EditProfileActivity.class));
-    }
-
-    private void startActivityForResult(Intent intent) {
-
+        startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
     }
 }

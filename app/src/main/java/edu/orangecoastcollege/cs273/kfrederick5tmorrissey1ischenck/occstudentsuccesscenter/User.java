@@ -14,23 +14,17 @@ public class User implements Parcelable {
     private String fName;
     private String lName;
     private String userNum;
-    private String subject;
-    private String uClass;
-    private int isSelected;
 
     public User() {
-        User newUser = new User(-1, "", "", "", "", "", 0);
+        User newUser = new User(-1, "", "", "");
     }
 
-    public User(int id, String fName, String lName, String userNum,
-                String subject, String uClass, int isSelected) {
+    public User(int id, String fName, String lName, String userNum) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
         this.userNum = userNum;
-        this.subject = subject;
-        this.uClass = uClass;
-        this.isSelected = isSelected;
+
     }
 
     protected User(Parcel in) {
@@ -38,9 +32,6 @@ public class User implements Parcelable {
         fName = in.readString();
         lName = in.readString();
         userNum = in.readString();
-        subject = in.readString();
-        uClass = in.readString();
-        isSelected = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -55,30 +46,10 @@ public class User implements Parcelable {
         }
     };
 
-    public User (int id, String fName, String lName, String userNum) {
-        this.id = id;
-        this.fName = fName;
-        this.lName = lName;
-        this.userNum = userNum;
-    }
-
-    public User(int id, String subject, String uClass, int isSelected) {
-        this.id = id;
-        this.subject = subject;
-        this.uClass = uClass;
-        this.isSelected = isSelected;
-    }
-
     public User(String first, String last, String num) {
         this.fName = first;
         this.lName = last;
         this.userNum = num;
-    }
-
-    public User(String sub, String course, int selected) {
-        subject = sub.toString();
-        uClass = course.toString();
-        isSelected = selected;
     }
 
     @Override
@@ -92,9 +63,6 @@ public class User implements Parcelable {
         dest.writeString(fName);
         dest.writeString(lName);
         dest.writeString(userNum);
-        dest.writeString(subject);
-        dest.writeString(uClass);
-        dest.writeInt(isSelected);
     }
 
     public int getId() {
@@ -121,30 +89,6 @@ public class User implements Parcelable {
         this.lName = lName;
     }
 
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getuClass() {
-        return uClass;
-    }
-
-    public void setuClass(String uClass) {
-        this.uClass = uClass;
-    }
-
-    public int getIsSelected() {
-        return isSelected;
-    }
-
-    public void setIsSelected(int isSelected) {
-        this.isSelected = isSelected;
-    }
-
     public String getUserNum() {
         return userNum;
     }
@@ -157,8 +101,8 @@ public class User implements Parcelable {
     public boolean equals(Object o) {
         if (o instanceof User) {
             User otherUser = (User) o;
-            return this.id == otherUser.id && this.subject.equals(otherUser.subject)
-                    && this.uClass.equals(otherUser.uClass);
+            return this.id == otherUser.id && this.fName.equals(otherUser.fName)
+                    && this.lName.equals(otherUser.lName) && this.equals(otherUser.userNum);
         }
         return false;
     }
@@ -166,12 +110,10 @@ public class User implements Parcelable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userNum='" + userNum + '\'' +
+                ", id=" + id +
                 ", fName='" + fName + '\'' +
                 ", lName='" + lName + '\'' +
-                ", subject='" + subject + '\'' +
-                ", uClass='" + uClass + '\'' +
-                ", isSelected=" + isSelected +
                 '}';
     }
 }
