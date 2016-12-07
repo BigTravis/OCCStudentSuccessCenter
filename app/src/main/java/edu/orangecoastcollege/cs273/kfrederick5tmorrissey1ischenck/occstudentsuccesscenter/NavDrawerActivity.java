@@ -68,7 +68,7 @@ public class NavDrawerActivity extends AppCompatActivity {
                     break;
 
                 case R.id.nav_resources:
-                    //startActivity(new Intent(getApplicationContext(), ResourcesActivity.class));
+                    startActivity(new Intent(getApplicationContext(), ResourcesActivity.class));
                     break;
 
                 case R.id.nav_questions_for_tutor:
