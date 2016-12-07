@@ -238,16 +238,20 @@ public class DBHelper extends SQLiteOpenHelper {
                 COURSES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
 
-        Course course = new Course(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getString(2));
+            Course course = new Course(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2));
+
+            db.close();
+            return course;
+        }
 
         db.close();
-        return course;
+        return null;
     }
 
     /**
@@ -315,16 +319,19 @@ public class DBHelper extends SQLiteOpenHelper {
                 TUTORS_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
 
-        Tutor tutor = new Tutor(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getString(2));
+            Tutor tutor = new Tutor(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2));
 
+            db.close();
+            return tutor;
+        }
         db.close();
-        return tutor;
+        return null;
     }
 
     public User getUser(int id) {
@@ -416,16 +423,19 @@ public class DBHelper extends SQLiteOpenHelper {
                 TIMES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
 
-        DayTime dayTime = new DayTime(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getFloat(2));
+            DayTime dayTime = new DayTime(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getFloat(2));
 
+            db.close();
+            return dayTime;
+        }
         db.close();
-        return dayTime;
+        return null;
     }
 
     /**
