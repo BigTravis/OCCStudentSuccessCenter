@@ -9,11 +9,14 @@
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/userSubjectTextView"/>
+        android:id="@+id/userSubjectTextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/userClassTextView"/>
+        android:id="@+id/userClassTextView"
+        android:layout_marginLeft="5dp" />
 </LinearLayout>

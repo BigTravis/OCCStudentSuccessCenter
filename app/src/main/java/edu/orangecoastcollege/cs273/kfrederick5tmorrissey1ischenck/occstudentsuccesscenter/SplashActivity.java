@@ -1,7 +1,6 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,11 +24,11 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         Timer timer = new Timer();
-        timer.schedule(timerTask, 10000);
+        timer.schedule(timerTask, 1000);
 
-        deleteDatabase(DBHelper.DATABASE_NAME);
-        db = new DBHelper(this);
-        populateDatabase();
+//        deleteDatabase(DBHelper.DATABASE_NAME);
+//        db = new DBHelper(this);
+//        populateDatabase();
 
 //        try{
 //            db.getReadableDatabase();

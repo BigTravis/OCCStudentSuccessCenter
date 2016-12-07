@@ -58,7 +58,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_TIME_ID = "time_id";
     private static final String FIELD_ROOM = "room";
 
-
     private static final String USER_INFO_TABLE = "UserInfo";
     private static final String USER_INFO_KEY_FIELD_ID = "id";
     private static final String FIELD_USER_FNAME = "first_name";
@@ -138,7 +137,7 @@ public class DBHelper extends SQLiteOpenHelper {
         database.execSQL(table);
 
         table ="CREATE TABLE " + USER_INFO_TABLE + "("
-                + USER_INFO_KEY_FIELD_ID + " INTEGER, "
+                + USER_INFO_KEY_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + FIELD_USER_FNAME + " TEXT, "
                 + FIELD_USER_LNAME + " TEXT, "
                 + FIELD_USER_NUMBER + " TEXT"
@@ -335,16 +334,19 @@ public class DBHelper extends SQLiteOpenHelper {
                         USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
                         FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", new String[]
                         {String.valueOf(id)}, null, null, null, null);
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
 
-        User user = new User(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getString(2),
-                cursor.getString(3));
+            User user = new User(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3));
+            db.close();
+            return user;
+        }
         db.close();
-        return user;
+        return null;
     }
 
     /**

@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.first_or_last_error, Toast.LENGTH_SHORT).show();
         else
         {
-            User newUser = new User(0, first, last, num);
+            User newUser = new User(first, last, num);
 
             db.addUser(newUser);
 
@@ -205,15 +204,17 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void returnToProfileOnClick(View v)
     {
-        String first = db.getUser(0).getfName();
-        String last = db.getUser(0).getlName();
-        String num = db.getUser(0).getUserNum();
-        Array[] userCourse = (Array[]) db.getAllUserCourses().toArray();
+        String first = db.getUser(1).getfName();
+        String last = db.getUser(1).getlName();
+        String num = db.getUser(1).getUserNum();
+        ArrayList<User> userCourse = db.getAllUserCourses();
 
         Intent profileIntent = new Intent(this, ProfileActivity.class);
         profileIntent.putExtra("First", first);
         profileIntent.putExtra("Last", last);
         profileIntent.putExtra("StudentNum", num);
         profileIntent.putExtra("Course", userCourse);
+
+        startActivity(profileIntent);
     }
 }

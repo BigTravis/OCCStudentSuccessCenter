@@ -27,10 +27,10 @@ public class ProfileActivity extends NavDrawerActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_profile, contentFrameLayout);
 
-        ArrayList<User> userCourses = getIntent().getParcelableArrayListExtra("Courses");
-        String first = getIntent().getStringExtra("First");
-        String last = getIntent().getStringExtra("Last");
-        String num = getIntent().getStringExtra("StudentNum");
+        ArrayList<User> userCourses = userDB.getAllUserCourses();
+        String first = userDB.getUser(1).getfName();
+        String last = userDB.getUser(1).getlName();
+        String num = userDB.getUser(1).getUserNum();
 
         fName = (TextView) findViewById(R.id.firstNameTextView);
         lName = (TextView) findViewById(R.id.lastNameTextView);
@@ -45,14 +45,14 @@ public class ProfileActivity extends NavDrawerActivity {
         fName.setText(first);
         lName.setText(last);
         studentNum.setText(num);
-
-
-
-
     }
 
     public void editProfileOnClick (View v)
     {
-        startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
+        startActivityForResult(new Intent(ProfileActivity.this, EditProfileActivity.class));
+    }
+
+    private void startActivityForResult(Intent intent) {
+
     }
 }
