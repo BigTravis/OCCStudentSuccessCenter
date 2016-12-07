@@ -211,7 +211,7 @@ public class SearchActivity extends NavDrawerActivity {
 
             // Format time from 12 hour to 24 hour format
             String hourString = hourSpinner.getSelectedItem().toString();
-            if (!hourString.equals("[Select hours]")) {
+            if (!hourString.equals("[Select hour]")) {
                 time = Float.parseFloat(hourSpinner.getSelectedItem().toString());
                 time += (minuteSpinner.getSelectedItem().toString().equals(":30")) ? .50f : 0.0;
 
@@ -241,8 +241,8 @@ public class SearchActivity extends NavDrawerActivity {
                         }
 
                     }
-                    else // No time was selected and all qualified tutors available at the specified
-                        // day will be selected
+                    else // No day was selected and all qualified tutors available at the specified
+
                         tutorTimeResults.add(relation);
                 }
             }

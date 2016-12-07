@@ -7,7 +7,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileActivity extends NavDrawerActivity {
@@ -26,6 +25,7 @@ public class ProfileActivity extends NavDrawerActivity {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_profile, contentFrameLayout);
+        userDB = new DBHelper(this);
         User user = userDB.getUser(1);
 
 //        ArrayList<UserCourse> userCourses = userDB.getAllUserCourses();
