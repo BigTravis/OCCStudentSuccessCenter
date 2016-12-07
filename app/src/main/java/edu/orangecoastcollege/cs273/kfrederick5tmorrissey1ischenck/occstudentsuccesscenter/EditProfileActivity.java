@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends NavDrawerActivity {
 
     private DBHelper db;
     private List<Course> mCourses;
@@ -33,8 +34,12 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
+        getLayoutInflater().inflate(R.layout.activity_edit_profile, contentFrameLayout);
 
         db = new DBHelper(this);
+
+        User user;
 
         mCourses = db.getAllCourses();
         userCourseList = db.getAllUserCourses();
@@ -47,6 +52,12 @@ public class EditProfileActivity extends AppCompatActivity {
         subjectSpinner = (Spinner) findViewById(R.id.editSubjectSpinner);
         classSpinner = (Spinner) findViewById(R.id.editClassSpinner);
 
+        if(db.userExists()){
+            user = db.getUser(1);
+            fName.setText(user.getfName());
+            lName.setText(user.getlName());
+            studentNum.setText(user.getUserNum());
+        }
         editCourseListView = (ListView) findViewById(R.id.editCourseListView);
 
         editCourseListView.setAdapter(mProfileAdapter);
@@ -75,6 +86,8 @@ public class EditProfileActivity extends AppCompatActivity {
             user.setfName(first);
             user.setlName(last);
             user.setUserNum(num);
+            db.updateUser(user);
+            Toast.makeText(this, R.string.update_successful, Toast.LENGTH_SHORT).show();
         }
         else{
             User newUser = new User(1, first, last, num);
@@ -131,7 +144,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
-    public AdapterView.OnItemSelectedListener subjectSpinnerListener = new AdapterView.OnItemSelectedListener() {
+    public AdapterView.OnItemSelectedListener subjectSpinnerListener =
+            new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedSubject = parent.getItemAtPosition(position).toString();
@@ -151,7 +165,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     };
 
-    public AdapterView.OnItemSelectedListener classSpinnerListener = new AdapterView.OnItemSelectedListener() {
+    public AdapterView.OnItemSelectedListener classSpinnerListener =
+            new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             // String selectedClass = parent.getItemAtPosition(position).toString();
@@ -205,21 +220,22 @@ public class EditProfileActivity extends AppCompatActivity {
         first = fName.getText().toString();
         last = lName.getText().toString();
         num = studentNum.getText().toString();
+
         if (first.isEmpty() || last.isEmpty() || num.isEmpty())
             Toast.makeText(this, "No name or student number given.", Toast.LENGTH_LONG).show();
         else {
-            first = db.getUser(1).getfName();
-            last = db.getUser(1).getlName();
-            num = db.getUser(1).getUserNum();
-            ArrayList<UserCourse> userCourse = db.getAllUserCourses();
-
-            Intent profileIntent = new Intent(this, ProfileActivity.class);
-            profileIntent.putExtra("First", first);
-            profileIntent.putExtra("Last", last);
-            profileIntent.putExtra("StudentNum", num);
-            profileIntent.putExtra("Course", userCourse);
-
-            startActivity(profileIntent);
+//            first = db.getUser(1).getfName();
+//            last = db.getUser(1).getlName();
+//            num = db.getUser(1).getUserNum();
+//            ArrayList<UserCourse> userCourse = db.getAllUserCourses();
+//
+//            Intent profileIntent = new Intent(this, ProfileActivity.class);
+//            profileIntent.putExtra("First", first);
+//            profileIntent.putExtra("Last", last);
+//            profileIntent.putExtra("StudentNum", num);
+//            profileIntent.putExtra("Course", userCourse);
+            saveInfoOnClick(v);
+            startActivity(new Intent(this, ProfileActivity.class));
         }
     }
 }

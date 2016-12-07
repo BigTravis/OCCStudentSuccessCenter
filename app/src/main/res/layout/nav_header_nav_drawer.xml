@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:onClick="nav_main_menu"
         app:srcCompat="@drawable/occ"/>
 
 </LinearLayout>

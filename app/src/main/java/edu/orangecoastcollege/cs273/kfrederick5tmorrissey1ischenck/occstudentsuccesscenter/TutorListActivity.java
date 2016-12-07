@@ -21,7 +21,8 @@ public class TutorListActivity extends NavDrawerActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_tutor_list, contentFrameLayout);
 
-        ArrayList<TutorTimeRelation> tutorTimeRelations = getIntent().getParcelableArrayListExtra("Tutor Results");
+        ArrayList<TutorTimeRelation> tutorTimeRelations =
+                getIntent().getParcelableArrayListExtra("Tutor Results");
         String subject = getIntent().getStringExtra("Subject");
         String className = getIntent().getStringExtra("Class Number");
         String day = getIntent().getStringExtra("Day");

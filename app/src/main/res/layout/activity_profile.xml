@@ -22,7 +22,7 @@
             android:textColorHighlight="@color/occDarkOrange"
             android:textColor="@color/occDarkBlue"
             android:onClick="editProfileOnClick"
-            android:textAlignment="textEnd"/>
+            android:gravity="right"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -38,7 +38,8 @@
                 android:id="@+id/firstNameTextView"
                 android:textSize="30sp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:textColor="@color/occDarkBlue"/>
 
             <TextView
                 android:text="@android:string/unknownName"
@@ -49,7 +50,8 @@
                 android:id="@+id/lastNameTextView"
                 android:textSize="30sp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:textColor="@color/occDarkBlue"/>
 
         </LinearLayout>
 
@@ -61,16 +63,19 @@
         android:layout_below="@+id/firstNameTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/occDarkBlue"/>
 
     <ListView
-            android:layout_width="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/coursesListView"
-            android:layout_height="match_parent"
-            android:clickable="true"/>
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/coursesListView"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:layout_marginTop="20dp"
+        />
 
     </LinearLayout>
 

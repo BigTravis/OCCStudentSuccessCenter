@@ -16,14 +16,13 @@ import java.util.List;
  * Created by Link on 12/5/2016.
  */
 
-public class UserListAdapter extends ArrayAdapter<User> {
+public class UserListAdapter extends ArrayAdapter<UserCourse> {
     private Context mContext;
     private List<UserCourse> coursesList = new ArrayList<>();
     private int mResourceId;
 
-    public UserListAdapter(Context c, int rId, List<UserCourse> courses)
-    {
-        super (c, rId);
+    public UserListAdapter(Context c, int rId, List<UserCourse> courses){
+        super (c, rId, courses);
         mContext = c;
         mResourceId = rId;
         coursesList = courses;

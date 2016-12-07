@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 public class NavDrawerActivity extends AppCompatActivity {
 
@@ -96,5 +97,10 @@ public class NavDrawerActivity extends AppCompatActivity {
 
         else
             super.onBackPressed();
+    }
+
+    public void nav_main_menu(View v)
+    {
+        startActivity(new Intent(NavDrawerActivity.this, MainActivity.class));
     }
 }

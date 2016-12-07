@@ -44,7 +44,6 @@
         <activity
             android:name=".DirectionsActivity"
             android:label="@string/title_activity_directions"/>
-        <activity android:name=".TutorListAdapter"/>
         <activity android:name=".FAQActivity"/>
         <activity android:name=".FAQDetailActivity"/>
         <activity android:name=".StudyGroupActivity"/>

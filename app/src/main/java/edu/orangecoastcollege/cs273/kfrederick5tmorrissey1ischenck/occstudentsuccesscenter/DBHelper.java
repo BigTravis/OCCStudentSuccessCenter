@@ -952,6 +952,6 @@ public class DBHelper extends SQLiteOpenHelper {
                         USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
                         FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", null, null, null, null, null);
 
-        return cursor.moveToFirst();
+        return !cursor.moveToFirst();
     }
 }
