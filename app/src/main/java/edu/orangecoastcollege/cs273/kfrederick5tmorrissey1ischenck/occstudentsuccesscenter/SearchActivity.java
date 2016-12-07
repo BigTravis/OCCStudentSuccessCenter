@@ -66,13 +66,8 @@ public class SearchActivity extends NavDrawerActivity {
         ArrayAdapter<String> minuteSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllMinutes());
         minuteSpinner.setAdapter(minuteSpinnerAdapter);
-    }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        navigationView.getMenu().getItem(1).setChecked(true);
-//    }
+    }
 
     public AdapterView.OnItemSelectedListener subjectSpinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
@@ -195,7 +190,7 @@ public class SearchActivity extends NavDrawerActivity {
     }
 
     private String[] getAllHours() {
-        String[] hours = {"[Select hours]", "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7"};
+        String[] hours = {"[Select hour]", "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7"};
         return hours;
     }
 
