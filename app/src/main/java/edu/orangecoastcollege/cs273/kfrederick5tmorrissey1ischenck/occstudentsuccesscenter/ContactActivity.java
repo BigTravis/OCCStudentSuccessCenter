@@ -18,24 +18,23 @@ public class ContactActivity extends NavDrawerActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_contact, contentFrameLayout);
 
-        findViewById(R.id.phoneNumberTextView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(getBaseContext(),
-                        android.Manifest.permission.CALL_PHONE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getParent(),
-                            new String[]{android.Manifest.permission.CALL_PHONE},
-                            CALL_PHONE_REQUEST_CODE);
-                    return;
-                }
-                else{
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.fromParts("tel", "7144325559", null));
-                    startActivity(callIntent);
-                }
-            }
-        });
+//        findViewById(R.id.phoneNumberTextView).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (ActivityCompat.checkSelfPermission(getBaseContext(),
+//                        android.Manifest.permission.CALL_PHONE)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(getParent(),
+//                            new String[]{android.Manifest.permission.CALL_PHONE},
+//                            CALL_PHONE_REQUEST_CODE);
+//                }
+//                else{
+//                Intent callIntent = new Intent(Intent.ACTION_CALL);
+//                    callIntent.setData(Uri.fromParts("tel", "7144325559", null));
+//                    startActivity(callIntent);
+//                }
+//            }
+//        });
 
         findViewById(R.id.addressTextView).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,5 +42,21 @@ public class ContactActivity extends NavDrawerActivity {
                 startActivity(new Intent(ContactActivity.this, LocationActivity.class));
             }
         });
+    }
+
+    public void callNumber(View view)
+    {
+        if (ActivityCompat.checkSelfPermission(getBaseContext(),
+                android.Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.CALL_PHONE},
+                    CALL_PHONE_REQUEST_CODE);
+        }
+        else{
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.fromParts("tel", "7144325559", null));
+            startActivity(callIntent);
+        }
     }
 }
