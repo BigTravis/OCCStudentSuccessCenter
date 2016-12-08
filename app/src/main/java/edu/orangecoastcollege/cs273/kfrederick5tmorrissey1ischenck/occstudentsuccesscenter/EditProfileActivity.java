@@ -3,6 +3,8 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +44,8 @@ public class EditProfileActivity extends NavDrawerActivity {
 
         User user;
 
+
+
         mCourses = db.getAllCourses();
         userCourseList = db.getAllUserCourses();
 
@@ -62,6 +67,11 @@ public class EditProfileActivity extends NavDrawerActivity {
 
         editCourseListView.setAdapter(mProfileAdapter);
 
+
+        fName.addTextChangedListener(userChangeTextWatcher);
+        lName.addTextChangedListener(userChangeTextWatcher);
+        studentNum.addTextChangedListener(userChangeTextWatcher);
+
         ArrayAdapter<String> subjectSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllSubjectsNames());
         subjectSpinner.setAdapter(subjectSpinnerAdapter);
@@ -71,7 +81,53 @@ public class EditProfileActivity extends NavDrawerActivity {
                 android.R.layout.simple_spinner_item, getAllClassNumbers());
         classSpinner.setAdapter(classSpinnerAdapter);
         classSpinner.setOnItemSelectedListener(classSpinnerListener);
+
+
     }
+
+    private TextWatcher userChangeTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try {
+                String first, last, num;
+                first = fName.getText().toString();
+                last = lName.getText().toString();
+                num = studentNum.getText().toString();
+
+                if (first.isEmpty() || last.isEmpty() || num.isEmpty())
+                    Toast.makeText(EditProfileActivity.this, R.string.first_or_last_error,
+                            Toast.LENGTH_SHORT).show();
+                else if (db.userExists()) {
+                    User user = db.getUser(1);
+                    user.setfName(first);
+                    user.setlName(last);
+                    user.setUserNum(num);
+                    db.updateUser(user);
+                } else {
+                    User newUser = new User(1, first, last, num);
+
+                    db.updateUser(newUser);
+                }
+            }
+            catch (Exception e){
+                System.out.println("Error " + e.getMessage());
+                fName.setText("");
+                lName.setText("");
+                studentNum.setText("");
+            }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     public void saveInfoOnClick(View v) {
         String first, last, num;
@@ -216,14 +272,14 @@ public class EditProfileActivity extends NavDrawerActivity {
     }
 
     public void returnToProfileOnClick(View v) {
-        String first, last, num;
-        first = fName.getText().toString();
-        last = lName.getText().toString();
-        num = studentNum.getText().toString();
+       // String first, last, num;
+        //first = fName.getText().toString();
+        //last = lName.getText().toString();
+        //num = studentNum.getText().toString();
 
-        if (first.isEmpty() || last.isEmpty() || num.isEmpty())
-            Toast.makeText(this, "No name or student number given.", Toast.LENGTH_LONG).show();
-        else {
+        //if (first.isEmpty() || last.isEmpty() || num.isEmpty())
+            //Toast.makeText(this, "No name or student number given.", Toast.LENGTH_LONG).show();
+        //else {
 //            first = db.getUser(1).getfName();
 //            last = db.getUser(1).getlName();
 //            num = db.getUser(1).getUserNum();
@@ -234,8 +290,8 @@ public class EditProfileActivity extends NavDrawerActivity {
 //            profileIntent.putExtra("Last", last);
 //            profileIntent.putExtra("StudentNum", num);
 //            profileIntent.putExtra("Course", userCourse);
-            saveInfoOnClick(v);
+            //saveInfoOnClick(v);
             startActivity(new Intent(this, ProfileActivity.class));
         }
     }
-}
+
