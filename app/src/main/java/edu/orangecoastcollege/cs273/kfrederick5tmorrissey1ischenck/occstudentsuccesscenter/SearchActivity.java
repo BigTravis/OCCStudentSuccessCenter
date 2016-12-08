@@ -253,7 +253,10 @@ public class SearchActivity extends NavDrawerActivity {
             listIntent.putExtra("Class Number", classNumber);
             listIntent.putExtra("Day", daySpinner.getSelectedItem().toString());
             listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
-            startActivity(listIntent);
+            if(tutorTimeResults.isEmpty())
+                Toast.makeText(this, R.string.no_tutors_error, Toast.LENGTH_LONG).show();
+            else
+                startActivity(listIntent);
         }
     }
 

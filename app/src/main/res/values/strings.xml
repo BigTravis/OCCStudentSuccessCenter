@@ -66,6 +66,7 @@
     <string name="return_to_profile_button">Return to Profile</string>
     <string name="additional_resources_text">Additional Resources</string>
     <string name="update_successful">Your information has been updated.</string>
+    <string name="no_tutors_error">No tutors available for this request.</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">
