@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_resources"
     android:layout_width="match_parent"
@@ -15,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resourcesTitle"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textColor="@color/white"
         android:gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="55dp" />
 
     <TextView
         android:text="BlackBoard"
@@ -30,17 +29,20 @@
         android:gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:textColor="@color/occPaleBlue"
-        android:onClick="blackboardOnClick"/>
+        android:onClick="blackboardOnClick"
+        android:textSize="20sp" />
 
-    <ImageView
+    <TextView
+        android:text="Khan Academy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/khanAcademyImageButton"
-        app:srcCompat="@drawable/khan_academy_logo"
+        android:id="@+id/khanAcademyTextView"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
         android:clickable="true"
-        android:onClick="khanAcademyOnClick"/>
+        android:textColor="@color/occPaleBlue"
+        android:onClick="khanAcademyOnClick"
+        android:textSize="20sp" />
 
     <TextView
         android:text="Codecademy"
@@ -51,7 +53,6 @@
         android:gravity="center_horizontal"
         android:clickable="true"
         android:textColor="@color/occPaleBlue"
-        android:onClick="codecademyOnClick"/>
-
-
+        android:onClick="codecademyOnClick"
+        android:textSize="20sp" />
 </LinearLayout>

@@ -3,7 +3,9 @@
               android:orientation="vertical"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
-              android:id="@+id/courseListLinearLayout">
+              android:id="@+id/courseListLinearLayout"
+    android:clickable="true"
+    android:onClick="userSearchOnClick">
 
     <TextView
         android:text="TextView"
@@ -13,8 +15,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
-        android:onClick="userSearchOnClick"
-        android:clickable="true"/>
+        android:clickable="false" />
 
     <TextView
         android:text="TextView"
@@ -23,6 +24,5 @@
         android:id="@+id/userClassTextView"
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
-        android:onClick="userSearchOnClick"
-        android:clickable="true"/>
+        android:clickable="false"/>
 </LinearLayout>

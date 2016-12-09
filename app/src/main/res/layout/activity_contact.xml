@@ -42,7 +42,8 @@
         android:textColor="@color/occPaleBlue"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        android:elevation="0dp"/>
+        android:elevation="0dp"
+        android:onClick="callNumber" />
 
     <TextView
         android:text="@string/address_text"

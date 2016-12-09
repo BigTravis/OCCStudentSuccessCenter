@@ -3,27 +3,31 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:id="@+id/studyGroupLinearLayout">
+              android:id="@+id/studyGroupLinearLayout"
+    android:clickable="false">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:clickable="false">
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/courseTextView"
-            android:textColor="@color/occPaleBlue"/>
+            android:textColor="@color/occPaleBlue"
+            android:textSize="18sp" />
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/timeTextView"
-            android:textColor="@color/occPaleBlue"/>
+            android:textColor="@color/occPaleBlue"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -39,14 +43,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/instructorTextView"
             android:clickable="false"
-            android:textColor="@color/occPaleBlue"/>
+            android:textColor="@color/occPaleBlue"
+            android:textSize="18sp" />
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/roomTextView"
-            android:textColor="@color/occPaleBlue"/>
+            android:textColor="@color/occPaleBlue"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>

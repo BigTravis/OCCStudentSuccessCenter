@@ -1,12 +1,9 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
-
-import java.io.File;
 
 public class MainActivity extends NavDrawerActivity {
 
@@ -55,10 +52,11 @@ public class MainActivity extends NavDrawerActivity {
      */
     public void onClickProfile (View v)
     {
-        //if(!db.userExists())
+        db = new DBHelper(this);
+        if (db.getUser(1) == null)
             startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
-       // else
-            //startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+       else
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
     }
 
     public void toAskOnClick (View v)

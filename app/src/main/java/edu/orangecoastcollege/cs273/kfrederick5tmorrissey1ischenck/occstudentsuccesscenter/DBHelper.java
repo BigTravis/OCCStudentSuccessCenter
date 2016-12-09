@@ -341,8 +341,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
                         FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", new String[]
                         {String.valueOf(id)}, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
+        if (cursor != null  && cursor.moveToFirst()) {
 
             User user = new User(
                     cursor.getInt(0),

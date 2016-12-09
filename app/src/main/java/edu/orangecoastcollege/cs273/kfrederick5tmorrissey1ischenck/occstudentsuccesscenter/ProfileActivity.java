@@ -19,6 +19,7 @@ public class ProfileActivity extends NavDrawerActivity {
     private TextView fName;
     private TextView lName;
     private TextView studentNum;
+    private List<TutorTimeRelation> mRelations;
 
     private List<UserCourse> courses;
     private ListView coursesListView;
@@ -36,6 +37,8 @@ public class ProfileActivity extends NavDrawerActivity {
         String last = user.getlName();
         String num = user.getUserNum();
 
+        mRelations = userDB.getAllRelations();
+
         fName = (TextView) findViewById(R.id.firstNameTextView);
         lName = (TextView) findViewById(R.id.lastNameTextView);
         studentNum = (TextView) findViewById(R.id.studentNumTextView);
@@ -51,70 +54,39 @@ public class ProfileActivity extends NavDrawerActivity {
         studentNum.setText(num);
     }
 
-    public void editProfileOnClick (View v)
-    {
+    public void editProfileOnClick(View v) {
         startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
     }
 
-//    public void userSearchOnClick (View v)
-//    {
-//        if (v instanceof LinearLayout){
-//
-//            String selectedItem = coursesListView.getSelectedItem().toString();
-//            String subject = selectedCourse.
-//            if (subject.equals("[Select subject]") || classNumber.equals("[Select class]"))
-//                Toast.makeText(this, "You must select a subject and class.", Toast.LENGTH_SHORT).show();
-//
-//            else {
-//                String day = daySpinner.getSelectedItem().toString();
-//                float time;
-//
-//                // Format time from 12 hour to 24 hour format
-//                String hourString = hourSpinner.getSelectedItem().toString();
-//                if (!hourString.equals("[Select hours]")) {
-//                    time = Float.parseFloat(hourSpinner.getSelectedItem().toString());
-//                    time += (minuteSpinner.getSelectedItem().toString().equals(":30")) ? .50f : 0.0;
-//
-//                    if (!(hourString.equals("9") || hourString.equals("10")
-//                            || hourString.equals("11") || hourString.equals("12")))
-//                        time += 12.0f;
-//                }
-//
-//                else // User did not select a time and search will not filter by time
-//                    time = 25.0f;
-//
-//                ArrayList<TutorTimeRelation> tutorTimeResults = new ArrayList<>();
-//                for (TutorTimeRelation relation : mRelations) {
-//                    Course course = relation.getCourse();
+    public void userSearchOnClick(View v) {
+        if (v instanceof LinearLayout) {
+            LinearLayout selectedItem = (LinearLayout) v;
+            UserCourse selectedCourse = (UserCourse) selectedItem.getTag();
+
+
+
+                ArrayList<TutorTimeRelation> tutorTimeResults = new ArrayList<>();
+                for (TutorTimeRelation relation : mRelations) {
+                    Course course = relation.getCourse();
 //                    DayTime startTime = relation.getStartTime();
 //                    DayTime endTime = relation.getEndTime();
-//
-//                    if (course.getDepartment().equals(subject) && course.getNumber().equals(classNumber)) {
-//                        if (!day.equals("[Select day]")) {
-//                            if (startTime.getDay().equals(day)) {
-//                                if (time < 25.0f) {
-//                                    if (startTime.getTime() <= time && endTime.getTime() >= time)
-//                                        tutorTimeResults.add(relation);
-//                                }
-//                                else
-//                                    tutorTimeResults.add(relation);
-//                            }
-//
-//                        }
-//                        else // No time was selected and all qualified tutors available at the specified
-//                            // day will be selected
-//                            tutorTimeResults.add(relation);
-//                    }
-//                }
-//
-//                Intent listIntent = new Intent(this, TutorListActivity.class);
-//                listIntent.putExtra("Tutor Results", tutorTimeResults);
-//                listIntent.putExtra("Subject", subject);
-//                listIntent.putExtra("Class Number", classNumber);
-//                listIntent.putExtra("Day", daySpinner.getSelectedItem().toString());
-//                listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
-//                startActivity(listIntent);
-//            }
-//        }
-//    }
-}
+
+                    if (course.getDepartment().equals(selectedCourse.getDepartment()) &&
+                            course.getNumber().equals(selectedCourse.getNumber())) {
+                            tutorTimeResults.add(relation);
+                    }
+                }
+
+                Intent listIntent = new Intent(this, TutorListActivity.class);
+                listIntent.putExtra("Tutor Results", tutorTimeResults);
+                listIntent.putExtra("Subject", selectedCourse.getDepartment());
+                listIntent.putExtra("Class Number", selectedCourse.getNumber());
+                listIntent.putExtra("Day", "[Select day]");
+                listIntent.putExtra("Time", "[Select hour]");
+            if(tutorTimeResults.isEmpty())
+                Toast.makeText(this, R.string.no_tutors_error, Toast.LENGTH_LONG).show();
+            else
+                startActivity(listIntent);
+            }
+        }
+    }
