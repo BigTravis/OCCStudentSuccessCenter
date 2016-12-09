@@ -5,34 +5,34 @@
         <item
             android:id="@+id/nav_tutor_search"
             android:icon="@drawable/ic_search_black_24dp"
-            android:title="Tutor Search"/>
+            android:title="@string/tutor_search_button"/>
         <item
             android:id="@+id/nav_study_group"
             android:icon="@drawable/ic_study_group_black_24dp"
-            android:title="Study Group"/>
+            android:title="@string/study_group_button"/>
         <item
             android:id="@+id/nav_faq"
             android:icon="@drawable/ic_faq_black_24dp"
-            android:title="FAQ"/>
+            android:title="@string/faq_button"/>
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_contact_black_24dp"
-            android:title="Contact"/>
+            android:title="@string/contact_button"/>
         <item
             android:id="@+id/nav_location"
             android:icon="@drawable/ic_location_black_24dp"
-            android:title="Location"/>
+            android:title="@string/location_button"/>
         <item
             android:id="@+id/nav_resources"
             android:icon="@drawable/ic_resources_black_24dp"
-            android:title="Resources"/>
+            android:title="@string/resources_button"/>
         <item
             android:id="@+id/nav_questions_for_tutor"
             android:icon="@drawable/ic_questions_black_24dp"
-            android:title="Questions For Tutor"/>
+            android:title="@string/to_ask_button"/>
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile_black_24dp"
-            android:title="Profile"/>
+            android:title="@string/profile_button"/>
     </group>
 </menu>

@@ -11,7 +11,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="contact_us_text">Contact Us</string>
     <string name="address_text">2701 Fairview Rd\nCosta Mesa\nCA 92626\nClassrooms and Labs Building\nRoom 103 </string>
-    <string name="phone_text">(714) 432-5559</string>
+    <string name="phone_text" translatable="false">(714) 432-5559</string>
     <string name="at">at </string>
 
     <!--Toasts-->
@@ -24,10 +24,10 @@
         field must have values.</string>
 
     <!--Unused-->
-    <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_activity_nav_drawer">NavDrawerActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_menu" translatable="false">MenuActivity</string>
+    <string name="title_activity_nav_drawer" translatable="false">NavDrawerActivity</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_directions">Map</string>
 
@@ -54,7 +54,7 @@
     <string name="hour_drop_down_text">What time?</string>
 
     <!--Variable Text-->
-    <string name="subject_time_header" formatted="false">%s %s %s</string>
+    <string name="subject_time_header" formatted="false" translatable="false">%s %s %s</string>
 
     <!--Buttons-->
     <string name="search_button_text">Search</string>
