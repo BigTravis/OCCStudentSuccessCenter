@@ -35,10 +35,10 @@ public class TutorListActivity extends NavDrawerActivity {
         mTutorNameTextView = (TextView) findViewById(R.id.tutorNameTextView);
 
         String timeString = "";
-        if (!day.equals("[Select day]"))
+        if (!day.equals(getString(R.string.default_day_search)))
         {
             timeString += ("at " + day);
-            if (!time.equals("[Select hours][Select minutes]"))
+            if (!time.equals(getString(R.string.default_hour_search) + getString(R.string.default_minutes_search)))
                 timeString += ": " + time;
         }
         mTutorNameTextView.setText(String.format(mTutorNameTextView.getText().toString(),

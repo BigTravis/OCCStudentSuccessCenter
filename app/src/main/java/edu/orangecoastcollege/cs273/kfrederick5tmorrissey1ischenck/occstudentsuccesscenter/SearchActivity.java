@@ -73,7 +73,7 @@ public class SearchActivity extends NavDrawerActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedSubject = parent.getItemAtPosition(position).toString();
-            if (!selectedSubject.equals("[Select subject]")) {
+            if (!selectedSubject.equals(getString(R.string.default_subject_search))) {
                 classSpinner.setEnabled(true);
                 updateClassSpinner(selectedSubject);
             }
@@ -94,7 +94,7 @@ public class SearchActivity extends NavDrawerActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedClass = parent.getItemAtPosition(position).toString();
-            if (!selectedClass.equals("[Select class]"))
+            if (!selectedClass.equals(getString(R.string.default_course_search)))
                 daySpinner.setEnabled(true);
 
             else {
@@ -113,7 +113,7 @@ public class SearchActivity extends NavDrawerActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedDay = parent.getItemAtPosition(position).toString();
-            if (!selectedDay.equals("[Select day]"))
+            if (!selectedDay.equals(getString(R.string.default_day_search)))
                 hourSpinner.setEnabled(true);
 
             else {
@@ -132,7 +132,7 @@ public class SearchActivity extends NavDrawerActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedHour = parent.getItemAtPosition(position).toString();
-            if (!selectedHour.equals("[Select hour]"))
+            if (!selectedHour.equals((getString(R.string.default_hour_search))))
                 minuteSpinner.setEnabled(true);
 
             else {
@@ -149,7 +149,7 @@ public class SearchActivity extends NavDrawerActivity {
 
     private void updateClassSpinner(String input) {
         ArrayList<String> modifiedCourseList = new ArrayList<>();
-        modifiedCourseList.add("[Select class]");
+        modifiedCourseList.add(getString(R.string.default_minutes_search));
         for (Course course : mCourses)
             if (course.getDepartment().equals(input))
                 modifiedCourseList.add(course.getNumber());
@@ -161,7 +161,7 @@ public class SearchActivity extends NavDrawerActivity {
 
     private String[] getAllSubjectNames() {
         ArrayList<String> subjectNames = new ArrayList<>();
-        subjectNames.add("[Select subject]");
+        subjectNames.add(getString(R.string.default_subject_search));
         int size = mCourses.size();
 
         for (int i = 0; i < size; ++i) {
@@ -174,7 +174,7 @@ public class SearchActivity extends NavDrawerActivity {
 
     private String[] getAllClassNumbers() {
         String[] classNumbers = new String[mCourses.size() + 1];
-        classNumbers[0] = "[Select class]";
+        classNumbers[0] = getString(R.string.default_course_search);
         int size = classNumbers.length;
 
         for (int i = 1; i < size; ++i)
@@ -184,26 +184,27 @@ public class SearchActivity extends NavDrawerActivity {
     }
 
     private String[] getAllDays() {
-        String[] days = {"[Select day]", "Monday", "Tuesday",
-                        "Wednesday", "Thursday", "Friday", "Saturday"};
+        String[] days = {getString(R.string.default_day_search), getString(R.string.monday), getString(R.string.tuesday),
+                getString(R.string.wednesday), getString(R.string.thursday), getString(R.string.friday),
+                getString(R.string.saturday)};
         return days;
     }
 
     private String[] getAllHours() {
-        String[] hours = {"[Select hour]", "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7"};
+        String[] hours = {getString(R.string.default_hour_search), "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7"};
         return hours;
     }
 
     private String[] getAllMinutes() {
-        String[] minutes = {"[Select minutes]", ":00", ":30"};
+        String[] minutes = {getString(R.string.default_minutes_search), ":00", ":30"};
         return minutes;
     }
 
     public void search(View v) {
         String subject = subjectSpinner.getSelectedItem().toString();
         String classNumber = classSpinner.getSelectedItem().toString();
-        if (subject.equals("[Select subject]") || classNumber.equals("[Select class]"))
-            Toast.makeText(this, "You must select a subject and class.", Toast.LENGTH_SHORT).show();
+        if (subject.equals(getString(R.string.default_subject_search)) || classNumber.equals(getString(R.string.default_course_search)))
+            Toast.makeText(this, getString(R.string.search_subject_class_error), Toast.LENGTH_SHORT).show();
 
         else {
             String day = daySpinner.getSelectedItem().toString();
@@ -211,7 +212,7 @@ public class SearchActivity extends NavDrawerActivity {
 
             // Format time from 12 hour to 24 hour format
             String hourString = hourSpinner.getSelectedItem().toString();
-            if (!hourString.equals("[Select hour]")) {
+            if (!hourString.equals(getString(R.string.default_hour_search))) {
                 time = Float.parseFloat(hourSpinner.getSelectedItem().toString());
                 time += (minuteSpinner.getSelectedItem().toString().equals(":30")) ? .50f : 0.0;
 
@@ -230,7 +231,7 @@ public class SearchActivity extends NavDrawerActivity {
                 DayTime endTime = relation.getEndTime();
 
                 if (course.getDepartment().equals(subject) && course.getNumber().equals(classNumber)) {
-                    if (!day.equals("[Select day]")) {
+                    if (!day.equals(getString(R.string.default_day_search))) {
                         if (startTime.getDay().equals(day)) {
                             if (time < 25.0f) {
                                 if (startTime.getTime() <= time && endTime.getTime() >= time)
