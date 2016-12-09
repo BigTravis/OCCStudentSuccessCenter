@@ -53,32 +53,32 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="1">
 
-            <!--<EditText-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:ems="10"-->
-                <!--android:id="@+id/studentNumEditText"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_marginRight="25dp"-->
-                <!--android:hint="Student Number"/>-->
-
-            <!--<Button-->
-                <!--android:text="@string/student_info_button"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:id="@+id/studentIntfoButton"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="saveInfoOnClick"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:background="@drawable/occ_button_style"/>-->
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/studentNumEditText"
-                android:hint="Student Number"
+                android:layout_weight="1"
+                android:layout_marginRight="25dp"
+                android:hint="Student Number"/>
+
+            <Button
+                android:text="@string/student_info_button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/studentIntfoButton"
+                android:layout_weight="1"
+                android:onClick="saveInfoOnClick"
+                android:textColor="@color/white"
+                android:background="@drawable/occ_button_style"/>
+            <!--<EditText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="textPersonName"-->
+                <!--android:ems="10"-->
+                <!--android:id="@+id/studentNumEditText"-->
+                <!--android:hint="Student Number"-->
                 />
         </LinearLayout>
 
