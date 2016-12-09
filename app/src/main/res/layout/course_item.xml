@@ -14,7 +14,8 @@
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
         android:onClick="userSearchOnClick"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:textSize="18sp" />
 
     <TextView
         android:text="TextView"
@@ -24,5 +25,6 @@
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
         android:onClick="userSearchOnClick"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:textSize="18sp" />
 </LinearLayout>
