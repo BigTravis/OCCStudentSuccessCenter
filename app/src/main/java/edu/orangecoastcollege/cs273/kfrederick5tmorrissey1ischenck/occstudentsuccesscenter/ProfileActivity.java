@@ -16,8 +16,7 @@ public class ProfileActivity extends NavDrawerActivity {
 
     private DBHelper userDB = new DBHelper(this);
     private UserListAdapter mUserListAdapter;
-    private TextView fName;
-    private TextView lName;
+    private TextView name;
     private TextView studentNum;
     private List<TutorTimeRelation> mRelations;
 
@@ -39,8 +38,7 @@ public class ProfileActivity extends NavDrawerActivity {
 
         mRelations = userDB.getAllRelations();
 
-        fName = (TextView) findViewById(R.id.firstNameTextView);
-        lName = (TextView) findViewById(R.id.lastNameTextView);
+        name = (TextView) findViewById(R.id.nameTextView);
         studentNum = (TextView) findViewById(R.id.studentNumTextView);
 
 
@@ -49,8 +47,7 @@ public class ProfileActivity extends NavDrawerActivity {
         coursesListView = (ListView) findViewById(R.id.coursesListView);
         coursesListView.setAdapter(mUserListAdapter);
 
-        fName.setText(first);
-        lName.setText(last);
+        name.setText(first + " " + last);
         studentNum.setText(num);
     }
 

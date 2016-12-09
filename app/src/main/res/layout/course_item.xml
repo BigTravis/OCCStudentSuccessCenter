@@ -15,7 +15,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
-        android:clickable="false" />
+        android:clickable="false"
+        android:textSize="18sp"/>
 
     <TextView
         android:text="TextView"
@@ -24,5 +25,6 @@
         android:id="@+id/userClassTextView"
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:textSize="14sp"/>
 </LinearLayout>
