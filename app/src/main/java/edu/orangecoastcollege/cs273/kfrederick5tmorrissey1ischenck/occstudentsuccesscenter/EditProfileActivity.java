@@ -2,9 +2,6 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +12,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +32,12 @@ public class EditProfileActivity extends NavDrawerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_edit_profile, contentFrameLayout);
 
         db = new DBHelper(this);
 
         User user;
-
 
 
         mCourses = db.getAllCourses();
@@ -57,7 +51,7 @@ public class EditProfileActivity extends NavDrawerActivity {
         subjectSpinner = (Spinner) findViewById(R.id.editSubjectSpinner);
         classSpinner = (Spinner) findViewById(R.id.editClassSpinner);
 
-        if(db.userExists()){
+        if (db.userExists()) {
             user = db.getUser(1);
             fName.setText(user.getfName());
             lName.setText(user.getlName());
@@ -66,11 +60,6 @@ public class EditProfileActivity extends NavDrawerActivity {
         editCourseListView = (ListView) findViewById(R.id.editCourseListView);
 
         editCourseListView.setAdapter(mProfileAdapter);
-
-
-        fName.addTextChangedListener(userChangeTextWatcher);
-        lName.addTextChangedListener(userChangeTextWatcher);
-        studentNum.addTextChangedListener(userChangeTextWatcher);
 
         ArrayAdapter<String> subjectSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllSubjectsNames());
@@ -85,50 +74,6 @@ public class EditProfileActivity extends NavDrawerActivity {
 
     }
 
-    private TextWatcher userChangeTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            try {
-                String first, last, num;
-                first = fName.getText().toString();
-                last = lName.getText().toString();
-                num = studentNum.getText().toString();
-
-                if (first.isEmpty() || last.isEmpty() || num.isEmpty())
-                    Toast.makeText(EditProfileActivity.this, R.string.first_or_last_error,
-                            Toast.LENGTH_SHORT).show();
-                else if (db.userExists()) {
-                    User user = db.getUser(1);
-                    user.setfName(first);
-                    user.setlName(last);
-                    user.setUserNum(num);
-                    db.updateUser(user);
-                } else {
-                    User newUser = new User(1, first, last, num);
-
-                    db.updateUser(newUser);
-                }
-            }
-            catch (Exception e){
-                System.out.println("Error " + e.getMessage());
-                fName.setText("");
-                lName.setText("");
-                studentNum.setText("");
-            }
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
-
     public void saveInfoOnClick(View v) {
         String first, last, num;
         first = fName.getText().toString();
@@ -137,15 +82,14 @@ public class EditProfileActivity extends NavDrawerActivity {
 
         if (first.isEmpty() || last.isEmpty() || num.isEmpty())
             Toast.makeText(this, R.string.first_or_last_error, Toast.LENGTH_SHORT).show();
-        else if(db.userExists()) {
+        else if (db.userExists()) {
             User user = db.getUser(1);
             user.setfName(first);
             user.setlName(last);
             user.setUserNum(num);
             db.updateUser(user);
             Toast.makeText(this, R.string.update_successful, Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             User newUser = new User(1, first, last, num);
 
             db.updateUser(newUser);
@@ -202,38 +146,38 @@ public class EditProfileActivity extends NavDrawerActivity {
 
     public AdapterView.OnItemSelectedListener subjectSpinnerListener =
             new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            String selectedSubject = parent.getItemAtPosition(position).toString();
-            if (!selectedSubject.equals("[Select subject]")) {
-                classSpinner.setEnabled(true);
-                updateClassSpinner(selectedSubject);
-            } else {
-                classSpinner.setEnabled(false);
-                classSpinner.setSelection(0);
-            }
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedSubject = parent.getItemAtPosition(position).toString();
+                    if (!selectedSubject.equals("[Select subject]")) {
+                        classSpinner.setEnabled(true);
+                        updateClassSpinner(selectedSubject);
+                    } else {
+                        classSpinner.setEnabled(false);
+                        classSpinner.setSelection(0);
+                    }
 
-        }
+                }
 
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-        }
-    };
+                }
+            };
 
     public AdapterView.OnItemSelectedListener classSpinnerListener =
             new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // String selectedClass = parent.getItemAtPosition(position).toString();
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    // String selectedClass = parent.getItemAtPosition(position).toString();
 
-        }
+                }
 
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-        }
-    };
+                }
+            };
 
     private void updateClassSpinner(String input) {
         ArrayList<String> modifiedUserList = new ArrayList<>();
@@ -272,26 +216,27 @@ public class EditProfileActivity extends NavDrawerActivity {
     }
 
     public void returnToProfileOnClick(View v) {
-       // String first, last, num;
-        //first = fName.getText().toString();
-        //last = lName.getText().toString();
-        //num = studentNum.getText().toString();
+        String first, last, num;
+        first = fName.getText().toString();
+        last = lName.getText().toString();
+        num = studentNum.getText().toString();
 
-        //if (first.isEmpty() || last.isEmpty() || num.isEmpty())
-            //Toast.makeText(this, "No name or student number given.", Toast.LENGTH_LONG).show();
-        //else {
-//            first = db.getUser(1).getfName();
-//            last = db.getUser(1).getlName();
-//            num = db.getUser(1).getUserNum();
-//            ArrayList<UserCourse> userCourse = db.getAllUserCourses();
-//
-//            Intent profileIntent = new Intent(this, ProfileActivity.class);
-//            profileIntent.putExtra("First", first);
-//            profileIntent.putExtra("Last", last);
-//            profileIntent.putExtra("StudentNum", num);
-//            profileIntent.putExtra("Course", userCourse);
-            //saveInfoOnClick(v);
+        if (first.isEmpty() || last.isEmpty() || num.isEmpty())
+            Toast.makeText(this, "No name or student number given.", Toast.LENGTH_LONG).show();
+        else {
+            first = db.getUser(1).getfName();
+            last = db.getUser(1).getlName();
+            num = db.getUser(1).getUserNum();
+            ArrayList<UserCourse> userCourse = db.getAllUserCourses();
+
+            Intent profileIntent = new Intent(this, ProfileActivity.class);
+            profileIntent.putExtra("First", first);
+            profileIntent.putExtra("Last", last);
+            profileIntent.putExtra("StudentNum", num);
+            profileIntent.putExtra("Course", userCourse);
+            saveInfoOnClick(v);
             startActivity(new Intent(this, ProfileActivity.class));
         }
     }
+}
 

@@ -1,12 +1,13 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by kfrederick5 on 12/6/2016.
  */
 
-public class UserCourse extends Course {
+public class UserCourse extends Course implements Parcelable {
     private int isSelected;
 
     public UserCourse(int isSelected) {
