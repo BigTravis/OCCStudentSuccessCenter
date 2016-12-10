@@ -26,9 +26,6 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "OCCSSC";
     private static final int DATABASE_VERSION = 1;
 
-//    private static final String CURRENT_DATABASE_TABLE = "current_database";
-//    private static final String CURRENT_DATABASE_VERSION = "current_database_version";
-
     private static final String COURSES_TABLE = "Courses";
     private static final String COURSES_KEY_FIELD_ID = "id";
     private static final String FIELD_COURSE_DEPARTMENT = "course_department";
@@ -82,14 +79,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * creates tables for courses, tutors, times, tutor-time relationships, and study groups
+     *
      * @param database the database that the tables are being created in
      */
     @Override
     public void onCreate(SQLiteDatabase database) {
-//        String table = "CREATE TABLE " + CURRENT_DATABASE_TABLE + "("
-//                + CURRENT_DATABASE_VERSION + " INTEGER" + ")";
-//        database.execSQL(table);
-
         String table = "CREATE TABLE " + COURSES_TABLE + "("
                 + COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_COURSE_DEPARTMENT + " TEXT, "
@@ -136,7 +130,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + ")";
         database.execSQL(table);
 
-        table ="CREATE TABLE " + USER_INFO_TABLE + "("
+        table = "CREATE TABLE " + USER_INFO_TABLE + "("
                 + USER_INFO_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_USER_FNAME + " TEXT, "
                 + FIELD_USER_LNAME + " TEXT, "
@@ -160,13 +154,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * drops table then creates all new tables
+     *
      * @param database
      * @param oldVersion
      * @param newVersion
      */
-    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion)
-    {
-        // database.execSQL("DROP TABLE IF EXISTS " + CURRENT_DATABASE_TABLE);
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         database.execSQL("DROP TABLE IF EXISTS " + COURSES_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TUTORS_TABLE);
         database.execSQL("DROP TABLE IF EXISTS " + TIMES_TABLE);
@@ -179,41 +172,14 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-//    // CURRENT DATABASE TABLE OPERATIONS: add, get
-//    public void addDatabaseVersion()
-//    {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(CURRENT_DATABASE_VERSION, DATABASE_VERSION);
-//        db.insert(CURRENT_DATABASE_TABLE, null, values);
-//
-//        db.close();
-//    }
-//
-//    public int getDatabaseVersion()
-//    {
-//        SQLiteDatabase database = this.getReadableDatabase();
-//        Cursor cursor = database.query(
-//                CURRENT_DATABASE_TABLE,
-//                new String[]{CURRENT_DATABASE_VERSION},
-//                null, null, null, null, null, null);
-//        int currentVersion = 0;
-//        if (cursor.moveToFirst()) {
-//            do {
-//                currentVersion = cursor.getInt(0);
-//            }while(cursor.moveToNext());
-//        }
-//        return currentVersion;
-//    }
-
     // COURSE TABLE OPERATIONS: add, get, getAll, delete
 
     /**
      * adds a new course to the course table
+     *
      * @param course course object containing id, department and number
      */
-    public void addCourse(Course course)
-    {
+    public void addCourse(Course course) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COURSES_KEY_FIELD_ID, course.getId());
@@ -227,6 +193,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * gets a specific course from the course table
+     *
      * @param id the id of the course you want
      * @return course that matches the id
      */
@@ -256,6 +223,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * makes an ArrayList of all courses
+     *
      * @return arrayList of courses
      */
     public ArrayList<Course> getAllCourses() {
@@ -273,7 +241,7 @@ public class DBHelper extends SQLiteOpenHelper {
                                 cursor.getString(1),
                                 cursor.getString(2));
                 coursesList.add(course);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         return coursesList;
     }
@@ -291,10 +259,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * adds a new tutor to the tutor table
+     *
      * @param tutor tutor object that contains id, first name and last name
      */
-    public void addTutor(Tutor tutor)
-    {
+    public void addTutor(Tutor tutor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TUTORS_KEY_FIELD_ID, tutor.getId());
@@ -308,6 +276,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * gets a specific tutor from the tutor table
+     *
      * @param id the id of the tutor you want
      * @return tutor that matches the id
      */
@@ -334,29 +303,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public User getUser(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
-                USER_INFO_TABLE, new String[]{
-                        USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
-                        FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", new String[]
-                        {String.valueOf(id)}, null, null, null, null);
-        if (cursor != null  && cursor.moveToFirst()) {
-
-            User user = new User(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3));
-            db.close();
-            return user;
-        }
-        db.close();
-        return null;
-    }
-
     /**
      * makes an ArrayList of all tutors
+     *
      * @return arrayList of tutors
      */
     public ArrayList<Tutor> getAllTutors() {
@@ -374,7 +323,7 @@ public class DBHelper extends SQLiteOpenHelper {
                                 cursor.getString(1),
                                 cursor.getString(2));
                 tutorsList.add(tutor);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         database.close();
@@ -394,10 +343,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * adds a new DayTime to the times table
+     *
      * @param dayTime DayTime object that contains id, day and time
      */
-    public void addDayTime(DayTime dayTime)
-    {
+    public void addDayTime(DayTime dayTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TIMES_KEY_FIELD_ID, dayTime.getId());
@@ -411,6 +360,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * gets a specific DayTime from the times table
+     *
      * @param id the id of the DayTime you want
      * @return DayTime that matches the id
      */
@@ -439,6 +389,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * makes an ArrayList of all DayTimes
+     *
      * @return arrayList of DayTimes
      */
     public ArrayList<DayTime> getAllDayTimes() {
@@ -456,7 +407,7 @@ public class DBHelper extends SQLiteOpenHelper {
                                 cursor.getString(1),
                                 cursor.getFloat(2));
                 dayTimesList.add(dayTime);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         database.close();
@@ -477,13 +428,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * adds a new TutorTimeRelation to the tutor_time table
-     * @param tutorId id of a tutor object
-     * @param courseId id of a course object
+     *
+     * @param tutorId     id of a tutor object
+     * @param courseId    id of a course object
      * @param startTimeId id of a DayTime object
-     * @param endTimeId id of a EndTime object
+     * @param endTimeId   id of a EndTime object
      */
-    public void addTutorTimeRelation(int tutorId, int courseId, int startTimeId, int endTimeId)
-    {
+    public void addTutorTimeRelation(int tutorId, int courseId, int startTimeId, int endTimeId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(FIELD_TUTOR_ID, tutorId);
@@ -498,6 +449,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * creates an ArrayList of all tutor time relations
+     *
      * @return ArrayList of tutor time relations
      */
     public ArrayList<TutorTimeRelation> getAllRelations() {
@@ -518,7 +470,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         new TutorTimeRelation(tutor, course, startTime, endTime);
                 relationsList.add(newRelation);
 
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         db.close();
@@ -538,14 +490,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * adds a new study group to the study group table
-     * @param id id of study group
+     *
+     * @param id         id of study group
      * @param instructor instructor for study group's class
-     * @param courseId id of the course
-     * @param dayTimeId id of the time
-     * @param room room study group is held in
+     * @param courseId   id of the course
+     * @param dayTimeId  id of the time
+     * @param room       room study group is held in
      */
-    public void addStudyGroup(int id, String instructor, int courseId, int dayTimeId, String room)
-    {
+    public void addStudyGroup(int id, String instructor, int courseId, int dayTimeId, String room) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(STUDY_GROUPS_KEY_FIELD_ID, id);
@@ -561,6 +513,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * creates an ArrayList of Study Groups
+     *
      * @return an ArrayList of study groups
      */
     public ArrayList<StudyGroup> getAllStudyGroups() {
@@ -583,7 +536,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         new StudyGroup(id, instructor, course, dayTime, room);
                 studyGroupsList.add(newGroup);
 
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         db.close();
@@ -599,10 +552,199 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // USER TABLE FUNCTIONS: add, get, update, check if user exists
+
+    public void addUser(User newUser) {
+        SQLiteDatabase userDB = this.getWritableDatabase();
+
+        ContentValues val = new ContentValues();
+
+        val.put(FIELD_USER_FNAME, newUser.getfName());
+        val.put(FIELD_USER_LNAME, newUser.getlName());
+        val.put(FIELD_USER_NUMBER, newUser.getUserNum());
+
+        userDB.insert(USER_INFO_TABLE, null, val);
+
+        userDB.close();
+    }
+
+    public User getUser(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                USER_INFO_TABLE, new String[]{
+                        USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
+                        FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", new String[]
+                        {String.valueOf(id)}, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+
+            User user = new User(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3));
+            db.close();
+            return user;
+        }
+        db.close();
+        return null;
+    }
+
+    public void updateUser(User existingUser) {
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_USER_FNAME, existingUser.getfName());
+        values.put(FIELD_USER_LNAME, existingUser.getlName());
+        values.put(FIELD_USER_NUMBER, existingUser.getUserNum());
+
+        courseDB.update(USER_INFO_TABLE, values, USER_INFO_KEY_FIELD_ID + "=?",
+                new String[]{String.valueOf(existingUser.getId())});
+
+        courseDB.close();
+    }
+
+
+    public boolean userExists() {
+        User user = new User();
+        addUser(user);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        Cursor cursor = db.query(
+                USER_INFO_TABLE, new String[]{
+                        USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
+                        FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", null, null, null, null, null);
+
+        return !cursor.moveToFirst();
+    }
+
+    // USER COURSES TABLE FUNCTIONS: add, getAll, update, delete
+
+    public void addUserCourse(UserCourse newCourse) {
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_SUBJECT, newCourse.getDepartment());
+        values.put(FIELD_CLASS, newCourse.getNumber());
+        values.put(FIELD_IS_SELECTED, newCourse.getIsSelected());
+
+        courseDB.insert(USER_COURSES_TABLE, null, values);
+
+        courseDB.close();
+    }
+
+    public ArrayList<UserCourse> getAllUserCourses() {
+        SQLiteDatabase courseDB = this.getReadableDatabase();
+
+        ArrayList<UserCourse> allUserCourses = new ArrayList<>();
+
+        Cursor results = courseDB.query(USER_COURSES_TABLE, null, null, null, null, null, null);
+
+        if (results.moveToFirst()) {
+            do {
+                int id = results.getInt(0);
+                String uSubject = results.getString(1);
+                String uClass = results.getString(2);
+                int isSelected = results.getInt(3);
+                allUserCourses.add(new UserCourse(id, uSubject, uClass, isSelected));
+            } while (results.moveToNext());
+        }
+
+        courseDB.close();
+        results.close();
+        return allUserCourses;
+    }
+
+    public void updateCourse(UserCourse existingCourse) {
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_SUBJECT, existingCourse.getDepartment());
+        values.put(FIELD_CLASS, existingCourse.getNumber());
+        values.put(FIELD_IS_SELECTED, existingCourse.getIsSelected());
+
+        courseDB.update(USER_COURSES_TABLE, values, USER_COURSES_KEY_FIELD_ID + "=?",
+                new String[]{String.valueOf(existingCourse.getId())});
+
+        courseDB.close();
+    }
+
+
+    public void deleteSelectedCourses() {
+        SQLiteDatabase courseDB = this.getWritableDatabase();
+        courseDB.delete(USER_COURSES_TABLE, FIELD_IS_SELECTED + "=1", null);
+        courseDB.close();
+    }
+
+
+    // QUESTIONS TABLE FUNCTIONS: add, getAll, update, delete
+
+    public void addQuestion(Questions newQuestion) {
+        SQLiteDatabase questionDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_QUESTION, newQuestion.getQuestion());
+        values.put(FIELD_IS_ANSWERED, newQuestion.getIsAnswered());
+
+        questionDB.insert(QUESTIONS_TABLE, null, values);
+
+        questionDB.close();
+    }
+
+    public ArrayList<Questions> getAllQuestions() {
+        SQLiteDatabase questionDB = this.getReadableDatabase();
+
+        ArrayList<Questions> allQuestions = new ArrayList<>();
+
+        Cursor results = questionDB.query(QUESTIONS_TABLE,
+                null, null, null, null, null, null);
+
+        if (results.moveToFirst()) {
+            do {
+                int id = results.getInt(0);
+                String question = results.getString(1);
+                int isAnswered = results.getInt(2);
+                allQuestions.add(new Questions(id, question, isAnswered));
+            } while (results.moveToNext());
+        }
+
+        questionDB.close();
+        results.close();
+        return allQuestions;
+    }
+
+    public void updateQuestion(Questions existingQuestion) {
+        SQLiteDatabase questionDB = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_QUESTION, existingQuestion.getQuestion());
+        values.put(FIELD_IS_ANSWERED, existingQuestion.getIsAnswered());
+
+        questionDB.update(QUESTIONS_TABLE, values,
+                QUESTIONS_KEY_FIELD_ID + "=?",
+                new String[]{String.valueOf(existingQuestion.getId())});
+
+        questionDB.close();
+    }
+
+    public void deleteSelectedQuestions() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(QUESTIONS_TABLE, FIELD_IS_ANSWERED + "=1", null);
+        db.close();
+    }
+
+
     // CSV import functions
 
     /**
      * imports courses information from a csv file
+     *
      * @param csvFileName name of csv file
      * @return true if import works, false if it doesnt
      */
@@ -630,7 +772,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String number = fields[2].trim();
                 addCourse(new Course(id, department, number));
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -640,6 +782,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * imports tutor information from a csv file
+     *
      * @param csvFileName name of csv file
      * @return true if import works, false if it doesnt
      */
@@ -667,7 +810,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String lastName = fields[2].trim();
                 addTutor(new Tutor(id, firstName, lastName));
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -677,6 +820,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * imports DayTime information from a csv file
+     *
      * @param csvFileName name of csv file
      * @return true if import works, false if it doesnt
      */
@@ -704,7 +848,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 float time = Float.parseFloat(fields[2].trim());
                 addDayTime(new DayTime(id, day, time));
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -714,6 +858,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * imports relation information from a csv file
+     *
      * @param csvFileName name of csv file
      * @return true if import works, false if it doesnt
      */
@@ -736,13 +881,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     Log.d("OCC SSC", "Skipping Bad CSV Row: " + Arrays.toString(fields));
                     continue;
                 }
-                int  tutorId = Integer.parseInt(fields[0].trim());
+                int tutorId = Integer.parseInt(fields[0].trim());
                 int courseId = Integer.parseInt(fields[1].trim());
                 int startTimeId = Integer.parseInt(fields[2].trim());
                 int endTimeId = Integer.parseInt(fields[3].trim());
                 addTutorTimeRelation(tutorId, courseId, startTimeId, endTimeId);
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -769,188 +914,18 @@ public class DBHelper extends SQLiteOpenHelper {
                     Log.d("OCC SSC", "Skipping Bad CSV Row: " + Arrays.toString(fields));
                     continue;
                 }
-                int  id = Integer.parseInt(fields[0].trim());
+                int id = Integer.parseInt(fields[0].trim());
                 String instructor = fields[1].trim();
                 int courseId = Integer.parseInt(fields[2].trim());
                 int dayTimeId = Integer.parseInt(fields[3].trim());
                 String room = fields[4].trim();
                 addStudyGroup(id, instructor, courseId, dayTimeId, room);
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
 
         return true;
-    }
-
-    public void addUser(User newUser)
-    {
-        SQLiteDatabase userDB = this.getWritableDatabase();
-
-        ContentValues val = new ContentValues();
-
-        val.put(FIELD_USER_FNAME, newUser.getfName());
-        val.put(FIELD_USER_LNAME, newUser.getlName());
-        val.put(FIELD_USER_NUMBER, newUser.getUserNum());
-
-        userDB.insert(USER_INFO_TABLE, null, val);
-
-        userDB.close();
-    }
-
-    public void addUserCourse(UserCourse newCourse)
-    {
-        SQLiteDatabase courseDB = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(FIELD_SUBJECT, newCourse.getDepartment());
-        values.put(FIELD_CLASS, newCourse.getNumber());
-        values.put(FIELD_IS_SELECTED, newCourse.getIsSelected());
-
-        courseDB.insert(USER_COURSES_TABLE, null, values);
-
-        courseDB.close();
-    }
-
-    public ArrayList<UserCourse> getAllUserCourses()
-    {
-        SQLiteDatabase courseDB = this.getReadableDatabase();
-
-        ArrayList<UserCourse> allUserCourses = new ArrayList<>();
-
-        Cursor results = courseDB.query(USER_COURSES_TABLE, null, null, null, null, null, null);
-
-        if(results.moveToFirst())
-        {
-            do {
-                int id = results.getInt(0);
-                String uSubject = results.getString(1);
-                String uClass = results.getString(2);
-                int isSelected = results.getInt(3);
-                allUserCourses.add(new UserCourse(id, uSubject, uClass, isSelected));
-            }while (results.moveToNext());
-        }
-
-        courseDB.close();
-        results.close();
-        return allUserCourses;
-    }
-
-    public void updateCourse(UserCourse existingCourse)
-    {
-        SQLiteDatabase courseDB = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(FIELD_SUBJECT, existingCourse.getDepartment());
-        values.put(FIELD_CLASS, existingCourse.getNumber());
-        values.put(FIELD_IS_SELECTED, existingCourse.getIsSelected());
-
-        courseDB.update(USER_COURSES_TABLE, values, USER_COURSES_KEY_FIELD_ID + "=?",
-                new String[] {String.valueOf(existingCourse.getId())});
-
-        courseDB.close();
-    }
-
-    public void updateUser(User existingUser)
-    {
-        SQLiteDatabase courseDB = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(FIELD_USER_FNAME, existingUser.getfName());
-        values.put(FIELD_USER_LNAME, existingUser.getlName());
-        values.put(FIELD_USER_NUMBER, existingUser.getUserNum());
-
-        courseDB.update(USER_INFO_TABLE, values, USER_INFO_KEY_FIELD_ID + "=?",
-                new String[] {String.valueOf(existingUser.getId())});
-
-        courseDB.close();
-    }
-
-    public void deleteSelectedCourses()
-    {
-        SQLiteDatabase courseDB = this.getWritableDatabase();
-        courseDB.delete(USER_COURSES_TABLE, FIELD_IS_SELECTED + "=1", null);
-        courseDB.close();
-    }
-
-    public void addQuestion(Questions newQuestion)
-    {
-        SQLiteDatabase questionDB = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(FIELD_QUESTION, newQuestion.getQuestion());
-        values.put(FIELD_IS_ANSWERED, newQuestion.getIsAnswered());
-
-        questionDB.insert(QUESTIONS_TABLE, null, values);
-
-        questionDB.close();
-    }
-
-    public ArrayList<Questions> getAllQuestions()
-    {
-        SQLiteDatabase questionDB = this.getReadableDatabase();
-
-        ArrayList<Questions> allQuestions = new ArrayList<>();
-
-        Cursor results = questionDB.query(QUESTIONS_TABLE,
-                null, null, null, null, null, null);
-
-        if(results.moveToFirst())
-        {
-            do {
-                int id = results.getInt(0);
-                String question = results.getString(1);
-                int isAnswered = results.getInt(2);
-                allQuestions.add(new Questions(id, question, isAnswered));
-            }while(results.moveToNext());
-        }
-
-        questionDB.close();
-        results.close();
-        return allQuestions;
-    }
-
-    public void updateQuestion(Questions existingQuestion)
-    {
-        SQLiteDatabase questionDB = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(FIELD_QUESTION, existingQuestion.getQuestion());
-        values.put(FIELD_IS_ANSWERED, existingQuestion.getIsAnswered());
-
-        questionDB.update(QUESTIONS_TABLE, values,
-                QUESTIONS_KEY_FIELD_ID + "=?",
-                new String[] {String.valueOf(existingQuestion.getId())});
-
-        questionDB.close();
-    }
-
-    public void deleteSelectedQuestions()
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(QUESTIONS_TABLE, FIELD_IS_ANSWERED + "=1", null);
-        db.close();
-    }
-
-    public boolean userExists()
-    {
-        User user = new User();
-        addUser(user);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-
-        Cursor cursor = db.query(
-                USER_INFO_TABLE, new String[]{
-                        USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
-                        FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", null, null, null, null, null);
-
-        return !cursor.moveToFirst();
     }
 }
