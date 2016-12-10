@@ -6,6 +6,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * this activity displays a list of study groups
+ */
 public class StudyGroupActivity extends NavDrawerActivity {
 
     private StudyGroupAdapter mStudyGroupAdapter;

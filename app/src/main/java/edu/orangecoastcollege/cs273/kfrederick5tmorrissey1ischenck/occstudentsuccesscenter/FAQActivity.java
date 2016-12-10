@@ -10,7 +10,9 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * this activity is a list of FAQs
+ */
 public class FAQActivity extends NavDrawerActivity {
 
     private FaqListAdapter mFaqListAdapter;
@@ -34,6 +36,11 @@ public class FAQActivity extends NavDrawerActivity {
         mFAQListView.setAdapter(mFaqListAdapter);
     }
 
+    /**
+     * this activity is called when you click a particular questions
+     * it sends user to the faq details activity
+     * @param view what the user clicks on
+     */
     public void viewAnswer(View view)
     {
         if (view instanceof TextView)

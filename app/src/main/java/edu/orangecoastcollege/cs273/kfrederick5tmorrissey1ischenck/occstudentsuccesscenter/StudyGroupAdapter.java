@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ian on 12/3/2016.
- */
-
+ * this adapter puts study groups into a linear layout for the list in StudyGroupActivity
+ *
+ * */
 public class StudyGroupAdapter extends ArrayAdapter<StudyGroup>  {
 
     private Context mContext;
