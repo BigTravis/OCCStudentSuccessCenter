@@ -15,8 +15,11 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 //        deleteDatabase(DBHelper.DATABASE_NAME);
-//        db = new DBHelper(this);
+        db = new DBHelper(this);
 //        populateDatabase();
+        if (db.mTutors == null) {
+            db.syncStaticLists();
+        }
 
         TimerTask timerTask = new TimerTask() {
             @Override

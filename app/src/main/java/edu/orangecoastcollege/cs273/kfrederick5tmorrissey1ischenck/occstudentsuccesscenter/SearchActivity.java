@@ -13,15 +13,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mCourses;
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mRelations;
 
 public class SearchActivity extends NavDrawerActivity {
 
-    private DBHelper db;
-    private List<Course> mCourses;
-    private List<DayTime> mDayTimes;
-    private List<Tutor> mTutors;
-    private List<TutorTimeRelation> mRelations;
+
     private Spinner subjectSpinner;
     private Spinner classSpinner;
     private Spinner daySpinner;
@@ -37,9 +35,6 @@ public class SearchActivity extends NavDrawerActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_search, contentFrameLayout);
 
-        db = new DBHelper(this);
-        mCourses = db.getAllCourses();
-        mRelations = db.getAllRelations();
 
         subjectSpinner = (Spinner) findViewById(R.id.subjectSpinner);
         classSpinner = (Spinner) findViewById(R.id.classSpinner);
@@ -189,20 +184,17 @@ public class SearchActivity extends NavDrawerActivity {
     }
 
     private String[] getAllDays() {
-        String[] days = {getString(R.string.default_day_search), getString(R.string.monday), getString(R.string.tuesday),
+        return new String[]{getString(R.string.default_day_search), getString(R.string.monday), getString(R.string.tuesday),
                 getString(R.string.wednesday), getString(R.string.thursday), getString(R.string.friday),
                 getString(R.string.saturday)};
-        return days;
     }
 
     private String[] getAllHours() {
-        String[] hours = {getString(R.string.default_hour_search), "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7"};
-        return hours;
+        return new String[]{getString(R.string.default_hour_search), "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7"};
     }
 
     private String[] getAllMinutes() {
-        String[] minutes = {getString(R.string.default_minutes_search), ":00", ":30"};
-        return minutes;
+        return new String[]{getString(R.string.default_minutes_search), ":00", ":30"};
     }
 
     public void search(View v) {

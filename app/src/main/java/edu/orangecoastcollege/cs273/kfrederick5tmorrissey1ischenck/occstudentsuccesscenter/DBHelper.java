@@ -72,6 +72,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_QUESTION = "question";
     private static final String FIELD_IS_ANSWERED = "is_answered";
 
+    protected static ArrayList<Course> mCourses;
+    protected static ArrayList<Tutor> mTutors;
+    protected static ArrayList<TutorTimeRelation> mRelations;
+    protected static ArrayList<DayTime> mDayTimes;
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
@@ -216,7 +221,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.close();
             return course;
         }
-
+        cursor.close();
         db.close();
         return null;
     }
@@ -243,6 +248,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 coursesList.add(course);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         return coursesList;
     }
 
@@ -295,10 +301,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2));
-
+            cursor.close();
             db.close();
             return tutor;
         }
+        cursor.close();
         db.close();
         return null;
     }
@@ -325,7 +332,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 tutorsList.add(tutor);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         database.close();
         return tutorsList;
     }
@@ -380,9 +387,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getFloat(2));
 
+            cursor.close();
             db.close();
             return dayTime;
         }
+        cursor.close();
         db.close();
         return null;
     }
@@ -410,6 +419,7 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         database.close();
         return dayTimesList;
     }
@@ -473,6 +483,7 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         db.close();
         return relationsList;
     }
@@ -538,7 +549,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         db.close();
         return studyGroupsList;
     }
@@ -582,9 +593,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3));
+
+            cursor.close();
             db.close();
             return user;
         }
+
+        cursor.close();
         db.close();
         return null;
     }
@@ -616,7 +631,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 USER_INFO_TABLE, new String[]{
                         USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
                         FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", null, null, null, null, null);
-
+        cursor.close();
         return !cursor.moveToFirst();
     }
 
@@ -927,5 +942,12 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return true;
+    }
+
+    protected void syncStaticLists() {
+        mTutors = getAllTutors();
+        mCourses = getAllCourses();
+        mDayTimes = getAllDayTimes();
+        mRelations = getAllRelations();
     }
 }

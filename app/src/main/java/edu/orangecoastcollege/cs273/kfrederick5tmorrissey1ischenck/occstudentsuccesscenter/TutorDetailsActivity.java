@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mRelations;
+
 public class TutorDetailsActivity extends NavDrawerActivity {
 
 
@@ -27,45 +29,39 @@ public class TutorDetailsActivity extends NavDrawerActivity {
         tutorNameTextView.setText(tutorTimeRelation.getTutor().getFirstName() + " "
                 + tutorTimeRelation.getTutor().getLastName());
 
-        DBHelper db = new DBHelper(this);
-        ArrayList<TutorTimeRelation> allRelations = db.getAllRelations();
+
+
         ArrayList<Course> allTutorCourses = new ArrayList<>();
         ArrayList<DayTime> allTutorStartTimes = new ArrayList<>();
         ArrayList<DayTime> allTutorEndTimes = new ArrayList<>();
+        String allCourses = "", allTimes = "";
 
-        for (TutorTimeRelation singleRelation : allRelations)
+        for (TutorTimeRelation singleRelation : mRelations)
         {
             if (tutorTimeRelation.getTutor().equals(singleRelation.getTutor()))
             {
-                if (!allTutorCourses.contains(singleRelation.getCourse()))
+                if (!allTutorCourses.contains(singleRelation.getCourse())) {
                     allTutorCourses.add(singleRelation.getCourse());
+                    allCourses += singleRelation.getCourse().toString() + "\n";
+                }
+
                 if (!allTutorStartTimes.contains(singleRelation.getStartTime())
                 && !allTutorEndTimes.contains(singleRelation.getEndTime())) {
-                    allTutorStartTimes.add(singleRelation.getStartTime());
-                    allTutorEndTimes.add(singleRelation.getEndTime());
+
+                    DayTime startTime = singleRelation.getStartTime();
+                    DayTime endTime = singleRelation.getEndTime();
+                    allTutorStartTimes.add(startTime);
+                    allTutorEndTimes.add(endTime);
+
+                    allTimes += startTime.getDay() + ": "
+                            + startTime.convertFloatTimeToString() + " - "
+                            + endTime.convertFloatTimeToString() + "\n";
                 }
             }
         }
 
-        String allCourses = "";
-        for (Course singleCourse : allTutorCourses)
-        {
-            allCourses += singleCourse.toString() + "\n";
-        }
-
         tutorClassTextView.setText(allCourses);
-
-        String allTimes = "";
-        for (int i = 0; i < allTutorStartTimes.size(); ++i)
-        {
-            DayTime startTime = allTutorStartTimes.get(i);
-            DayTime endTime = allTutorEndTimes.get(i);
-            allTimes += startTime.getDay() + ": "
-                    + startTime.convertFloatTimeToString() + " - "
-                    + endTime.convertFloatTimeToString() + "\n";
-        }
         tutorHoursTextView.setText(allTimes);
-
     }
 
     public void returnToSearch(View view)
