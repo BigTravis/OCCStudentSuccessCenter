@@ -18,6 +18,7 @@
 18,Monday,17.5
 19,Monday,18
 20,Monday,18.5
+102,Monday,19
 21,Tuesday,9
 22,Tuesday,9.5
 23,Tuesday,10
@@ -38,6 +39,7 @@
 38,Tuesday,17.5
 39,Tuesday,18
 40,Tuesday,18.5
+103,Tuesday,19
 41,Wednesday,9
 42,Wednesday,9.5
 43,Wednesday,10
@@ -58,6 +60,7 @@
 58,Wednesday,17.5
 59,Wednesday,18
 60,Wednesday,18.5
+104,Wednesday,19
 61,Thursday,9
 62,Thursday,9.5
 63,Thursday,10
@@ -78,6 +81,7 @@
 78,Thursday,17.5
 79,Thursday,18
 80,Thursday,18.5
+105,Thursday,19
 81,Friday,9
 82,Friday,9.5
 83,Friday,10
@@ -90,6 +94,7 @@
 90,Friday,13.5
 91,Friday,14
 92,Friday,14.5
+106,Friday,15
 93,Saturday,11
 94,Saturday,11.5
 95,Saturday,12
@@ -98,3 +103,4 @@
 98,Saturday,13.5
 99,Saturday,14
 100,Saturday,14.5
+101,Saturday,15

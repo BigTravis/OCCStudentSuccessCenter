@@ -25,10 +25,6 @@
         <activity android:name=".SearchActivity"/>
         <activity android:name=".TutorListActivity"/>
         <activity android:name=".TutorDetailsActivity"/>
-        <activity
-            android:name=".MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,9 +37,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity
-            android:name=".DirectionsActivity"
-            android:label="@string/title_activity_directions"/>
         <activity android:name=".FAQActivity"/>
         <activity android:name=".FAQDetailActivity"/>
         <activity android:name=".StudyGroupActivity"/>

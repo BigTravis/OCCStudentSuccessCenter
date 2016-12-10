@@ -167,7 +167,7 @@ public class EditProfileActivity extends NavDrawerActivity {
                 mProfileAdapter.notifyDataSetChanged();
                 db.deleteSelectedCourses();
             }
-        }, 500);
+        }, 300);
     }
 
     public AdapterView.OnItemSelectedListener subjectSpinnerListener =

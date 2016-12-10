@@ -1,7 +1,10 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -18,6 +21,7 @@ public class ToAskActivity extends NavDrawerActivity {
 
     private EditText questionEditText;
     private ListView questionsListView;
+    private Animation slide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +76,34 @@ public class ToAskActivity extends NavDrawerActivity {
 
     public void clearSelectedOnClick(View v)
     {
-        for(int i = 0; i < mQuestionsList.size(); i++){
-            if(mQuestionsList.get(i).getIsAnswered() == 1)
-            {
-                mQuestionsList.remove(i);
-                i--;
+        removeListItem();
+    }
+
+    public void removeListItem()
+    {
+        slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
+        for (int i = 0; i < mQuestionsList.size(); i++) {
+            if (mQuestionsList.get(i).getIsAnswered() == 1) {
+                View item = questionsListView.getChildAt(i);
+                item.startAnimation(slide);
+                item.setVisibility(View.INVISIBLE);
             }
         }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < mQuestionsList.size(); i++) {
+                    if (mQuestionsList.get(i).getIsAnswered() == 1) {
+                        mQuestionsList.remove(i);
+                        i--;
+                    }
+                }
 
-        questionDB.deleteSelectedQuestions();
-
-        mQuestionsListAdapter.notifyDataSetChanged();
+                mQuestionsListAdapter.notifyDataSetChanged();
+                questionDB.deleteSelectedCourses();
+            }
+        }, 300);
     }
 }
 

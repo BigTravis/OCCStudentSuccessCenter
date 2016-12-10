@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ProfileActivity"
+    android:layout_marginTop="60dp">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="0dp">
+
+            <TextView
+                    android:text="@string/edit_profile_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/editProfileClickableText"
+                    android:clickable="true"
+                    android:textIsSelectable="false"
+                    android:textAllCaps="false"
+                    android:textColorHighlight="@color/occDarkOrange"
+                    android:textColor="@color/occDarkBlue"
+                    android:onClick="editProfileOnClick"
+                    android:gravity="right"/>
+
+            <TextView
+                android:text="@android:string/unknownName"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editProfileClickableText"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/nameTextView"
+                android:textSize="30sp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:textColor="@color/occDarkBlue"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/studentNumTextView"
+                android:layout_below="@+id/nameTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="20sp"
+                android:textColor="@color/occDarkBlue"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:elevation="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:text="@string/user_course_text_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/userCourseTextView"
+                android:textSize="20sp"
+                android:textColor="@color/occDarkBlue"
+                />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/coursesListView"
+                android:layout_height="0dp"
+                android:clickable="false"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

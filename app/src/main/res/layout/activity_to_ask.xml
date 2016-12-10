@@ -30,7 +30,9 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:elevation="0dp">
 
         <Button
             android:text="@string/add_question_button"
@@ -41,7 +43,14 @@
             android:textColor="@color/white"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:onClick="addQuestionOnClick"/>
+            android:onClick="addQuestionOnClick"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:shadowColor="#ABABAB"
+            android:padding="10dp"
+            android:elevation="16dp"
+            style="?android:attr/borderlessButtonStyle"/>
 
         <Button
             android:text="@string/clear_questions_button"
@@ -52,7 +61,14 @@
             android:textColor="@color/white"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:onClick="clearSelectedOnClick"/>
+            android:onClick="clearSelectedOnClick"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:shadowColor="#ABABAB"
+            android:padding="10dp"
+            android:elevation="16dp"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 
     <ListView

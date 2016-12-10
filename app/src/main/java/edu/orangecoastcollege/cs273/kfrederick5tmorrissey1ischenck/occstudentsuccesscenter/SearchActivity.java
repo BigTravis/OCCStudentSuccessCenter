@@ -149,7 +149,7 @@ public class SearchActivity extends NavDrawerActivity {
 
     private void updateClassSpinner(String input) {
         ArrayList<String> modifiedCourseList = new ArrayList<>();
-        modifiedCourseList.add(getString(R.string.default_minutes_search));
+        modifiedCourseList.add(getString(R.string.default_course_search));
         for (Course course : mCourses)
             if (course.getDepartment().equals(input))
                 modifiedCourseList.add(course.getNumber());
