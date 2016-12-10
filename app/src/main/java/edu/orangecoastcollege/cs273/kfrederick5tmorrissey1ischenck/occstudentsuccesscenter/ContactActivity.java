@@ -8,6 +8,10 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 
+/**
+ * this activity gives the user contact information
+ * and allows them to direc
+ */
 public class ContactActivity extends NavDrawerActivity {
 
     private static final int CALL_PHONE_REQUEST_CODE = 111;
