@@ -3,8 +3,11 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -25,6 +28,9 @@ public class SearchActivity extends NavDrawerActivity {
     private Spinner hourSpinner;
     private Spinner minuteSpinner;
 
+    private Animation shakeAnim;
+    private Button searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +39,6 @@ public class SearchActivity extends NavDrawerActivity {
 
         db = new DBHelper(this);
         mCourses = db.getAllCourses();
-        mDayTimes = db.getAllDayTimes();
-        mTutors = db.getAllTutors();
         mRelations = db.getAllRelations();
 
         subjectSpinner = (Spinner) findViewById(R.id.subjectSpinner);
@@ -42,6 +46,7 @@ public class SearchActivity extends NavDrawerActivity {
         daySpinner = (Spinner) findViewById(R.id.daySpinner);
         hourSpinner = (Spinner) findViewById(R.id.hourSpinner);
         minuteSpinner = (Spinner) findViewById(R.id.minuteSpinner);
+        searchButton = (Button) findViewById(R.id.searchButton);
 
         ArrayAdapter<String> subjectSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllSubjectNames());
@@ -254,8 +259,20 @@ public class SearchActivity extends NavDrawerActivity {
             listIntent.putExtra("Class Number", classNumber);
             listIntent.putExtra("Day", daySpinner.getSelectedItem().toString());
             listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
-            if(tutorTimeResults.isEmpty())
+            if(tutorTimeResults.isEmpty()) {
+                if (shakeAnim != null && shakeAnim.hasStarted())
+                {
+                    searchButton.clearAnimation();
+                    shakeAnim = null;
+                }
+                else{
+                    shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_anim);
+                    searchButton.startAnimation(shakeAnim);
+                }
+
                 Toast.makeText(this, R.string.no_tutors_error, Toast.LENGTH_LONG).show();
+
+            }
             else
                 startActivity(listIntent);
         }

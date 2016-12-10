@@ -8,8 +8,8 @@ import android.widget.FrameLayout;
 public class MainActivity extends NavDrawerActivity {
 
 
-
     private DBHelper db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class MainActivity extends NavDrawerActivity {
 
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_main, contentFrameLayout);
+
     }
 
     public void onClickTutor (View v)
