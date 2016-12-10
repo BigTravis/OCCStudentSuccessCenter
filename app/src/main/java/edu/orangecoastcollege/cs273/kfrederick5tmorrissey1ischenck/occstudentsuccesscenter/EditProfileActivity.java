@@ -2,12 +2,18 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,6 +34,7 @@ public class EditProfileActivity extends NavDrawerActivity {
     private EditText studentNum;
     private Spinner subjectSpinner;
     private Spinner classSpinner;
+    private Animation slide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +109,8 @@ public class EditProfileActivity extends NavDrawerActivity {
         String subject = subjectSpinner.getSelectedItem().toString();
         String course = classSpinner.getSelectedItem().toString();
 
-        if (subject.equals("[Select subject]") ||
-                course.equals("[Select class]"))
+        if (subject.equals(getString(R.string.default_subject_search)) ||
+                course.equals(getString(R.string.default_course_search)))
             Toast.makeText(this, R.string.add_class_error,
                     Toast.LENGTH_SHORT).show();
         else {
@@ -111,6 +118,7 @@ public class EditProfileActivity extends NavDrawerActivity {
                     classSpinner.getSelectedItem().toString(), 0);
 
             mProfileAdapter.add(newCourse);
+            editCourseListView.requestFocus(userCourseList.size());
 
             db.addUserCourse(newCourse);
 
@@ -130,18 +138,36 @@ public class EditProfileActivity extends NavDrawerActivity {
         }
     }
 
+
     public void removeSelectedOnClick(View v) {
+        removeListItem();
+    }
+
+    public void removeListItem()
+    {
+        slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
         for (int i = 0; i < userCourseList.size(); i++) {
             if (userCourseList.get(i).getIsSelected() == 1) {
-                userCourseList.remove(i);
-                i--;
+                View item = editCourseListView.getChildAt(i);
+                item.startAnimation(slide);
+                item.setVisibility(View.INVISIBLE);
             }
         }
-        db.deleteSelectedCourses();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < userCourseList.size(); i++) {
+                    if (userCourseList.get(i).getIsSelected() == 1) {
+                        userCourseList.remove(i);
+                        i--;
+                    }
+                }
 
-        mProfileAdapter.notifyDataSetChanged();
-
-
+                mProfileAdapter.notifyDataSetChanged();
+                db.deleteSelectedCourses();
+            }
+        }, 500);
     }
 
     public AdapterView.OnItemSelectedListener subjectSpinnerListener =
@@ -149,7 +175,7 @@ public class EditProfileActivity extends NavDrawerActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedSubject = parent.getItemAtPosition(position).toString();
-                    if (!selectedSubject.equals("[Select subject]")) {
+                    if (!selectedSubject.equals(getString(R.string.default_subject_search))) {
                         classSpinner.setEnabled(true);
                         updateClassSpinner(selectedSubject);
                     } else {
@@ -181,7 +207,7 @@ public class EditProfileActivity extends NavDrawerActivity {
 
     private void updateClassSpinner(String input) {
         ArrayList<String> modifiedUserList = new ArrayList<>();
-        modifiedUserList.add("[Select class]");
+        modifiedUserList.add(getString(R.string.default_course_search));
         for (Course course : mCourses)
             if (course.getDepartment().equals(input))
                 modifiedUserList.add(course.getNumber());
@@ -193,7 +219,7 @@ public class EditProfileActivity extends NavDrawerActivity {
 
     private String[] getAllSubjectsNames() {
         ArrayList<String> subjectNames = new ArrayList<>();
-        subjectNames.add("[Select subject]");
+        subjectNames.add(getString(R.string.default_subject_search));
         int size = mCourses.size();
 
         for (int i = 0; i < size; ++i) {
@@ -206,7 +232,7 @@ public class EditProfileActivity extends NavDrawerActivity {
 
     private String[] getAllClassNumbers() {
         String[] classNumbers = new String[mCourses.size() + 1];
-        classNumbers[0] = "[Select class]";
+        classNumbers[0] = getString(R.string.default_course_search);
         int size = classNumbers.length;
 
         for (int i = 1; i < size; ++i)
