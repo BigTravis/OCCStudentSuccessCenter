@@ -252,15 +252,8 @@ public class SearchActivity extends NavDrawerActivity {
             listIntent.putExtra("Day", daySpinner.getSelectedItem().toString());
             listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
             if(tutorTimeResults.isEmpty()) {
-                if (shakeAnim != null && shakeAnim.hasStarted())
-                {
-                    searchButton.clearAnimation();
-                    shakeAnim = null;
-                }
-                else{
-                    shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_anim);
-                    searchButton.startAnimation(shakeAnim);
-                }
+                shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_anim);
+                searchButton.startAnimation(shakeAnim);
 
                 Toast.makeText(this, R.string.no_tutors_error, Toast.LENGTH_LONG).show();
 
