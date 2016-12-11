@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.DATABASE_NAME;
 import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mTutors;
 
 /**
@@ -26,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                // deleteDatabase(DATABASE_NAME);
+                deleteDatabase(DATABASE_NAME);
                 db = new DBHelper(context);
                 if (mTutors == null)
                     db.syncStaticLists();
