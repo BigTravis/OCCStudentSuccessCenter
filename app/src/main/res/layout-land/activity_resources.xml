@@ -41,9 +41,10 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_height="75dp"
+            android:layout_height="match_parent"
             android:layout_width="100dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:onClick="blackboardOnClick"/>
 
         <ImageView
             android:id="@+id/khanAcademyTextView"
@@ -60,7 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:onClick="khanAcademyOnClick"/>
 
     </LinearLayout>
 
@@ -76,6 +78,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:onClick="codecademyOnClick"/>
 
 </LinearLayout>
