@@ -71,8 +71,9 @@ public class ProfileActivity extends NavDrawerActivity {
             LinearLayout selectedItem = (LinearLayout) v;
             UserCourse selectedCourse = (UserCourse) selectedItem.getTag();
 
-
-
+            if (selectedCourse.getDepartment().equals("ENGL")) {
+                Toast.makeText(this, getString(R.string.english_toast), Toast.LENGTH_SHORT).show();
+            } else {
                 ArrayList<TutorTimeRelation> tutorTimeResults = new ArrayList<>();
                 for (TutorTimeRelation relation : mRelations) {
                     Course course = relation.getCourse();
@@ -81,7 +82,7 @@ public class ProfileActivity extends NavDrawerActivity {
 
                     if (course.getDepartment().equals(selectedCourse.getDepartment()) &&
                             course.getNumber().equals(selectedCourse.getNumber())) {
-                            tutorTimeResults.add(relation);
+                        tutorTimeResults.add(relation);
                     }
                 }
 
@@ -91,10 +92,11 @@ public class ProfileActivity extends NavDrawerActivity {
                 listIntent.putExtra("Class Number", selectedCourse.getNumber());
                 listIntent.putExtra("Day", "[Select day]");
                 listIntent.putExtra("Time", "[Select hour]");
-            if(tutorTimeResults.isEmpty())
-                Toast.makeText(this, R.string.no_tutors_error, Toast.LENGTH_LONG).show();
-            else
-                startActivity(listIntent);
+                if (tutorTimeResults.isEmpty())
+                    Toast.makeText(this, R.string.no_tutors_error, Toast.LENGTH_LONG).show();
+                else
+                    startActivity(listIntent);
             }
+        }
         }
     }

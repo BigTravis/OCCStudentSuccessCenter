@@ -16,7 +16,7 @@
 
     <!--Toasts-->
     <string name="save_successful">Your information has been saved.</string>
-    <string name="english_toast">English tutoring is available at all hours listed above.</string>
+    <string name="english_toast">English tutoring is available at all hours of operation.</string>
 
     <!--Error Messages-->
     <string name="add_class_error">You must select a subject and class before adding.</string>
