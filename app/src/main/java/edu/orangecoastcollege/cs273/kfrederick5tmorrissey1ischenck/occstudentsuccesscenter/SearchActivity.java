@@ -201,8 +201,12 @@ public class SearchActivity extends NavDrawerActivity {
         String subject = subjectSpinner.getSelectedItem().toString();
         String classNumber = classSpinner.getSelectedItem().toString();
         if (subject.equals(getString(R.string.default_subject_search)) || classNumber.equals(getString(R.string.default_course_search)))
-            Toast.makeText(this, getString(R.string.search_subject_class_error), Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, getString(R.string.search_subject_class_error),
+                    Toast.LENGTH_SHORT).show();
+        else if (subject.equals("ENGL"))
+        {
+            Toast.makeText(this, getString(R.string.english_toast), Toast.LENGTH_SHORT).show();
+        }
         else {
             String day = daySpinner.getSelectedItem().toString();
             float time;

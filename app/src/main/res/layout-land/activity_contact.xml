@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:text="@string/contact_us_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contactTitleTextView"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:gravity="center"/>
+
+    <TextView
+        android:text="@string/student_success_center_hours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/occPaleBlue"
+        android:textSize="20sp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="@string/phone_text"
+                android:layout_height="wrap_content"
+                android:id="@+id/phoneNumberTextView"
+                android:clickable="true"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/occPaleBlue"
+                android:textColorLink="@android:color/black"
+                android:textSize="20sp"
+                android:elevation="0dp"
+                android:onClick="callNumber"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:text="@string/address_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addressTextView"
+                android:clickable="true"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/occPaleBlue"
+                android:textColorLink="@android:color/black"
+                android:textSize="20sp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/student_success_center_front"
+            android:id="@+id/imageView4"
+            android:layout_weight="1"
+            android:elevation="16dp"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
