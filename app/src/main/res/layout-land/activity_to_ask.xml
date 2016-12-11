@@ -43,21 +43,23 @@
 
             <Button
                 android:text="@string/add_question_button"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_weight="0"
                 android:background="@drawable/occ_button_style"
                 android:textColor="@color/white"
                 android:onClick="addQuestionOnClick"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_height="20dp"
                 android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"/>
+                android:layout_marginRight="0dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="40dp"/>
 
             <Button
                 android:text="@string/clear_questions_button"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_weight="0"
                 android:background="@drawable/occ_button_style"
                 android:textColor="@color/white"
                 android:layout_marginLeft="0dp"
@@ -65,7 +67,9 @@
                 android:onClick="clearSelectedOnClick"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_height="20dp"/>
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="40dp"/>
 
         </LinearLayout>
 

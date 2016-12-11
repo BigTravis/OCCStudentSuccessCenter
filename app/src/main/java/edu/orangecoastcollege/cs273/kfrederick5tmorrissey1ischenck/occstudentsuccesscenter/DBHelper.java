@@ -21,7 +21,7 @@ import java.util.Arrays;
  * This is the database that holds all information about
  * tutors, courses, times, tutor time relations, and study groups
  */
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper{
 
     private Context mContext;
 
@@ -48,7 +48,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_COURSE_ID = "course_id";
     private static final String FIELD_START_TIME_ID = "start_time_id";
     private static final String FIELD_END_TIME_ID = "end_time_id";
-
 
     private static final String STUDY_GROUPS_TABLE = "StudyGroups";
     private static final String STUDY_GROUPS_KEY_FIELD_ID = "id";
@@ -78,6 +77,8 @@ public class DBHelper extends SQLiteOpenHelper {
     protected static ArrayList<Tutor> mTutors;
     protected static ArrayList<TutorTimeRelation> mRelations;
     protected static ArrayList<DayTime> mDayTimes;
+    protected static ArrayList<UserCourse> mUserCourses;
+    protected static ArrayList<Questions> mQuestions;
     protected static SQLiteDatabase mDatabase;
 
     public DBHelper(Context context) {
@@ -608,8 +609,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // USER TABLE FUNCTIONS: add, get, update, check if user exists
+    // USER TABLE FUNCTIONS: add, get, update
 
+    /**
+     * Adds a user to the USER_INFO_TABLE
+     * @param newUser the information to populate the user
+     */
     public void addUser(User newUser) {
         SQLiteDatabase userDB = this.getWritableDatabase();
 
@@ -624,6 +629,11 @@ public class DBHelper extends SQLiteOpenHelper {
         userDB.close();
     }
 
+    /**
+     * Calls for the users information
+     * @param id an int value specifying the users position in the database
+     * @return the user info at the given database
+     */
     public User getUser(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -649,6 +659,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * updates the users information that they have saved
+     * @param existingUser the new updates for the user at the given ID
+     */
     public void updateUser(User existingUser) {
         SQLiteDatabase courseDB = this.getWritableDatabase();
 
@@ -664,24 +678,12 @@ public class DBHelper extends SQLiteOpenHelper {
         courseDB.close();
     }
 
-
-    public boolean userExists() {
-        User user = new User();
-        addUser(user);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-
-        Cursor cursor = db.query(
-                USER_INFO_TABLE, new String[]{
-                        USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
-                        FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", null, null, null, null, null);
-        cursor.close();
-        return !cursor.moveToFirst();
-    }
-
     // USER COURSES TABLE FUNCTIONS: add, getAll, update, delete
 
+    /**
+     * Adds a new user course to the USER_COURSES_TABLE based on the selected subject and class
+     * @param newCourse newly created course provided by the user
+     */
     public void addUserCourse(UserCourse newCourse) {
         SQLiteDatabase courseDB = this.getWritableDatabase();
 
@@ -696,6 +698,10 @@ public class DBHelper extends SQLiteOpenHelper {
         courseDB.close();
     }
 
+    /**
+     * Adds all the user courses to an array list for use in the app
+     * @return an array list of the users courses
+     */
     public ArrayList<UserCourse> getAllUserCourses() {
         SQLiteDatabase courseDB = this.getReadableDatabase();
 
@@ -718,6 +724,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return allUserCourses;
     }
 
+    /**
+     * Changes the value of the selected field to update whether the course has been selected
+     * @param existingCourse the object the user has selected to update
+     */
     public void updateCourse(UserCourse existingCourse) {
         SQLiteDatabase courseDB = this.getWritableDatabase();
 
@@ -734,6 +744,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Removes the selected courses from the user course list.
+     */
     public void deleteSelectedCourses() {
         SQLiteDatabase courseDB = this.getWritableDatabase();
         courseDB.delete(USER_COURSES_TABLE, FIELD_IS_SELECTED + "=1", null);
@@ -743,6 +756,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // QUESTIONS TABLE FUNCTIONS: add, getAll, update, delete
 
+    /**
+     * Adds the users questions to the QUESTIONS_TABLE for later use in the app.
+     * @param newQuestion the recently saved question created by the user
+     */
     public void addQuestion(Questions newQuestion) {
         SQLiteDatabase questionDB = this.getWritableDatabase();
 
@@ -756,6 +773,10 @@ public class DBHelper extends SQLiteOpenHelper {
         questionDB.close();
     }
 
+    /**
+     * Retrieves all questions the user has created and populates the questions list with them
+     * @return passes the array of all the users questions
+     */
     public ArrayList<Questions> getAllQuestions() {
         SQLiteDatabase questionDB = this.getReadableDatabase();
 
@@ -778,6 +799,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return allQuestions;
     }
 
+    /**
+     * Changes the value of the selected item for the question table database.
+     * @param existingQuestion the selected question as it relates to the database
+     */
     public void updateQuestion(Questions existingQuestion) {
         SQLiteDatabase questionDB = this.getWritableDatabase();
 
@@ -994,5 +1019,7 @@ public class DBHelper extends SQLiteOpenHelper {
         mCourses = getAllCourses();
         mDayTimes = getAllDayTimes();
         mRelations = getAllRelations();
+        mUserCourses = getAllUserCourses();
+        mQuestions = getAllQuestions();
     }
 }

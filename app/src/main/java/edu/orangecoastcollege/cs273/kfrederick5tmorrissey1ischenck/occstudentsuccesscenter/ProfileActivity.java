@@ -10,17 +10,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mUserCourses;
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mRelations;
+
+/**
+ * Displays the users saved name and student number as well as their list of classes which they
+ * can click on and it will take them to the list of tutors that tutor that subject.
+ */
 public class ProfileActivity extends NavDrawerActivity {
 
-    private DBHelper userDB = new DBHelper(this);
     private UserListAdapter mUserListAdapter;
     private TextView name;
     private TextView studentNum;
-    private List<TutorTimeRelation> mRelations;
 
-    private List<UserCourse> courses;
     private ListView coursesListView;
 
     @Override
@@ -29,20 +32,18 @@ public class ProfileActivity extends NavDrawerActivity {
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_profile, contentFrameLayout);
 
-        User user = userDB.getUser(1);
+        DBHelper db = new DBHelper(this);
+        User mUser = db.getUser(1);
 
-        courses = userDB.getAllUserCourses();
-        String first = user.getfName();
-        String last = user.getlName();
-        String num = user.getUserNum();
-
-        mRelations = userDB.getAllRelations();
+        String first = mUser.getfName();
+        String last = mUser.getlName();
+        String num = mUser.getUserNum();
 
         name = (TextView) findViewById(R.id.nameTextView);
         studentNum = (TextView) findViewById(R.id.studentNumTextView);
 
 
-        mUserListAdapter = new UserListAdapter(this, R.layout.course_item, courses);
+        mUserListAdapter = new UserListAdapter(this, R.layout.course_item, mUserCourses);
 
         coursesListView = (ListView) findViewById(R.id.coursesListView);
         coursesListView.setAdapter(mUserListAdapter);
@@ -51,10 +52,20 @@ public class ProfileActivity extends NavDrawerActivity {
         studentNum.setText(num);
     }
 
+    /**
+     * When the text for the edit profile is clicked it will take the user to the
+     * edit profile activity so they can change their info and classes
+     * @param v the edit profile text view
+     */
     public void editProfileOnClick(View v) {
         startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
     }
 
+    /**
+     * When one of the list items in the users course list is selected it will run a
+     * search for the tutors that tutor that subject.
+     * @param v the selected course list item the user selects
+     */
     public void userSearchOnClick(View v) {
         if (v instanceof LinearLayout) {
             LinearLayout selectedItem = (LinearLayout) v;

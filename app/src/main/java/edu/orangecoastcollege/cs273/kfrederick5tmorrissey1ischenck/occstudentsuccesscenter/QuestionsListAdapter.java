@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Link on 12/5/2016.
+ * Provided to create custom list views for the users questions
  */
 
 public class QuestionsListAdapter extends ArrayAdapter<Questions> {

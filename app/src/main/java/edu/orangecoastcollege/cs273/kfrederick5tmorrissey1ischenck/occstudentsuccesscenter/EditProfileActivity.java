@@ -3,29 +3,33 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mCourses;
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mUserCourses;
+
+/**
+ * This activity allows the user to add their name and student number to the app
+ * along with a list of their classes.
+ */
 public class EditProfileActivity extends NavDrawerActivity {
 
     private DBHelper db;
-    private List<Course> mCourses;
-    private List<UserCourse> userCourseList;
     private ListView editCourseListView;
     private ProfileListAdapter mProfileAdapter;
 
@@ -36,6 +40,7 @@ public class EditProfileActivity extends NavDrawerActivity {
     private Spinner classSpinner;
     private Animation slide;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +49,7 @@ public class EditProfileActivity extends NavDrawerActivity {
 
         db = new DBHelper(this);
 
-        User user;
-
-
-        mCourses = db.getAllCourses();
-        userCourseList = db.getAllUserCourses();
-
-        mProfileAdapter = new ProfileListAdapter(this, R.layout.edit_course_item, userCourseList);
+        mProfileAdapter = new ProfileListAdapter(this, R.layout.edit_course_item, mUserCourses);
 
         fName = (EditText) findViewById(R.id.firstNameEditText);
         lName = (EditText) findViewById(R.id.lastNameEditText);
@@ -58,11 +57,11 @@ public class EditProfileActivity extends NavDrawerActivity {
         subjectSpinner = (Spinner) findViewById(R.id.editSubjectSpinner);
         classSpinner = (Spinner) findViewById(R.id.editClassSpinner);
 
-        if (db.userExists()) {
-            user = db.getUser(1);
-            fName.setText(user.getfName());
-            lName.setText(user.getlName());
-            studentNum.setText(user.getUserNum());
+        if (db.getUser(1) != null) {
+            User mUser = db.getUser(1);
+            fName.setText(mUser.getfName());
+            lName.setText(mUser.getlName());
+            studentNum.setText(mUser.getUserNum());
         }
         editCourseListView = (ListView) findViewById(R.id.editCourseListView);
 
@@ -77,10 +76,13 @@ public class EditProfileActivity extends NavDrawerActivity {
                 android.R.layout.simple_spinner_item, getAllClassNumbers());
         classSpinner.setAdapter(classSpinnerAdapter);
         classSpinner.setOnItemSelectedListener(classSpinnerListener);
-
-
     }
 
+    /**
+     * When the save info button is clicked the users name and number they provided will be saved
+     * to the database
+     * @param v the save info button
+     */
     public void saveInfoOnClick(View v) {
         String first, last, num;
         first = fName.getText().toString();
@@ -89,7 +91,7 @@ public class EditProfileActivity extends NavDrawerActivity {
 
         if (first.isEmpty() || last.isEmpty() || num.isEmpty())
             Toast.makeText(this, R.string.first_or_last_error, Toast.LENGTH_SHORT).show();
-        else if (db.userExists()) {
+        else if (db.getUser(1) != null) {
             User user = db.getUser(1);
             user.setfName(first);
             user.setlName(last);
@@ -99,12 +101,17 @@ public class EditProfileActivity extends NavDrawerActivity {
         } else {
             User newUser = new User(1, first, last, num);
 
-            db.updateUser(newUser);
+            db.addUser(newUser);
 
             Toast.makeText(this, R.string.save_successful, Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * When the add class button is clicked a class is added to the UserCourses database
+     * and display lists
+     * @param v what the user clicks
+     */
     public void addClassOnClick(View v) {
         String subject = subjectSpinner.getSelectedItem().toString();
         String course = classSpinner.getSelectedItem().toString();
@@ -118,7 +125,7 @@ public class EditProfileActivity extends NavDrawerActivity {
                     classSpinner.getSelectedItem().toString(), 0);
 
             mProfileAdapter.add(newCourse);
-            editCourseListView.requestFocus(userCourseList.size());
+            editCourseListView.requestFocus(mUserCourses.size());
 
             db.addUserCourse(newCourse);
 
@@ -127,6 +134,11 @@ public class EditProfileActivity extends NavDrawerActivity {
         }
     }
 
+    /**
+     * Changes the checkbox value on the indicated selected item depending on its current
+     * status.
+     * @param v the checkbox the user is selecting
+     */
     public void changeCourseStatus(View v) {
         if (v instanceof CheckBox) {
             CheckBox selectedCheck = (CheckBox) v;
@@ -139,15 +151,24 @@ public class EditProfileActivity extends NavDrawerActivity {
     }
 
 
+    /**
+     * When the remove selected button is pushed this removes all courses that
+     * are checked.
+     * @param v the button being pressed
+     */
     public void removeSelectedOnClick(View v) {
         removeListItem();
     }
 
+    /**
+     * Performs the actual removal of courses by running an animation of them sliding off
+     * screen and then removing from the courses database and lists.
+     */
     public void removeListItem()
     {
         slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
-        for (int i = 0; i < userCourseList.size(); i++) {
-            if (userCourseList.get(i).getIsSelected() == 1) {
+        for (int i = 0; i < mUserCourses.size(); i++) {
+            if (mUserCourses.get(i).getIsSelected() == 1) {
                 View item = editCourseListView.getChildAt(i);
                 item.startAnimation(slide);
                 item.setVisibility(View.INVISIBLE);
@@ -157,9 +178,9 @@ public class EditProfileActivity extends NavDrawerActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < userCourseList.size(); i++) {
-                    if (userCourseList.get(i).getIsSelected() == 1) {
-                        userCourseList.remove(i);
+                for (int i = 0; i < mUserCourses.size(); i++) {
+                    if (mUserCourses.get(i).getIsSelected() == 1) {
+                        mUserCourses.remove(i);
                         i--;
                     }
                 }
@@ -170,6 +191,10 @@ public class EditProfileActivity extends NavDrawerActivity {
         }, 300);
     }
 
+    /**
+     * Allows for selection of a subject and updates the spinners value when a
+     * subject is chosen by the user.
+     */
     public AdapterView.OnItemSelectedListener subjectSpinnerListener =
             new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -191,6 +216,10 @@ public class EditProfileActivity extends NavDrawerActivity {
                 }
             };
 
+    /**
+     * Allows for selection of a class and updates the spinners value when a
+     * class is chosen by the user.
+     */
     public AdapterView.OnItemSelectedListener classSpinnerListener =
             new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -205,6 +234,10 @@ public class EditProfileActivity extends NavDrawerActivity {
                 }
             };
 
+    /**
+     * Activates the class spinner if the subject spinner has a value different from the default.
+     * @param input value of the subject spinner.
+     */
     private void updateClassSpinner(String input) {
         ArrayList<String> modifiedUserList = new ArrayList<>();
         modifiedUserList.add(getString(R.string.default_course_search));
@@ -217,6 +250,10 @@ public class EditProfileActivity extends NavDrawerActivity {
         classSpinner.setAdapter(adapter);
     }
 
+    /**
+     * Populates all the subjects from an array and allows them to be displayed for selection
+     * @return returns the array of subject
+     */
     private String[] getAllSubjectsNames() {
         ArrayList<String> subjectNames = new ArrayList<>();
         subjectNames.add(getString(R.string.default_subject_search));
@@ -230,6 +267,10 @@ public class EditProfileActivity extends NavDrawerActivity {
         return subjectNames.toArray(new String[0]);
     }
 
+    /**
+     * Populates the class spinner for user selection
+     * @return returns an string array of all the classes
+     */
     private String[] getAllClassNumbers() {
         String[] classNumbers = new String[mCourses.size() + 1];
         classNumbers[0] = getString(R.string.default_course_search);
@@ -241,26 +282,16 @@ public class EditProfileActivity extends NavDrawerActivity {
         return classNumbers;
     }
 
+    /**
+     * When the return to profile button is clicked this saves the users latest info changes
+     * then sends them back to the profile
+     * @param v
+     */
     public void returnToProfileOnClick(View v) {
-        String first, last, num;
-        first = fName.getText().toString();
-        last = lName.getText().toString();
-        num = studentNum.getText().toString();
-
-        if (first.isEmpty() || last.isEmpty() || num.isEmpty())
-            Toast.makeText(this, "No name or student number given.", Toast.LENGTH_LONG).show();
+        if (db.getUser(1) == null)
+            Toast.makeText(this, "Please save user info before returning to the Profile page",
+                    Toast.LENGTH_LONG).show();
         else {
-            first = db.getUser(1).getfName();
-            last = db.getUser(1).getlName();
-            num = db.getUser(1).getUserNum();
-            ArrayList<UserCourse> userCourse = db.getAllUserCourses();
-
-            Intent profileIntent = new Intent(this, ProfileActivity.class);
-            profileIntent.putExtra("First", first);
-            profileIntent.putExtra("Last", last);
-            profileIntent.putExtra("StudentNum", num);
-            profileIntent.putExtra("Course", userCourse);
-            saveInfoOnClick(v);
             startActivity(new Intent(this, ProfileActivity.class));
         }
     }

@@ -13,10 +13,14 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mQuestions;
+
+/**
+ * Provides the user a place to add questions that they wish to ask the tutor later.
+ */
 public class ToAskActivity extends NavDrawerActivity {
 
     private DBHelper questionDB;
-    private List<Questions> mQuestionsList;
     private QuestionsListAdapter mQuestionsListAdapter;
 
     private EditText questionEditText;
@@ -31,10 +35,8 @@ public class ToAskActivity extends NavDrawerActivity {
 
         questionDB = new DBHelper(this);
 
-        mQuestionsList = questionDB.getAllQuestions();
-
         mQuestionsListAdapter = new QuestionsListAdapter(this,
-                R.layout.edit_course_item, mQuestionsList);
+                R.layout.edit_course_item, mQuestions);
 
         questionsListView = (ListView) findViewById(R.id.questionsListView);
 
@@ -43,6 +45,11 @@ public class ToAskActivity extends NavDrawerActivity {
         questionEditText = (EditText) findViewById(R.id.questionEditText);
     }
 
+    /**
+     * When the user presses the add question button the test they have entered in the
+     * edit text window will be added to the questions list database
+     * @param v the add question button
+     */
     public void addQuestionOnClick(View v)
     {
         String question = questionEditText.getText().toString();
@@ -61,6 +68,11 @@ public class ToAskActivity extends NavDrawerActivity {
         }
     }
 
+    /**
+     * Changes the checkbox value on the indicated selected item depending on its current
+     * status.
+     * @param v the checkbox selected by the user
+     */
     public void changeCourseStatus(View v)
     {
         if(v instanceof CheckBox) {
@@ -74,16 +86,25 @@ public class ToAskActivity extends NavDrawerActivity {
 
     }
 
+    /**
+     * When the clear selected button is clicked all items that are selected will be removed
+     * from the questions database and list
+     * @param v the clear selected button
+     */
     public void clearSelectedOnClick(View v)
     {
         removeListItem();
     }
 
+    /**
+     * Preforms the actual removal of the item from the database and list and includes an
+     * animation of the items sliding off the screen before being removed.
+     */
     public void removeListItem()
     {
         slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
-        for (int i = 0; i < mQuestionsList.size(); i++) {
-            if (mQuestionsList.get(i).getIsAnswered() == 1) {
+        for (int i = 0; i < mQuestions.size(); i++) {
+            if (mQuestions.get(i).getIsAnswered() == 1) {
                 View item = questionsListView.getChildAt(i);
                 item.startAnimation(slide);
                 item.setVisibility(View.INVISIBLE);
@@ -93,9 +114,9 @@ public class ToAskActivity extends NavDrawerActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < mQuestionsList.size(); i++) {
-                    if (mQuestionsList.get(i).getIsAnswered() == 1) {
-                        mQuestionsList.remove(i);
+                for (int i = 0; i < mQuestions.size(); i++) {
+                    if (mQuestions.get(i).getIsAnswered() == 1) {
+                        mQuestions.remove(i);
                         i--;
                     }
                 }

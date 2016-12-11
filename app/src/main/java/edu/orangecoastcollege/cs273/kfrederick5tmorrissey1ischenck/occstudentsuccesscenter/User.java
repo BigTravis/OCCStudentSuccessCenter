@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import android.widget.Spinner;
 
 /**
- * Created by Link on 12/4/2016.
+ * Holds the users name and student number
  */
 
 public class User implements Parcelable {
@@ -15,17 +15,27 @@ public class User implements Parcelable {
     private String lName;
     private String userNum;
 
+    /**
+     * Default constructor passing generic values
+     */
     public User() {
         User newUser = new User(-1, "", "", "");
     }
 
+    /**
+     * Overloaded constructor that creates a user object based on user input
+     * @param id primary key id auto given
+     * @param fName the first name of the user given
+     * @param lName the last name of the user given
+     * @param userNum the users student number
+     */
     public User(int id, String fName, String lName, String userNum) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
         this.userNum = userNum;
-
     }
+
 
     protected User(Parcel in) {
         id = in.readInt();
@@ -34,6 +44,9 @@ public class User implements Parcelable {
         userNum = in.readString();
     }
 
+    /**
+     * Generates a parceled user
+     */
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel in) {
@@ -46,17 +59,16 @@ public class User implements Parcelable {
         }
     };
 
-    public User(String first, String last, String num) {
-        this.fName = first;
-        this.lName = last;
-        this.userNum = num;
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Flattens user to be parced
+     * @param dest parcel destination
+     * @param flags additional options
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -65,34 +77,66 @@ public class User implements Parcelable {
         dest.writeString(userNum);
     }
 
+    /**
+     * called to retrieve the ID of the user
+     * @return int for the ID
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets the users integer id
+     * @param id int value
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets the users first name
+     * @return a String value for the first name
+     */
     public String getfName() {
         return fName;
     }
 
+    /**
+     * Sets a String value for the first name
+     * @param fName a string value of the first name
+     */
     public void setfName(String fName) {
         this.fName = fName;
     }
 
+    /**
+     * Gets the last name of the user object
+     * @return String value of the last name
+     */
     public String getlName() {
         return lName;
     }
 
+    /**
+     * Sets the last name of the user object
+     * @param lName a String value for the last name
+     */
     public void setlName(String lName) {
         this.lName = lName;
     }
 
+    /**
+     * Returns the student number
+     * @return a String value of the user objects student number
+     */
     public String getUserNum() {
         return userNum;
     }
 
+    /**
+     * Sets the user objects Student number
+     * @param userNum a String value for the Student number
+     */
     public void setUserNum(String userNum) {
         this.userNum = userNum;
     }
