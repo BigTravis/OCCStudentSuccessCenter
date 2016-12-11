@@ -1,5 +1,6 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,52 +8,32 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mTutors;
+
 public class SplashActivity extends AppCompatActivity {
     private DBHelper db;
+    private final Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-//        deleteDatabase(DBHelper.DATABASE_NAME);
-        db = new DBHelper(this);
-//        populateDatabase();
-        if (db.mTutors == null) {
-            db.syncStaticLists();
-        }
-
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                finish();
-
+                //deleteDatabase(DATABASE_NAME);
+                db = new DBHelper(context);
+                if (mTutors == null)
+                    db.syncStaticLists();
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
             }
         };
         Timer timer = new Timer();
-        timer.schedule(timerTask, 1000);
-
-
-//        try{
-//            db.getReadableDatabase();
-//            deleteDatabase(DBHelper.DATABASE_NAME);
-//            populateDatabase();
-//
-//        }catch(SQLiteException e) {
-//            populateDatabase();
-//        }
+        timer.schedule(timerTask, 1500);
 
 
     }
-
-    private void populateDatabase()
-    {
-        db.importCoursesFromCSV("Courses.csv");
-        db.importTutorsFromCSV("Tutors.csv");
-        db.importDayTimesFromCSV("DayTime.csv");
-        db.importRelationsFromCSV("TutorHelpRelationship.csv");
-        db.importStudyGroupsFromCSV("Studygroups.csv");
-    }
-
 }
 

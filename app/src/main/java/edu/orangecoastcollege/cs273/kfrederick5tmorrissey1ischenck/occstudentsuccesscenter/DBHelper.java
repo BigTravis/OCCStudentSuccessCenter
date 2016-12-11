@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -76,10 +78,16 @@ public class DBHelper extends SQLiteOpenHelper {
     protected static ArrayList<Tutor> mTutors;
     protected static ArrayList<TutorTimeRelation> mRelations;
     protected static ArrayList<DayTime> mDayTimes;
+    protected static SQLiteDatabase mDatabase;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
+
+        if (checkDatabaseExists())
+            openDatabase();
+        else
+            createDatabase();
     }
 
     /**
@@ -89,6 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase database) {
+
         String table = "CREATE TABLE " + COURSES_TABLE + "("
                 + COURSES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_COURSE_DEPARTMENT + " TEXT, "
@@ -177,6 +186,44 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    private boolean checkDatabaseExists() {
+        File databaseFile = new File(mContext.getDatabasePath(DATABASE_NAME).toString());
+        return databaseFile.exists();
+
+
+    }
+
+    private void createDatabase() {
+        this.getReadableDatabase();
+        copyDatabase();
+    }
+
+    private void openDatabase() {
+        mDatabase = SQLiteDatabase.openDatabase(mContext.getDatabasePath(DATABASE_NAME).toString(),
+                null, SQLiteDatabase.OPEN_READWRITE);
+    }
+
+    public void copyDatabase() {
+        String databaseFullPath = mContext.getDatabasePath(DATABASE_NAME).toString();
+
+        try {
+            InputStream inputStream = mContext.getAssets().open(DATABASE_NAME);
+            FileOutputStream outputStream = new FileOutputStream(databaseFullPath);
+
+            byte[] buffer = new byte[4096];
+
+            while (inputStream.read(buffer) > 0)
+                outputStream.write(buffer);
+
+            inputStream.close();
+            outputStream.flush();
+            outputStream.close();
+        }
+        catch(IOException ex){
+            Log.e("dbhelper","unable to open");
+        }
+    }
+
     // COURSE TABLE OPERATIONS: add, get, getAll, delete
 
     /**
@@ -210,9 +257,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COURSES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
-
+        if (cursor.moveToFirst()) {
             Course course = new Course(
                     cursor.getInt(0),
                     cursor.getString(1),
