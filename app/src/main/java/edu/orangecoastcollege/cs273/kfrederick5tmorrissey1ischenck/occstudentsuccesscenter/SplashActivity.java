@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                deleteDatabase(DATABASE_NAME);
+                //deleteDatabase(DATABASE_NAME);
                 db = new DBHelper(context);
                 if (mTutors == null)
                     db.syncStaticLists();
