@@ -25,6 +25,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * this activity displays the user's location and the location of the SSC
+ */
 public class LocationActivity extends NavDrawerActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -66,6 +69,10 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
         mMap = googleMap;
     }
 
+    /**
+     * requests permissions and updates the user's location
+     * @param bundle
+     */
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -99,6 +106,10 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
         handleNewLocation(location);
     }
 
+    /**
+     * clears the map and reloads it with user's new location and the SSC
+     * @param newLocation
+     */
     private void handleNewLocation(Location newLocation)
     {
         mMap.clear();

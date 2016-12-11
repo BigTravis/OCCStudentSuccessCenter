@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 
 /**
  * this activity gives the user contact information
- * and allows them to direc
+ * and allows them to directly call the SSC and go to the location activity
  */
 public class ContactActivity extends NavDrawerActivity {
 
@@ -48,6 +48,10 @@ public class ContactActivity extends NavDrawerActivity {
         });
     }
 
+    /**
+     * checks for call phone permissions, then sends user to call the SSC
+     * @param view
+     */
     public void callNumber(View view)
     {
         if (ActivityCompat.checkSelfPermission(getBaseContext(),

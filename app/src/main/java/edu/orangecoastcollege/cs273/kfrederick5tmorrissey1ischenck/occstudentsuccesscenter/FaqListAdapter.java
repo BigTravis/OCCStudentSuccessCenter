@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Link on 12/3/2016.
+ * this adapter adapts FAQs for display in the FAQActivity
  */
 
 public class FaqListAdapter extends ArrayAdapter<String> {
@@ -36,7 +36,6 @@ public class FaqListAdapter extends ArrayAdapter<String> {
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
-
 
         LinearLayout faqLinearLayout = (LinearLayout) view.findViewById(R.id.faqLinearLayout);
 

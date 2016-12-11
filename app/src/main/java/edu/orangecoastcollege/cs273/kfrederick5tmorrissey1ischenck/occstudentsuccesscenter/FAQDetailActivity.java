@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+/**
+ * this activity displays the question the user clicked on in faqactivity
+ * as well as the answer it is connected to
+ */
 public class FAQDetailActivity extends NavDrawerActivity {
 
     @Override
