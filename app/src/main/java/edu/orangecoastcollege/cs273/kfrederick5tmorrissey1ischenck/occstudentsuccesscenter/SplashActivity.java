@@ -31,12 +31,15 @@ public class SplashActivity extends AppCompatActivity {
                 db = new DBHelper(context);
                 if (mTutors == null)
                     db.syncStaticLists();
+
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 finish();
             }
         };
+
         Timer timer = new Timer();
         timer.schedule(timerTask, 1500);
+
     }
 }
 
