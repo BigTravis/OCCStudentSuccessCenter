@@ -18,6 +18,7 @@ public class StudyGroup {
      * @param dayTime time of study group
      * @param room room study group meets in
      */
+
     public StudyGroup(int id, String instructor, Course course, DayTime dayTime, String room) {
         this.mId = id;
         this.mInstructor = instructor;

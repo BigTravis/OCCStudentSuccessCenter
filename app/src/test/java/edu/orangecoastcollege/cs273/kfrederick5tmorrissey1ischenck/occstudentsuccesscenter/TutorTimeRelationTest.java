@@ -4,17 +4,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by ischenck on 11/22/2016.
+ * Created by Ian on 12/11/2016.
  */
 public class TutorTimeRelationTest {
-    private TutorTimeRelation mRelation;
 
+    private TutorTimeRelation mRelation;
     @Before
     public void setUp() throws Exception {
-        mRelation = new TutorTimeRelation();
+            mRelation = new TutorTimeRelation();
     }
 
     @After
@@ -24,47 +24,35 @@ public class TutorTimeRelationTest {
 
     @Test
     public void getTutor() throws Exception {
-        assertEquals(new Tutor(), mRelation.getTutor());
-    }
-
-    @Test
-    public void setTutor() throws Exception {
-
+        Tutor newTutor = new Tutor(1, "Ian", "Schenck");
+        mRelation.setTutor(newTutor);
+        assertEquals(newTutor, mRelation.getTutor());
     }
 
     @Test
     public void getCourse() throws Exception {
-        assertEquals(new Course(), mRelation.getCourse());
-    }
-
-    @Test
-    public void setCourse() throws Exception {
-
+        Course newCourse = new Course(1, "MATH", "101");
+        mRelation.setCourse(newCourse);
+        assertEquals(newCourse, mRelation.getCourse());
     }
 
     @Test
     public void getStartTime() throws Exception {
-        assertEquals(new DayTime(), mRelation.getStartTime());
-    }
-
-    @Test
-    public void setStartTime() throws Exception {
-
+        DayTime newTime = new DayTime(1, "Saturday", 1.5f);
+        mRelation.setStartTime(newTime);
+        assertEquals(newTime, mRelation.getStartTime());
     }
 
     @Test
     public void getEndTime() throws Exception {
-        assertEquals(new DayTime(), mRelation.getEndTime());
-    }
-
-    @Test
-    public void setEndTime() throws Exception {
-
+        DayTime newTime = new DayTime(1, "Friday", 3.0f);
+        mRelation.setEndTime(newTime);
+        assertEquals(newTime, mRelation.getEndTime());
     }
 
     @Test
     public void equals() throws Exception {
+        mRelation = new TutorTimeRelation();
         assertEquals(new TutorTimeRelation(), mRelation);
     }
-
 }
