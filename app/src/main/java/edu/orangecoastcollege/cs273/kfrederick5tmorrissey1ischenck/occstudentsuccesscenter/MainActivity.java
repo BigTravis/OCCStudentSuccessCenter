@@ -1,6 +1,8 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,7 +15,7 @@ public class MainActivity extends NavDrawerActivity {
 
 
     private DBHelper db;
-
+    private  boolean phoneDevice = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,16 @@ public class MainActivity extends NavDrawerActivity {
 
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_main, contentFrameLayout);
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
+                screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE)
+            phoneDevice = false;
+
+        if (phoneDevice)
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
 

@@ -1,6 +1,8 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +18,7 @@ public class NavDrawerActivity extends AppCompatActivity {
     protected DrawerLayout drawerLayout;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     protected Toolbar toolbar;
-
+    private  boolean phoneDevice = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +26,32 @@ public class NavDrawerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nav_drawer);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         navigationView.setNavigationItemSelectedListener(navListener);
 
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
+                screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            phoneDevice = false;
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+            drawerLayout.setScrimColor(0x000000);
+            toolbar.setVisibility(View.GONE);
+        }
+
+        if (phoneDevice) {
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                    R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        }
     }
 
     NavigationView.OnNavigationItemSelectedListener navListener =  new NavigationView.OnNavigationItemSelectedListener() {
@@ -87,14 +105,14 @@ public class NavDrawerActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        actionBarDrawerToggle.syncState();
+        if (phoneDevice)
+            actionBarDrawerToggle.syncState();
     }
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+        if (drawerLayout.isDrawerOpen(GravityCompat.START) && phoneDevice)
             drawerLayout.closeDrawer(GravityCompat.START);
-
         else
             super.onBackPressed();
     }

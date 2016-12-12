@@ -79,15 +79,13 @@ public class DBHelper extends SQLiteOpenHelper{
     protected static ArrayList<DayTime> mDayTimes;
     protected static ArrayList<UserCourse> mUserCourses;
     protected static ArrayList<Questions> mQuestions;
-    protected static SQLiteDatabase mDatabase;
+
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
 
-        if (checkDatabaseExists())
-            openDatabase();
-        else
+        if (!checkDatabaseExists())
             createDatabase();
     }
 
@@ -197,11 +195,6 @@ public class DBHelper extends SQLiteOpenHelper{
     private void createDatabase() {
         this.getReadableDatabase();
         copyDatabase();
-    }
-
-    private void openDatabase() {
-        mDatabase = SQLiteDatabase.openDatabase(mContext.getDatabasePath(DATABASE_NAME).toString(),
-                null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     public void copyDatabase() {
@@ -340,8 +333,8 @@ public class DBHelper extends SQLiteOpenHelper{
                 TUTORS_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
+        if (cursor.moveToFirst()) {
+
 
             Tutor tutor = new Tutor(
                     cursor.getInt(0),
@@ -425,8 +418,8 @@ public class DBHelper extends SQLiteOpenHelper{
                 TIMES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
+        if (cursor.moveToFirst()) {
+
 
             DayTime dayTime = new DayTime(
                     cursor.getInt(0),
@@ -641,7 +634,7 @@ public class DBHelper extends SQLiteOpenHelper{
                         USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
                         FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", new String[]
                         {String.valueOf(id)}, null, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
 
             User user = new User(
                     cursor.getInt(0),
