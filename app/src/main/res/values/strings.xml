@@ -90,6 +90,7 @@
     <string name="student_number">Student Number</string>
     <string name="question_for_later">Enter Question For Later</string>
     <string name="study_question_text">Want to start your own study group? Press here.</string>
+    <string name="name">Name</string>
 
     <!--FAQuestions-->
     <string-array name="faq_list">

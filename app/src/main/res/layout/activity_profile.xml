@@ -28,7 +28,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:text="@android:string/unknownName"
+                android:text="@string/name"
                 android:layout_height="wrap_content"
                 android:id="@+id/nameTextView"
                 android:textSize="30sp"
@@ -40,7 +40,7 @@
         </LinearLayout>
 
     <TextView
-        android:text="TextView"
+        android:text="@string/student_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/studentNumTextView"
@@ -48,7 +48,7 @@
         android:textColor="@color/occDarkBlue"
         android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        tools:ignore="HardcodedText"/>
+        />
 
     <TextView
         android:text="@string/user_course_text_string"
