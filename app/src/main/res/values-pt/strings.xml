@@ -62,6 +62,7 @@
     <string name="update_successful">Sua informação foi atualizada</string>
     <string name="user_course_text_string">Cursos</string>
     <string name="wednesday">Quarta-feira</string>
-    <string name="english_toast">Inglês tutoria está disponível em todas as horas listadas acima.</string>
+    <string name="english_toast">tutoria Inglês está disponível em todas as horas de funcionamento.</string>
+    <string name="study_question_text">Quer começar seu próprio grupo de estudo? Aperte aqui.</string>
 
 </resources>

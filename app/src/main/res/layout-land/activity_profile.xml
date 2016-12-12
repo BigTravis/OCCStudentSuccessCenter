@@ -46,7 +46,6 @@
                 android:layout_alignParentStart="true"
                 android:id="@+id/nameTextView"
                 android:textSize="30sp"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:textColor="@color/occDarkBlue"
                 android:gravity="bottom|center"/>
@@ -62,7 +61,6 @@
                 android:textSize="20sp"
                 android:textColor="@color/occDarkBlue"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
                 android:gravity="top|center"/>
 
         </LinearLayout>

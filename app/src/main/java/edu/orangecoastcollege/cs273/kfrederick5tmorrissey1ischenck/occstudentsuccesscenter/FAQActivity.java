@@ -27,7 +27,6 @@ public class FAQActivity extends NavDrawerActivity {
 
         questions = getResources().getStringArray(R.array.faq_list);
         List<String> questionsList = Arrays.asList(questions);
-        //faqListAdapter = new ListAdapter (this, R.layout.activity_faq_item, )
 
         mFaqListAdapter = new FaqListAdapter(this, R.layout.faq_list_item, questionsList);
 

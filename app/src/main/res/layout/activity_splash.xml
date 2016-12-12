@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/splashImageView"
+        android:id="@+id/occLogoImageView"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"/>
 </RelativeLayout>
