@@ -58,7 +58,5 @@ public class StudyGroupAdapter extends ArrayAdapter<StudyGroup>  {
         roomTextView.setText("Room " + selectedStudyGroup.getRoom());
 
         return view;
-
-
     }
 }
