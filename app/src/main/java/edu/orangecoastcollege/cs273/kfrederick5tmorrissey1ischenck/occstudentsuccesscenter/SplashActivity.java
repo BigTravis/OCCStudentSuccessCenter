@@ -11,7 +11,7 @@ import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstu
 public class SplashActivity extends AppCompatActivity {
     private DBHelper db;
     private final Context context = this;
-    private  ImageView splashImageView;
+    private  ImageView occLogoImageView;
 
     /**
      * An entrance screen that the user sees every time the app starts allowing for background
@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        splashImageView = (ImageView) findViewById(R.id.splashImageView);
+        occLogoImageView = (ImageView) findViewById(R.id.occLogoImageView);
 
 
 
