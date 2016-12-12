@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            tools:ignore="UselessParent">
 
             <Button
                 android:text="@string/tutor_search_button"
@@ -42,7 +43,8 @@
                 android:elegantTextHeight="false"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:targetApi="lollipop"/>
             <Button
                 android:textColor="#FFFFFF"
                 android:background="@drawable/occ_button_style"
@@ -60,7 +62,8 @@
                 android:elegantTextHeight="false"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:ignore="UnusedAttribute"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -77,7 +80,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            tools:ignore="UselessParent">
 
             <Button
                 android:textColor="#FFFFFF"
@@ -96,7 +100,8 @@
                 android:elegantTextHeight="false"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:ignore="UnusedAttribute"/>
             <Button
                 android:textColor="#FFFFFF"
                 android:background="@drawable/occ_button_style"
@@ -114,7 +119,8 @@
                 android:elegantTextHeight="false"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:ignore="UnusedAttribute"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -131,7 +137,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            tools:ignore="UselessParent">
 
             <Button
                 android:textColor="#FFFFFF"
@@ -150,7 +157,8 @@
                 android:elegantTextHeight="false"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:ignore="UnusedAttribute"/>
             <Button
                 android:textColor="#FFFFFF"
                 android:background="@drawable/occ_button_style"
@@ -168,7 +176,8 @@
                 android:elegantTextHeight="false"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:ignore="UnusedAttribute"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -185,7 +194,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            tools:ignore="UselessParent">
 
             <Button
                 android:textColor="#FFFFFF"
@@ -204,7 +214,8 @@
                 android:onClick="toAskOnClick"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:ignore="UnusedAttribute"/>
             <Button
                 android:textColor="#FFFFFF"
                 android:background="@drawable/occ_button_style"
@@ -222,7 +233,8 @@
                 android:onClick="onClickProfile"
                 android:layout_marginEnd="6dp"
                 android:layout_marginStart="6dp"
-                android:elevation="16dp"/>
+                android:elevation="16dp"
+                tools:ignore="UnusedAttribute"/>
         </LinearLayout>
     </LinearLayout>
 

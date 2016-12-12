@@ -9,9 +9,11 @@
     android:layout_marginTop="60dp">
 
     <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:orientation="vertical"
@@ -20,15 +22,12 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:elevation="0dp">
+            >
 
             <TextView
                     android:text="@string/edit_profile_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
                     android:id="@+id/editProfileClickableText"
                     android:clickable="true"
                     android:textIsSelectable="false"
@@ -36,14 +35,11 @@
                     android:textColorHighlight="@color/occDarkOrange"
                     android:textColor="@color/occDarkBlue"
                     android:onClick="editProfileOnClick"
-                    android:gravity="right"/>
+                    android:gravity="end"/>
 
             <TextView
                 android:text="@android:string/unknownName"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editProfileClickableText"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:id="@+id/nameTextView"
                 android:textSize="30sp"
                 android:layout_width="match_parent"
@@ -55,13 +51,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/studentNumTextView"
-                android:layout_below="@+id/nameTextView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:textSize="20sp"
                 android:textColor="@color/occDarkBlue"
                 android:layout_marginTop="5dp"
-                android:gravity="top|center"/>
+                android:gravity="top|center"
+                tools:ignore="HardcodedText"/>
 
         </LinearLayout>
 
@@ -70,7 +64,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:elevation="0dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp">
 
@@ -85,14 +78,11 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:id="@+id/coursesListView"
                 android:layout_height="0dp"
                 android:clickable="false"
                 android:layout_weight="1"
-                />
+                tools:ignore="NestedWeights"/>
         </LinearLayout>
 
     </LinearLayout>

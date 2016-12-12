@@ -82,6 +82,13 @@
     <string name="update_successful">Your information has been updated.</string>
     <string name="no_tutors_error">No tutors available for this request.</string>
     <string name="user_course_text_string">Courses</string>
+    <string name="content_codecademy">Codecademy Clickable</string>
+    <string name="content_khan">Khan Academy Clickable</string>
+    <string name="content_blackboard">Blackboard Clickable</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="student_number">Student Number</string>
+    <string name="question_for_later">Enter Question For Later</string>
     <string name="study_question_text">Want to start your own study group? Press here.</string>
 
     <!--FAQuestions-->

@@ -33,8 +33,10 @@
                 android:ems="10"
                 android:id="@+id/firstNameEditText"
                 android:layout_weight="1"
-                android:hint="First Name"
-                android:layout_marginRight="10dp"/>
+                android:hint="@string/first_name"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                tools:ignore="NestedWeights"/>
 
             <EditText
                 android:layout_width="0dp"
@@ -43,7 +45,7 @@
                 android:ems="10"
                 android:id="@+id/lastNameEditText"
                 android:layout_weight="1"
-                android:hint="Last Name"/>
+                android:hint="@string/last_name"/>
 
         </LinearLayout>
 
@@ -52,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:ignore="ExtraText">
 
             <EditText
                 android:layout_width="0dp"
@@ -62,7 +65,9 @@
                 android:id="@+id/studentNumEditText"
                 android:layout_weight="1"
                 android:layout_marginRight="25dp"
-                android:hint="Student Number"/>
+                android:hint="@string/student_number"
+                android:layout_marginEnd="25dp"
+                tools:ignore="NestedWeights"/>
 
             <Button
                 android:text="@string/student_info_button"
@@ -72,15 +77,9 @@
                 android:layout_weight="1"
                 android:onClick="saveInfoOnClick"
                 android:textColor="@color/white"
-                android:background="@drawable/occ_button_style"/>
-            <!--<EditText-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:ems="10"-->
-                <!--android:id="@+id/studentNumEditText"-->
-                <!--android:hint="Student Number"-->
-                />
+                android:background="@drawable/occ_button_style"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -90,29 +89,13 @@
             android:gravity="center_vertical"
             android:layout_weight="2">
 
-            <!--<Spinner-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:entries="@string/subject_drop_down_text"-->
-                <!--android:id="@+id/editSubjectSpinner"-->
-                <!--android:clickable="true"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_marginRight="25dp"/>-->
-
-            <!--<Spinner-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:entries="@string/class_drop_down_text"-->
-                <!--android:id="@+id/editClassSpinner"-->
-                <!--android:clickable="true"-->
-                <!--android:layout_weight="1"/>-->
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                tools:ignore="NestedWeights">
 
                 <Spinner
                     android:layout_width="match_parent"
@@ -140,7 +123,9 @@
                 android:onClick="addClassOnClick"
                 android:background="@drawable/occ_button_style"
                 android:textColor="@color/white"
-                android:layout_marginLeft="25dp"/>
+                android:layout_marginLeft="25dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_marginStart="25dp"/>
 
         </LinearLayout>
 
@@ -151,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/editCourseListView"
-        android:elevation="1dp"/>
+        />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -169,7 +154,10 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:onClick="removeSelectedOnClick"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_marginEnd="10dp"
+            tools:ignore="NestedWeights"/>
 
         <Button
             android:text="@string/return_to_profile_button"
@@ -180,7 +168,9 @@
             android:background="@drawable/occ_button_style"
             android:textColor="@color/white"
             android:onClick="returnToProfileOnClick"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_marginStart="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

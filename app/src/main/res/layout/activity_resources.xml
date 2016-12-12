@@ -34,7 +34,8 @@
         android:layout_marginBottom="5dp"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:onClick="blackboardOnClick"/>
+        android:onClick="blackboardOnClick"
+        android:contentDescription="@string/content_blackboard"/>
 
     <ImageView
         android:id="@+id/khanAcademyTextView"
@@ -49,7 +50,8 @@
         android:layout_marginBottom="5dp"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:onClick="khanAcademyOnClick"/>
+        android:onClick="khanAcademyOnClick"
+        android:contentDescription="@string/content_khan"/>
 
     <ImageView
         android:id="@+id/codecademyTextView"
@@ -64,6 +66,7 @@
         android:layout_marginBottom="5dp"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:onClick="codecademyOnClick"/>
+        android:onClick="codecademyOnClick"
+        android:contentDescription="@string/content_codecademy"/>
 
 </LinearLayout>

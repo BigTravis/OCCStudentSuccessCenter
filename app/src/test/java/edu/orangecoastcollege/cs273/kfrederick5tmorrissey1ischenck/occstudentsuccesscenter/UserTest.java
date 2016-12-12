@@ -37,5 +37,4 @@ public class UserTest {
         assertEquals("C555", tUser.getUserNum());
 
     }
-
 }

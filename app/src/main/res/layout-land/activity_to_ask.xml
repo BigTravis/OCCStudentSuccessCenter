@@ -22,7 +22,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:orientation="vertical"
@@ -37,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:hint="Enter Question For Later"
+                android:hint="@string/question_for_later"
                 android:id="@+id/questionEditText"
                 android:gravity="top"/>
 

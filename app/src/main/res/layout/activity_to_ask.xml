@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:hint="Enter Question For Later"
+        android:hint="@string/question_for_later"
         android:id="@+id/questionEditText"/>
 
     <LinearLayout
@@ -32,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:elevation="0dp">
+        android:elevation="0dp"
+        tools:targetApi="lollipop">
 
         <Button
             android:text="@string/add_question_button"
