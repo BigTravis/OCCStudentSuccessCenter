@@ -95,7 +95,12 @@ public class NavDrawerActivity extends AppCompatActivity {
                     break;
 
                 case R.id.nav_profile:
-                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    DBHelper db = new DBHelper(getApplicationContext());
+                    if (db.getUser(1) == null) {
+                        startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+                    }
+                    else
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                     break;
             }
             return true;

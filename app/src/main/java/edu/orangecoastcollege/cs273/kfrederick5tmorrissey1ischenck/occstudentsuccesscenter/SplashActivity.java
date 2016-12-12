@@ -42,6 +42,8 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
+               // deleteDatabase(DBHelper.DATABASE_NAME);
                 db = new DBHelper(context);
                 if (mTutors == null)
                     db.syncStaticLists();
