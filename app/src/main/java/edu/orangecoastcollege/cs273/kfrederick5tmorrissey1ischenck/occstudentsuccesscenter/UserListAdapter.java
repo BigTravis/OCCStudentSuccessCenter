@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Link on 12/5/2016.
+ * Adapter for generating the users courses
  */
 
 public class UserListAdapter extends ArrayAdapter<UserCourse> {
@@ -25,16 +25,16 @@ public class UserListAdapter extends ArrayAdapter<UserCourse> {
         super (c, rId, courses);
         mContext = c;
         mResourceId = rId;
-        coursesList = courses;
-    }
+coursesList = courses;
+        }
 
-    @Override
-    public View getView(int pos, View convertView, ViewGroup parent)
-    {
-        final UserCourse selectedCourse = coursesList.get(pos);
+@Override
+public View getView(int pos, View convertView, ViewGroup parent)
+        {
+final UserCourse selectedCourse = coursesList.get(pos);
 
         LayoutInflater inflater = (LayoutInflater)
-                mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(mResourceId, null);
 
         LinearLayout coursesListLinearLayout = (LinearLayout) v.findViewById(R.id.courseListLinearLayout);
@@ -46,5 +46,5 @@ public class UserListAdapter extends ArrayAdapter<UserCourse> {
         userClassTextView.setText(selectedCourse.getNumber());
 
         return v;
-    }
+        }
 }

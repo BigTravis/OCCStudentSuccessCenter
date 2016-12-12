@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Link on 12/5/2016.
+ * Used to populate the edit profile user courses list with selectable checkboxes
  */
 
 public class ProfileListAdapter extends ArrayAdapter<UserCourse> {
