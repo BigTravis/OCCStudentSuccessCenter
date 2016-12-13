@@ -39,6 +39,10 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
     private Location myLocation;
     private GoogleMap mMap;
 
+    /**
+     * Initializes all loaders
+     * @param savedInstanceState last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,10 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
                 .setFastestInterval(1000);
     }
 
+    /**
+     * Initializes GoogleMap
+     * @param googleMap google map
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -71,7 +79,7 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
 
     /**
      * requests permissions and updates the user's location
-     * @param bundle
+     * @param bundle bundle
      */
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -108,7 +116,7 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
 
     /**
      * clears the map and reloads it with user's new location and the SSC
-     * @param newLocation
+     * @param newLocation new location
      */
     private void handleNewLocation(Location newLocation)
     {
@@ -119,13 +127,15 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
         .position(myCoordinate)
         .title("Current Location")
         .icon(BitmapDescriptorFactory.fromResource(R.drawable.my_marker)));
+        LatLng coordinate = new LatLng(SSC_LATITUDE, SSC_LONGITUDE);
+        mMap.addMarker(new MarkerOptions().position(coordinate).title("Student Success Center"));
+
         CameraPosition cameraPosition =
-                new CameraPosition.Builder().target(myCoordinate).zoom(14.0f).build();
+                new CameraPosition.Builder().target(coordinate).zoom(14.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         mMap.moveCamera(cameraUpdate);
 
-        LatLng coordinate = new LatLng(SSC_LATITUDE, SSC_LONGITUDE);
-        mMap.addMarker(new MarkerOptions().position(coordinate).title("Student Success Center"));
+
 
 
     }

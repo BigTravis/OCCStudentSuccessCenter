@@ -13,6 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+/**
+ * Controller for Navigation Drawer.
+ * Handles all events involving the Navigation Drawer
+ */
 public class NavDrawerActivity extends AppCompatActivity {
 
     protected DrawerLayout drawerLayout;
@@ -20,6 +24,10 @@ public class NavDrawerActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     private  boolean phoneDevice = true;
 
+    /**
+     * Initializes all loaders
+     * @param savedInstanceState last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +63,12 @@ public class NavDrawerActivity extends AppCompatActivity {
     }
 
     NavigationView.OnNavigationItemSelectedListener navListener =  new NavigationView.OnNavigationItemSelectedListener() {
+
+        /**
+         * Navigates to selected item's activity
+         * @param item item selected
+         * @return true to display the item as the selected item
+         */
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             if (item.isChecked()) {
@@ -107,6 +121,10 @@ public class NavDrawerActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Syncs actionBarDrawerToggle
+     * @param savedInstanceState last saved state
+     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -114,6 +132,9 @@ public class NavDrawerActivity extends AppCompatActivity {
             actionBarDrawerToggle.syncState();
     }
 
+    /**
+     * Handles back pressed
+     */
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START) && phoneDevice)
@@ -122,6 +143,10 @@ public class NavDrawerActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
+    /**
+     * Starts mainActivity when occ symbol is clicked
+     * @param v view
+     */
     public void nav_main_menu(View v)
     {
         startActivity(new Intent(NavDrawerActivity.this, MainActivity.class));

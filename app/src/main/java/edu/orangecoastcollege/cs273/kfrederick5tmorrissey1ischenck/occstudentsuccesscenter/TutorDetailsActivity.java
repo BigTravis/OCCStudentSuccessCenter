@@ -10,10 +10,15 @@ import java.util.ArrayList;
 
 import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mRelations;
 
+/**
+ * Controller for activity_tutor_details.xml
+ * Displays details of the selected tutor
+ */
 public class TutorDetailsActivity extends NavDrawerActivity {
-
-
-
+    /**
+     * Initializes all loaders
+     * @param savedInstanceState last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +69,10 @@ public class TutorDetailsActivity extends NavDrawerActivity {
         tutorHoursTextView.setText(allTimes);
     }
 
+    /**
+     * Returns to SearchActivity
+     * @param view the button
+     */
     public void returnToSearch(View view)
     {
         Intent searchIntent = new Intent(this, SearchActivity.class);

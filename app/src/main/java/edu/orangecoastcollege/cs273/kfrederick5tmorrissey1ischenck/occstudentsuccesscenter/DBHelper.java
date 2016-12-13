@@ -192,12 +192,14 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
+
     private void createDatabase() {
         this.getReadableDatabase();
         copyDatabase();
     }
 
-    public void copyDatabase() {
+
+    private void copyDatabase() {
         String databaseFullPath = mContext.getDatabasePath(DATABASE_NAME).toString();
 
         try {
@@ -1007,6 +1009,9 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    /**
+     *  populates all static Arraylists in DBHelper
+     */
     protected void syncStaticLists() {
         mTutors = getAllTutors();
         mCourses = getAllCourses();

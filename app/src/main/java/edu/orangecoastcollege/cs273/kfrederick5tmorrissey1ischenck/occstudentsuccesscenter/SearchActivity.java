@@ -17,9 +17,11 @@ import java.util.ArrayList;
 import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mCourses;
 import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mRelations;
 
+/**
+ * Controller for activity_search.xml
+ * Performs filtered search of database of available tutors, given various parameters from user.
+ */
 public class SearchActivity extends NavDrawerActivity {
-
-
     private Spinner subjectSpinner;
     private Spinner classSpinner;
     private Spinner daySpinner;
@@ -29,6 +31,10 @@ public class SearchActivity extends NavDrawerActivity {
     private Animation shakeAnim;
     private Button searchButton;
 
+    /**
+     * Initializes all loaders
+     * @param savedInstanceState last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +76,13 @@ public class SearchActivity extends NavDrawerActivity {
     }
 
     public AdapterView.OnItemSelectedListener subjectSpinnerListener = new AdapterView.OnItemSelectedListener() {
+        /**
+         *  Enables and updates classSpinner depending on the item selected
+         * @param parent Parent view
+         * @param view current view
+         * @param position position selected
+         * @param id id
+         */
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedSubject = parent.getItemAtPosition(position).toString();
@@ -91,6 +104,14 @@ public class SearchActivity extends NavDrawerActivity {
     };
 
     public AdapterView.OnItemSelectedListener classSpinnerListener = new AdapterView.OnItemSelectedListener() {
+
+        /**
+         *  Enables and updates daySpinner depending on the item selected
+         * @param parent Parent view
+         * @param view current view
+         * @param position position selected
+         * @param id id
+         */
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedClass = parent.getItemAtPosition(position).toString();
@@ -110,6 +131,14 @@ public class SearchActivity extends NavDrawerActivity {
     };
 
     public AdapterView.OnItemSelectedListener daySpinnerListener = new AdapterView.OnItemSelectedListener() {
+
+        /**
+         *  Enables and updates hourSpinner depending on the item selected
+         * @param parent Parent view
+         * @param view current view
+         * @param position position selected
+         * @param id id
+         */
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedDay = parent.getItemAtPosition(position).toString();
@@ -129,6 +158,14 @@ public class SearchActivity extends NavDrawerActivity {
     };
 
     public AdapterView.OnItemSelectedListener hourSpinnerListener = new AdapterView.OnItemSelectedListener() {
+
+        /**
+         *  Enables and updates minuteSpinner depending on the item selected
+         * @param parent Parent view
+         * @param view current view
+         * @param position position selected
+         * @param id id
+         */
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedHour = parent.getItemAtPosition(position).toString();
@@ -197,6 +234,10 @@ public class SearchActivity extends NavDrawerActivity {
         return new String[]{getString(R.string.default_minutes_search), ":00", ":30"};
     }
 
+    /**
+     * Performs a search of tutors given the selected information in the spinners
+     * @param v the button
+     */
     public void search(View v) {
         String subject = subjectSpinner.getSelectedItem().toString();
         String classNumber = classSpinner.getSelectedItem().toString();
@@ -221,7 +262,6 @@ public class SearchActivity extends NavDrawerActivity {
                         || hourString.equals("11") || hourString.equals("12")))
                     time += 12.0f;
             }
-
             else // User did not select a time and search will not filter by time
                 time = 25.0f;
 
@@ -241,10 +281,8 @@ public class SearchActivity extends NavDrawerActivity {
                             else
                                 tutorTimeResults.add(relation);
                         }
-
                     }
                     else // No day was selected and all qualified tutors available at the specified
-
                         tutorTimeResults.add(relation);
                 }
             }
@@ -255,18 +293,22 @@ public class SearchActivity extends NavDrawerActivity {
             listIntent.putExtra("Class Number", classNumber);
             listIntent.putExtra("Day", daySpinner.getSelectedItem().toString());
             listIntent.putExtra("Time", hourString + minuteSpinner.getSelectedItem().toString());
+
             if(tutorTimeResults.isEmpty()) {
                 shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_anim);
                 searchButton.startAnimation(shakeAnim);
 
                 Toast.makeText(this, R.string.no_tutors_error, Toast.LENGTH_LONG).show();
-
             }
             else
                 startActivity(listIntent);
         }
     }
 
+    /**
+     * resets the spinners to their default position
+     * @param v the button
+     */
     public void clearSearch(View v) {
         subjectSpinner.setSelection(0);
         daySpinner.setSelection(0);

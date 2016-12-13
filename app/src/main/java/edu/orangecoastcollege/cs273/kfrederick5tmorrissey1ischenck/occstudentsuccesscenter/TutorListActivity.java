@@ -10,11 +10,18 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Controller for activity_tutor_list.xml
+ */
 public class TutorListActivity extends NavDrawerActivity {
     private TutorListAdapter mTutorListAdapter;
     private ListView mTutorListView;
     private TextView mTutorNameTextView;
 
+    /**
+     * Initializes all loaders
+     * @param savedInstanceState last saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,10 @@ public class TutorListActivity extends NavDrawerActivity {
 
     }
 
+    /**
+     * Starts TutorDetailsActivity and passes details via intent
+     * @param view the item that was clicked
+     */
     public void viewTutorDetails(View view) {
         if (view instanceof LinearLayout) {
             LinearLayout selectedLayout = (LinearLayout) view;
