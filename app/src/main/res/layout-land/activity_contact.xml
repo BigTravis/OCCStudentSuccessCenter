@@ -11,7 +11,8 @@
         android:id="@+id/contactTitleTextView"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_marginTop="50dp"/>
 
     <TextView
         android:text="@string/student_success_center_hours"
