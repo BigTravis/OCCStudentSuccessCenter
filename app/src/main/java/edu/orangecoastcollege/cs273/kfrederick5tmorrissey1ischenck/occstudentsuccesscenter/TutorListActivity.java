@@ -44,7 +44,7 @@ public class TutorListActivity extends NavDrawerActivity {
         String timeString = "";
         if (!day.equals(getString(R.string.default_day_search)))
         {
-            timeString += ("at " + day);
+            timeString += ("on " + day);
             if (!time.equals(getString(R.string.default_hour_search) + getString(R.string.default_minutes_search)))
                 timeString += ": " + time;
         }

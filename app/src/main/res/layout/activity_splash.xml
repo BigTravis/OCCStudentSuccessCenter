@@ -17,4 +17,5 @@
         android:id="@+id/occLogoImageView"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"/>
+
 </RelativeLayout>

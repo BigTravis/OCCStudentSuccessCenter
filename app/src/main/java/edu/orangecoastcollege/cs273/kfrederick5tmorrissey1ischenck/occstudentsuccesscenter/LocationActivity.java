@@ -38,6 +38,8 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
     private LocationRequest mLocationRequest;
     private Location myLocation;
     private GoogleMap mMap;
+    private boolean mIsSSCDisplayed = false;
+    private MarkerOptions mMyLocationMarker;
 
     /**
      * Initializes all loaders
@@ -95,8 +97,8 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
         myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         LocationServices.FusedLocationApi
                 .requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-
-        handleNewLocation(myLocation);
+        if (myLocation != null)
+            handleNewLocation(myLocation);
     }
 
     @Override
@@ -120,23 +122,26 @@ public class LocationActivity extends NavDrawerActivity implements OnMapReadyCal
      */
     private void handleNewLocation(Location newLocation)
     {
-        mMap.clear();
         myLocation = newLocation;
         LatLng myCoordinate = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions()
-        .position(myCoordinate)
-        .title("Current Location")
-        .icon(BitmapDescriptorFactory.fromResource(R.drawable.my_marker)));
+
+
+        mMap.clear();
+        mMyLocationMarker = new MarkerOptions()
+                .position(myCoordinate)
+                .title("Current Location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.my_marker));
+        mMap.addMarker(mMyLocationMarker);
+
         LatLng coordinate = new LatLng(SSC_LATITUDE, SSC_LONGITUDE);
         mMap.addMarker(new MarkerOptions().position(coordinate).title("Student Success Center"));
 
-        CameraPosition cameraPosition =
-                new CameraPosition.Builder().target(coordinate).zoom(14.0f).build();
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-        mMap.moveCamera(cameraUpdate);
-
-
-
-
+        if (!mIsSSCDisplayed) {
+            CameraPosition cameraPosition =
+                    new CameraPosition.Builder().target(coordinate).zoom(14.0f).build();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+            mMap.moveCamera(cameraUpdate);
+            mIsSSCDisplayed = true;
+        }
     }
 }

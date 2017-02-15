@@ -21,6 +21,7 @@
     <!--Error Messages-->
     <string name="add_class_error">You must select a subject and class before adding.</string>
     <string name="search_subject_class_error">You must select a subject and class.</string>
+    <string name="search_hour_minute_error">If specifying time, you must select both hour and minutes</string>
     <string name="first_or_last_error">First Name, Last Name, and Student Number
         field must have values.</string>
 

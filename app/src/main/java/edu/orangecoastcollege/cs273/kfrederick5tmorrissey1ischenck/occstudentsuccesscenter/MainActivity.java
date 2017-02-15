@@ -36,6 +36,8 @@ public class MainActivity extends NavDrawerActivity {
 
     }
 
+
+
     /**
      * When clicking the search button it takes the user to the search activity.
      * @param v the search button

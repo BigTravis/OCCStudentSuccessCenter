@@ -80,6 +80,8 @@ public class DBHelper extends SQLiteOpenHelper{
     protected static ArrayList<UserCourse> mUserCourses;
     protected static ArrayList<Questions> mQuestions;
 
+    private static SQLiteDatabase mDatabase;
+
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -188,8 +190,6 @@ public class DBHelper extends SQLiteOpenHelper{
     private boolean checkDatabaseExists() {
         File databaseFile = new File(mContext.getDatabasePath(DATABASE_NAME).toString());
         return databaseFile.exists();
-
-
     }
 
 
@@ -206,7 +206,7 @@ public class DBHelper extends SQLiteOpenHelper{
             InputStream inputStream = mContext.getAssets().open(DATABASE_NAME);
             FileOutputStream outputStream = new FileOutputStream(databaseFullPath);
 
-            byte[] buffer = new byte[4096];
+            byte[] buffer = new byte[1024];
 
             while (inputStream.read(buffer) > 0)
                 outputStream.write(buffer);
@@ -220,7 +220,6 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
-    // COURSE TABLE OPERATIONS: add, get, getAll, delete
 
     /**
      * adds a new course to the course table
@@ -246,8 +245,9 @@ public class DBHelper extends SQLiteOpenHelper{
      * @return course that matches the id
      */
     public Course getCourse(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 COURSES_TABLE, new String[]
                         {COURSES_KEY_FIELD_ID, FIELD_COURSE_DEPARTMENT, FIELD_COURSE_NUMBER},
                 COURSES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
@@ -258,12 +258,10 @@ public class DBHelper extends SQLiteOpenHelper{
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2));
-
-            db.close();
+            cursor.close();
             return course;
         }
         cursor.close();
-        db.close();
         return null;
     }
 
@@ -274,8 +272,12 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public ArrayList<Course> getAllCourses() {
         ArrayList<Course> coursesList = new ArrayList<>();
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+
+
+
+        Cursor cursor = mDatabase.query(
                 COURSES_TABLE,
                 new String[]{COURSES_KEY_FIELD_ID, FIELD_COURSE_DEPARTMENT, FIELD_COURSE_NUMBER},
                 null, null, null, null, null, null);
@@ -310,15 +312,16 @@ public class DBHelper extends SQLiteOpenHelper{
      * @param tutor tutor object that contains id, first name and last name
      */
     public void addTutor(Tutor tutor) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TUTORS_KEY_FIELD_ID, tutor.getId());
         values.put(FIELD_FIRST_NAME, tutor.getFirstName());
         values.put(FIELD_LAST_NAME, tutor.getLastName());
 
-        db.insert(TUTORS_TABLE, null, values);
+        mDatabase.insert(TUTORS_TABLE, null, values);
 
-        db.close();
+        mDatabase.close();
     }
 
     /**
@@ -328,26 +331,23 @@ public class DBHelper extends SQLiteOpenHelper{
      * @return tutor that matches the id
      */
     public Tutor getTutor(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 TUTORS_TABLE, new String[]
                         {TUTORS_KEY_FIELD_ID, FIELD_FIRST_NAME, FIELD_LAST_NAME},
                 TUTORS_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
         if (cursor.moveToFirst()) {
-
-
             Tutor tutor = new Tutor(
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2));
             cursor.close();
-            db.close();
             return tutor;
         }
         cursor.close();
-        db.close();
         return null;
     }
 
@@ -358,8 +358,9 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public ArrayList<Tutor> getAllTutors() {
         ArrayList<Tutor> tutorsList = new ArrayList<>();
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 TUTORS_TABLE,
                 new String[]{TUTORS_KEY_FIELD_ID, FIELD_FIRST_NAME, FIELD_LAST_NAME},
                 null, null, null, null, null, null);
@@ -374,7 +375,6 @@ public class DBHelper extends SQLiteOpenHelper{
             } while (cursor.moveToNext());
         }
         cursor.close();
-        database.close();
         return tutorsList;
     }
 
@@ -413,27 +413,24 @@ public class DBHelper extends SQLiteOpenHelper{
      * @return DayTime that matches the id
      */
     public DayTime getDayTime(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 TIMES_TABLE, new String[]
                         {TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_TIME},
                 TIMES_KEY_FIELD_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
 
         if (cursor.moveToFirst()) {
-
-
             DayTime dayTime = new DayTime(
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getFloat(2));
 
             cursor.close();
-            db.close();
             return dayTime;
         }
         cursor.close();
-        db.close();
         return null;
     }
 
@@ -444,8 +441,9 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public ArrayList<DayTime> getAllDayTimes() {
         ArrayList<DayTime> dayTimesList = new ArrayList<>();
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 TIMES_TABLE,
                 new String[]{TIMES_KEY_FIELD_ID, FIELD_DAY, FIELD_TIME},
                 null, null, null, null, null, null);
@@ -461,7 +459,6 @@ public class DBHelper extends SQLiteOpenHelper{
         }
 
         cursor.close();
-        database.close();
         return dayTimesList;
     }
 
@@ -505,8 +502,9 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public ArrayList<TutorTimeRelation> getAllRelations() {
         ArrayList<TutorTimeRelation> relationsList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 TUTOR_TIME_TABLE, new String[]
                         {FIELD_TUTOR_ID, FIELD_COURSE_ID, FIELD_START_TIME_ID, FIELD_END_TIME_ID},
                 null, null, null, null, null, null);
@@ -525,7 +523,6 @@ public class DBHelper extends SQLiteOpenHelper{
         }
 
         cursor.close();
-        db.close();
         return relationsList;
     }
 
@@ -570,8 +567,9 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public ArrayList<StudyGroup> getAllStudyGroups() {
         ArrayList<StudyGroup> studyGroupsList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 STUDY_GROUPS_TABLE, new String[]
                         {STUDY_GROUPS_KEY_FIELD_ID, FIELD_INSTRUCTOR,
                                 FIELD_STUDY_COURSE_ID, FIELD_TIME_ID, FIELD_ROOM},
@@ -591,7 +589,6 @@ public class DBHelper extends SQLiteOpenHelper{
             } while (cursor.moveToNext());
         }
         cursor.close();
-        db.close();
         return studyGroupsList;
     }
 
@@ -630,8 +627,9 @@ public class DBHelper extends SQLiteOpenHelper{
      * @return the user info at the given database
      */
     public User getUser(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.query(
                 USER_INFO_TABLE, new String[]{
                         USER_INFO_KEY_FIELD_ID, FIELD_USER_FNAME, FIELD_USER_LNAME,
                         FIELD_USER_NUMBER}, USER_INFO_KEY_FIELD_ID + "=?", new String[]
@@ -645,12 +643,10 @@ public class DBHelper extends SQLiteOpenHelper{
                     cursor.getString(3));
 
             cursor.close();
-            db.close();
             return user;
         }
 
         cursor.close();
-        db.close();
         return null;
     }
 
@@ -698,11 +694,12 @@ public class DBHelper extends SQLiteOpenHelper{
      * @return an array list of the users courses
      */
     public ArrayList<UserCourse> getAllUserCourses() {
-        SQLiteDatabase courseDB = this.getReadableDatabase();
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
 
         ArrayList<UserCourse> allUserCourses = new ArrayList<>();
 
-        Cursor results = courseDB.query(USER_COURSES_TABLE, null, null, null, null, null, null);
+        Cursor results = mDatabase.query(USER_COURSES_TABLE, null, null, null, null, null, null);
 
         if (results.moveToFirst()) {
             do {
@@ -714,7 +711,6 @@ public class DBHelper extends SQLiteOpenHelper{
             } while (results.moveToNext());
         }
 
-        courseDB.close();
         results.close();
         return allUserCourses;
     }
@@ -773,11 +769,12 @@ public class DBHelper extends SQLiteOpenHelper{
      * @return passes the array of all the users questions
      */
     public ArrayList<Questions> getAllQuestions() {
-        SQLiteDatabase questionDB = this.getReadableDatabase();
+        if (mDatabase == null || !mDatabase.isOpen())
+            mDatabase = this.getReadableDatabase();
 
         ArrayList<Questions> allQuestions = new ArrayList<>();
 
-        Cursor results = questionDB.query(QUESTIONS_TABLE,
+        Cursor results = mDatabase.query(QUESTIONS_TABLE,
                 null, null, null, null, null, null);
 
         if (results.moveToFirst()) {
@@ -789,7 +786,6 @@ public class DBHelper extends SQLiteOpenHelper{
             } while (results.moveToNext());
         }
 
-        questionDB.close();
         results.close();
         return allQuestions;
     }
@@ -1005,7 +1001,6 @@ public class DBHelper extends SQLiteOpenHelper{
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
 

@@ -22,7 +22,7 @@ public class NavDrawerActivity extends AppCompatActivity {
     protected DrawerLayout drawerLayout;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     protected Toolbar toolbar;
-    private  boolean phoneDevice = true;
+    private boolean phoneDevice = true;
 
     /**
      * Initializes all loaders
@@ -40,11 +40,11 @@ public class NavDrawerActivity extends AppCompatActivity {
 
         navigationView.setNavigationItemSelectedListener(navListener);
 
-        int screenSize = getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK;
+//        int screenSize = getResources().getConfiguration().screenLayout &
+//                Configuration.SCREENLAYOUT_SIZE_MASK;
 
-        if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
-                screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+        if (getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)) {
+
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             phoneDevice = false;
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
@@ -75,9 +75,7 @@ public class NavDrawerActivity extends AppCompatActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return false;
             }
-            if (item.isChecked()) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-            }
+
             switch (item.getItemId()) {
 
                 case R.id.nav_tutor_search:
@@ -142,6 +140,9 @@ public class NavDrawerActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
+
+
+
 
     /**
      * Starts mainActivity when occ symbol is clicked

@@ -2,11 +2,11 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mTutors;
 
@@ -15,7 +15,6 @@ import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstu
  * start up processes to take place before the user begins to interact with the program.
  */
 public class SplashActivity extends AppCompatActivity {
-    private DBHelper db;
     private final Context context = this;
 
     /**
@@ -25,26 +24,35 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        TimerTask timerTask1 = new TimerTask() {
-            @Override
-            public void run() {
-                db = new DBHelper(context);
-                if (mTutors == null)
-                    db.syncStaticLists();
+        LoadDatabase loadDB = new LoadDatabase();
+        loadDB.execute(context);
+    }
 
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
-            }
-        };
+    private class LoadDatabase extends AsyncTask<Context, Void, Void> {
 
-        Timer timer = new Timer();
-        timer.schedule(timerTask1, 500);
+        @Override
+        protected Void doInBackground(Context... params) {
+            DBHelper db = new DBHelper(params[0]);
+            if (mTutors == null)
+                db.syncStaticLists();
 
+            return null;
+        }
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE))
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            setContentView(R.layout.activity_splash);
+        }
 
-
-
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
+        }
     }
 }
 
