@@ -1,7 +1,6 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -37,15 +36,13 @@ public class NavDrawerActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
         navigationView.setNavigationItemSelectedListener(navListener);
 
-//        int screenSize = getResources().getConfiguration().screenLayout &
-//                Configuration.SCREENLAYOUT_SIZE_MASK;
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
 
-        if (getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)) {
-
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        if (screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             phoneDevice = false;
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
             drawerLayout.setScrimColor(0x000000);
@@ -60,6 +57,21 @@ public class NavDrawerActivity extends AppCompatActivity {
                     R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
         }
+
+
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START) && phoneDevice) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
+                }
+            }
+        };
+
+        drawerLayout.post(runnable);
+
     }
 
     NavigationView.OnNavigationItemSelectedListener navListener =  new NavigationView.OnNavigationItemSelectedListener() {
@@ -140,9 +152,6 @@ public class NavDrawerActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
-
-
-
 
     /**
      * Starts mainActivity when occ symbol is clicked
