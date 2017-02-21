@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.util.List;
 
 import static edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.DBHelper.mQuestions;
 
@@ -75,7 +72,7 @@ public class ToAskActivity extends NavDrawerActivity {
      */
     public void changeCourseStatus(View v)
     {
-        if(v instanceof CheckBox) {
+        if (v instanceof CheckBox) {
             CheckBox selectedCheck = (CheckBox) v;
             Questions selectedQuestion = (Questions) selectedCheck.getTag();
 
@@ -102,22 +99,25 @@ public class ToAskActivity extends NavDrawerActivity {
      */
     public void removeListItem()
     {
-        slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
-        for (int i = 0; i < mQuestions.size(); i++) {
-            if (mQuestions.get(i).getIsAnswered() == 1) {
-                View item = questionsListView.getChildAt(i);
-                item.startAnimation(slide);
-                item.setVisibility(View.INVISIBLE);
-            }
-        }
+
+        // TODO figure out how to get animation working for items in listview that are not visible as getchild will return null if view is not visible
+//        slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
+//        int size = mQuestions.size();
+//        for (int i = 0; i < size; ++i) {
+//            if (mQuestions.get(i).getIsAnswered() == 1) {
+//                View item = questionsListView.getChildAt(i);
+//                item.startAnimation(slide);
+//                item.setVisibility(View.INVISIBLE);
+//            }
+//        }
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < mQuestions.size(); i++) {
+                for (int i = 0; i < mQuestions.size(); ++i) {
                     if (mQuestions.get(i).getIsAnswered() == 1) {
                         mQuestions.remove(i);
-                        i--;
+                        --i;
                     }
                 }
 

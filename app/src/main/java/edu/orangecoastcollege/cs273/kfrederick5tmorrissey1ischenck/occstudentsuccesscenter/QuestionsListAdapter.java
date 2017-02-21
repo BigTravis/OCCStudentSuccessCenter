@@ -19,7 +19,7 @@ public class QuestionsListAdapter extends ArrayAdapter<Questions> {
 
     private Context mContext;
     private List<Questions> mQuestionsList = new ArrayList<>();
-    private  int mResourceId;
+    private int mResourceId;
 
     private CheckBox mIsAnswered;
 

@@ -3,6 +3,7 @@ package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsu
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -82,7 +83,7 @@ public class NavDrawerActivity extends AppCompatActivity {
          * @return true to display the item as the selected item
          */
         @Override
-        public boolean onNavigationItemSelected(MenuItem item) {
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.isChecked()) {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return false;
