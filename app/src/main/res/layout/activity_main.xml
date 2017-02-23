@@ -32,7 +32,6 @@
                 android:id="@+id/tutor_search"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/occ_button_style"
-                style="?android:attr/borderlessButtonStyle"
                 android:shadowColor="#A8A8A8"
                 android:shadowDx="0"
                 android:shadowDy="0"

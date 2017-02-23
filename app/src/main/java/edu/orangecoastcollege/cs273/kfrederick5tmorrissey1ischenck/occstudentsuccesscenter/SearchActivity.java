@@ -1,6 +1,7 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -30,6 +31,7 @@ public class SearchActivity extends NavDrawerActivity {
 
     private Animation shakeAnim;
     private Button searchButton;
+    private boolean isLargeDevice;
 
     /**
      * Initializes all loaders
@@ -49,6 +51,17 @@ public class SearchActivity extends NavDrawerActivity {
         minuteSpinner = (Spinner) findViewById(R.id.minuteSpinner);
         searchButton = (Button) findViewById(R.id.searchButton);
 
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        isLargeDevice = screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+
+        if (isLargeDevice)
+            initializeSpinnersLarge();
+        else
+            initializeSpinners();
+    }
+
+    private void initializeSpinners() {
         ArrayAdapter<String> subjectSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllSubjectNames());
         subjectSpinner.setAdapter(subjectSpinnerAdapter);
@@ -72,7 +85,32 @@ public class SearchActivity extends NavDrawerActivity {
         ArrayAdapter<String> minuteSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, getAllMinutes());
         minuteSpinner.setAdapter(minuteSpinnerAdapter);
+    }
 
+    private void initializeSpinnersLarge() {
+        ArrayAdapter<String> subjectSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.search_spinner_item, getAllSubjectNames());
+        subjectSpinner.setAdapter(subjectSpinnerAdapter);
+        subjectSpinner.setOnItemSelectedListener(subjectSpinnerListener);
+
+        ArrayAdapter<String> classSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.search_spinner_item, getAllClassNumbers());
+        classSpinner.setAdapter(classSpinnerAdapter);
+        classSpinner.setOnItemSelectedListener(classSpinnerListener);
+
+        ArrayAdapter<String> daySpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.search_spinner_item, getAllDays());
+        daySpinner.setAdapter(daySpinnerAdapter);
+        daySpinner.setOnItemSelectedListener(daySpinnerListener);
+
+        ArrayAdapter<String> hourSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.search_spinner_item, getAllHours());
+        hourSpinner.setAdapter(hourSpinnerAdapter);
+        hourSpinner.setOnItemSelectedListener(hourSpinnerListener);
+
+        ArrayAdapter<String> minuteSpinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.search_spinner_item, getAllMinutes());
+        minuteSpinner.setAdapter(minuteSpinnerAdapter);
     }
 
     public AdapterView.OnItemSelectedListener subjectSpinnerListener = new AdapterView.OnItemSelectedListener() {
@@ -190,9 +228,13 @@ public class SearchActivity extends NavDrawerActivity {
         for (Course course : mCourses)
             if (course.getDepartment().equals(input))
                 modifiedCourseList.add(course.getNumber());
+        ArrayAdapter<String> adapter;
+        if (isLargeDevice)
+            adapter = new ArrayAdapter<>(this, R.layout.search_spinner_item, modifiedCourseList);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                modifiedCourseList);
+        else
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, modifiedCourseList);
+
         classSpinner.setAdapter(adapter);
     }
 

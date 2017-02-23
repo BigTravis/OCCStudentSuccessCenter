@@ -38,7 +38,7 @@ public class QuestionsListAdapter extends ArrayAdapter<Questions> {
                 mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(mResourceId, null);
 
-        mIsAnswered = (CheckBox) v.findViewById(R.id.selectedCheckBox);
+        mIsAnswered = (CheckBox) v.findViewById(R.id.questionsCheckBox);
         mIsAnswered.setText(selectedQuestion.getQuestion());
         mIsAnswered.setChecked(selectedQuestion.getIsAnswered() == 1);
 

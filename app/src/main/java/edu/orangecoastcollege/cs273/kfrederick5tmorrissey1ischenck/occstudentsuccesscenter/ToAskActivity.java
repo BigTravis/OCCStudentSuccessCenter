@@ -1,5 +1,6 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -31,9 +32,17 @@ public class ToAskActivity extends NavDrawerActivity {
         getLayoutInflater().inflate(R.layout.activity_to_ask, contentFrameLayout);
 
         questionDB = new DBHelper(this);
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
 
-        mQuestionsListAdapter = new QuestionsListAdapter(this,
-                R.layout.edit_course_item, mQuestions);
+        if (screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+            mQuestionsListAdapter = new QuestionsListAdapter(this,
+                    R.layout.questions_list_item_large, mQuestions);
+
+        else
+            mQuestionsListAdapter = new QuestionsListAdapter(this,
+                    R.layout.questions_list_item, mQuestions);
+        
 
         questionsListView = (ListView) findViewById(R.id.questionsListView);
 
@@ -70,7 +79,7 @@ public class ToAskActivity extends NavDrawerActivity {
      * status.
      * @param v the checkbox selected by the user
      */
-    public void changeCourseStatus(View v)
+    public void changeQuestionStatus(View v)
     {
         if (v instanceof CheckBox) {
             CheckBox selectedCheck = (CheckBox) v;
@@ -122,9 +131,9 @@ public class ToAskActivity extends NavDrawerActivity {
                 }
 
                 mQuestionsListAdapter.notifyDataSetChanged();
-                questionDB.deleteSelectedCourses();
+                questionDB.deleteSelectedQuestions();
             }
-        }, 300);
+        }, 50);
     }
 }
 

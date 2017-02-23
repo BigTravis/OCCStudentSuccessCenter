@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 /**
  * this activity gives the user contact information
@@ -15,19 +16,12 @@ import android.widget.FrameLayout;
 public class ContactActivity extends NavDrawerActivity {
 
     private static final int CALL_PHONE_REQUEST_CODE = 111;
-
+    private TextView addressTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.contentFrame);
         getLayoutInflater().inflate(R.layout.activity_contact, contentFrameLayout);
-
-        findViewById(R.id.addressTextView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ContactActivity.this, LocationActivity.class));
-            }
-        });
     }
 
     /**

@@ -1,6 +1,7 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -28,7 +29,14 @@ public class FAQActivity extends NavDrawerActivity {
         questions = getResources().getStringArray(R.array.faq_list);
         List<String> questionsList = Arrays.asList(questions);
 
-        mFaqListAdapter = new FaqListAdapter(this, R.layout.faq_list_item, questionsList);
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        if (screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+            mFaqListAdapter = new FaqListAdapter(this, R.layout.faq_list_item_large, questionsList);
+
+        else
+            mFaqListAdapter = new FaqListAdapter(this, R.layout.faq_list_item, questionsList);
 
         mFAQListView = (ListView) findViewById(R.id.faqListView);
 
