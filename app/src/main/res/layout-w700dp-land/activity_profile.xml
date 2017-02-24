@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ProfileActivity"
+    android:layout_marginTop="60dp"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+
+        <TextView
+            android:text="@string/name"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameTextView"
+            android:textSize="50sp"
+            android:layout_width="match_parent"
+            android:textColor="@color/occDarkBlue"
+            android:gravity="bottom|center"
+            android:clickable="true"
+            android:onClick="editProfileOnClick"/>
+
+        <TextView
+            android:text="@string/student_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/studentNumTextView"
+            android:textSize="30sp"
+            android:textColor="@color/occDarkBlue"
+            android:layout_marginTop="5dp"
+            android:gravity="top|center"
+            tools:ignore="HardcodedText"/>
+
+        <TextView
+            android:text="@string/user_course_text_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userCourseTextView"
+            android:textSize="32sp"
+            android:textColor="@color/occDarkBlue"
+            />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/coursesListView"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            tools:ignore="NestedWeights"
+            android:layout_marginStart="16dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+

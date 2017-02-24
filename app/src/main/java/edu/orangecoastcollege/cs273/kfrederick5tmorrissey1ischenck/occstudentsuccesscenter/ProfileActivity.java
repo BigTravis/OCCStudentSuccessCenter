@@ -1,6 +1,7 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -41,9 +42,13 @@ public class ProfileActivity extends NavDrawerActivity {
 
         name = (TextView) findViewById(R.id.nameTextView);
         studentNum = (TextView) findViewById(R.id.studentNumTextView);
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
 
-
-        mUserListAdapter = new UserListAdapter(this, R.layout.course_item, mUserCourses);
+        if (screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+            mUserListAdapter = new UserListAdapter(this, R.layout.course_item_large, mUserCourses);
+        else
+            mUserListAdapter = new UserListAdapter(this, R.layout.course_item, mUserCourses);
 
         coursesListView = (ListView) findViewById(R.id.coursesListView);
         coursesListView.setAdapter(mUserListAdapter);

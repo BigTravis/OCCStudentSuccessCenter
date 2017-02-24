@@ -4,8 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/courseListLinearLayout"
-    android:clickable="true"
-    android:onClick="userSearchOnClick">
+              android:clickable="true"
+              android:onClick="userSearchOnClick">
 
     <TextView
         android:text="TextView"
@@ -16,7 +16,7 @@
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
         android:clickable="false"
-        android:textSize="18sp"/>
+        android:textSize="32sp"/>
 
     <TextView
         android:text="TextView"
@@ -26,5 +26,5 @@
         android:layout_marginLeft="5dp"
         android:textColor="@color/occDarkBlue"
         android:clickable="false"
-        android:textSize="14sp"/>
+        android:textSize="32sp"/>
 </LinearLayout>

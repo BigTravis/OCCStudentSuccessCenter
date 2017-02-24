@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ProfileActivity"
+    android:layout_marginTop="60dp">
+
+    <TextView
+        android:text="@string/name"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameTextView"
+        android:textSize="50sp"
+        android:layout_width="match_parent"
+        android:textColor="@color/occDarkBlue"
+        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="editProfileOnClick"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:text="@string/student_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/studentNumTextView"
+        android:textSize="28sp"
+        android:textColor="@color/occDarkBlue"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:text="@string/user_course_text_string"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userCourseTextView"
+        android:textSize="32sp"
+        android:textColor="@color/occDarkBlue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/coursesListView"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:layout_marginLeft="20dp"/>
+
+</LinearLayout>
+

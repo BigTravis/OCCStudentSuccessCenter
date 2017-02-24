@@ -1,6 +1,7 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -39,6 +40,7 @@ public class EditProfileActivity extends NavDrawerActivity {
     private Spinner subjectSpinner;
     private Spinner classSpinner;
     private Animation slide;
+    private boolean isLargeDevice;
 
 
     @Override
@@ -49,7 +51,11 @@ public class EditProfileActivity extends NavDrawerActivity {
 
         db = new DBHelper(this);
 
-        mProfileAdapter = new ProfileListAdapter(this, R.layout.edit_course_item, mUserCourses);
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        isLargeDevice = screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+
+
 
         fName = (EditText) findViewById(R.id.firstNameEditText);
         lName = (EditText) findViewById(R.id.lastNameEditText);
@@ -63,17 +69,33 @@ public class EditProfileActivity extends NavDrawerActivity {
             lName.setText(mUser.getlName());
             studentNum.setText(mUser.getUserNum());
         }
+
         editCourseListView = (ListView) findViewById(R.id.editCourseListView);
 
-        editCourseListView.setAdapter(mProfileAdapter);
 
-        ArrayAdapter<String> subjectSpinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, getAllSubjectsNames());
+        ArrayAdapter<String> subjectSpinnerAdapter;
+        ArrayAdapter<String> classSpinnerAdapter;
+
+        if (isLargeDevice) {
+            subjectSpinnerAdapter = new ArrayAdapter<>(this,
+                    R.layout.search_spinner_item, getAllSubjectsNames());
+
+            classSpinnerAdapter = new ArrayAdapter<>(this,
+                    R.layout.search_spinner_item, getAllClassNumbers());
+            mProfileAdapter = new ProfileListAdapter(this, R.layout.edit_course_item_large, mUserCourses);
+        }
+
+        else {
+            classSpinnerAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item, getAllClassNumbers());
+            subjectSpinnerAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_item, getAllSubjectsNames());
+            mProfileAdapter = new ProfileListAdapter(this, R.layout.edit_course_item, mUserCourses);
+        }
+
+        editCourseListView.setAdapter(mProfileAdapter);
         subjectSpinner.setAdapter(subjectSpinnerAdapter);
         subjectSpinner.setOnItemSelectedListener(subjectSpinnerListener);
-
-        ArrayAdapter<String> classSpinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, getAllClassNumbers());
         classSpinner.setAdapter(classSpinnerAdapter);
         classSpinner.setOnItemSelectedListener(classSpinnerListener);
     }
@@ -170,18 +192,20 @@ public class EditProfileActivity extends NavDrawerActivity {
         for (int i = 0; i < mUserCourses.size(); i++) {
             if (mUserCourses.get(i).getIsSelected() == 1) {
                 View item = editCourseListView.getChildAt(i);
-                item.startAnimation(slide);
-                item.setVisibility(View.INVISIBLE);
+                if (item != null) {
+                    item.startAnimation(slide);
+                    item.setVisibility(View.INVISIBLE);
+                }
             }
         }
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < mUserCourses.size(); i++) {
+                for (int i = 0; i < mUserCourses.size(); ++i) {
                     if (mUserCourses.get(i).getIsSelected() == 1) {
                         mUserCourses.remove(i);
-                        i--;
+                        --i;
                     }
                 }
 
@@ -240,13 +264,19 @@ public class EditProfileActivity extends NavDrawerActivity {
      */
     private void updateClassSpinner(String input) {
         ArrayList<String> modifiedUserList = new ArrayList<>();
+        ArrayAdapter<String> adapter;
         modifiedUserList.add(getString(R.string.default_course_search));
+
         for (Course course : mCourses)
             if (course.getDepartment().equals(input))
                 modifiedUserList.add(course.getNumber());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+        if (isLargeDevice)
+        adapter = new ArrayAdapter<>(this, R.layout.search_spinner_item,
                 modifiedUserList);
+        else
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                    modifiedUserList);
         classSpinner.setAdapter(adapter);
     }
 

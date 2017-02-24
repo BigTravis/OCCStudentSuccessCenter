@@ -16,7 +16,7 @@
         android:id="@+id/toAskTitleText"
         android:textColor="@color/white"
         android:gravity="center_horizontal"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:layout_marginTop="20dp" />
 
     <EditText
@@ -25,7 +25,9 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:hint="@string/question_for_later"
-        android:id="@+id/questionEditText"/>
+        android:id="@+id/questionEditText"
+        android:textSize="24sp"
+        android:layout_marginBottom="30dp"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -37,8 +39,8 @@
 
         <Button
             android:text="@string/add_question_button"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@drawable/occ_button_style"
             android:textColor="@color/white"
@@ -51,12 +53,14 @@
             android:shadowColor="#ABABAB"
             android:padding="10dp"
             android:elevation="16dp"
-            style="?android:attr/borderlessButtonStyle"/>
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:text="@string/clear_questions_button"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/occ_button_style"
             android:textColor="@color/white"
@@ -75,5 +79,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/questionsListView"/>
+        android:id="@+id/questionsListView"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>

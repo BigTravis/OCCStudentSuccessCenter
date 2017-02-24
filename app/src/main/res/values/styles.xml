@@ -28,4 +28,9 @@
         <item name="android:windowBackground">@drawable/night_gradient_background</item>
     </style>
 
+    <style name="NavigationViewStyle">
+        <item name="android:textSize">40sp</item>
+        <item name="android:listPreferredItemHeightSmall">40dp</item>
+    </style>
+
 </resources>

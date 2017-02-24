@@ -8,7 +8,7 @@
     tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ResourcesActivity"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    >
+    android:layout_marginTop="20dp">
 
     <TextView
         android:text="@string/additional_resources_text"
@@ -44,14 +44,14 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:background="@drawable/khan_academy_logo"
-        android:layout_weight="1"
         android:padding="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:onClick="khanAcademyOnClick"
-        android:contentDescription="@string/content_khan"/>
+        android:contentDescription="@string/content_khan"
+        android:layout_weight=".3"/>
 
     <ImageView
         android:id="@+id/codecademyTextView"

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -42,7 +43,7 @@ public class ToAskActivity extends NavDrawerActivity {
         else
             mQuestionsListAdapter = new QuestionsListAdapter(this,
                     R.layout.questions_list_item, mQuestions);
-        
+
 
         questionsListView = (ListView) findViewById(R.id.questionsListView);
 
@@ -108,17 +109,17 @@ public class ToAskActivity extends NavDrawerActivity {
      */
     public void removeListItem()
     {
-
-        // TODO figure out how to get animation working for items in listview that are not visible as getchild will return null if view is not visible
-//        slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
-//        int size = mQuestions.size();
-//        for (int i = 0; i < size; ++i) {
-//            if (mQuestions.get(i).getIsAnswered() == 1) {
-//                View item = questionsListView.getChildAt(i);
-//                item.startAnimation(slide);
-//                item.setVisibility(View.INVISIBLE);
-//            }
-//        }
+        slide = AnimationUtils.loadAnimation(this, R.anim.slide_off_anim);
+        int size = mQuestions.size();
+        for (int i = 0; i < size; ++i) {
+            if (mQuestions.get(i).getIsAnswered() == 1) {
+                View item = questionsListView.getChildAt(i);
+                if (item != null) {
+                    item.startAnimation(slide);
+                    item.setVisibility(View.INVISIBLE);
+                }
+            }
+        }
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -129,11 +130,10 @@ public class ToAskActivity extends NavDrawerActivity {
                         --i;
                     }
                 }
-
                 mQuestionsListAdapter.notifyDataSetChanged();
                 questionDB.deleteSelectedQuestions();
             }
-        }, 50);
+        }, 300);
     }
 }
 

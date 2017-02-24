@@ -8,7 +8,7 @@
     tools:context="edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter.ResourcesActivity"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    >
+    android:layout_marginEnd="16dp">
 
     <TextView
         android:text="@string/additional_resources_text"
@@ -41,7 +41,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_height="match_parent"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
             android:onClick="blackboardOnClick"
             android:contentDescription="@string/content_blackboard"/>

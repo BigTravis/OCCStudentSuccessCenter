@@ -1,6 +1,7 @@
 package edu.orangecoastcollege.cs273.kfrederick5tmorrissey1ischenck.occstudentsuccesscenter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -35,7 +36,14 @@ public class TutorListActivity extends NavDrawerActivity {
         String day = getIntent().getStringExtra("Day");
         String time = getIntent().getStringExtra("Time");
 
-        mTutorListAdapter = new TutorListAdapter(this, R.layout.tutor_list_item, tutorTimeRelations);
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        if (screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+            mTutorListAdapter = new TutorListAdapter(this, R.layout.tutor_list_item_large, tutorTimeRelations);
+        else
+            mTutorListAdapter = new TutorListAdapter(this, R.layout.tutor_list_item, tutorTimeRelations);
+
         mTutorListView = (ListView) findViewById(R.id.tutorListView);
         mTutorListView.setAdapter(mTutorListAdapter);
 
